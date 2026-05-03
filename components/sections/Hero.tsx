@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
 
             <motion.h2
                variants={fadeInUp}
-               className="text-xl md:text-2xl text-muted font-medium mb-6"
+               className="text-md md:text-2xl text-muted font-medium mb-6"
             >
               {PROFILE.role}
             </motion.h2>
@@ -49,7 +49,7 @@ const Hero: React.FC = () => {
             {/* Tagline */}
             <motion.p 
               variants={fadeInUp} 
-              className="text-md text-muted/90 max-w-xl mb-10 leading-relaxed"
+              className="text-sm md:text-md text-muted/90 max-w-xl mb-10 leading-relaxed"
             >
               {PROFILE.tagline}
             </motion.p>

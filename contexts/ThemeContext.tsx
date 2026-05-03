@@ -52,11 +52,6 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     applyTheme(newTheme);
   };
 
-  // Avoid hydration mismatch
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
