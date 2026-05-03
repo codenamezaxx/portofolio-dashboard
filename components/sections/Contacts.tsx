@@ -66,8 +66,8 @@ const Contacts: React.FC = () => {
 
           {/* Intro Text */}
           <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-lg text-muted leading-relaxed">
-              Tertarik untuk berkolaborasi atau memiliki pertanyaan? Jangan ragu untuk menghubungi saya melalui salah satu platform di bawah ini. Saya akan senang mendengarkan dari Anda!
+            <p className="text-md text-muted leading-relaxed">
+              Tertarik untuk berkolaborasi atau memiliki pertanyaan? Jangan ragu untuk menghubungi saya melalui salah satu platform di bawah ini.
             </p>
           </motion.div>
 
@@ -120,30 +120,6 @@ const Contacts: React.FC = () => {
               );
             })}
           </div>
-
-          {/* CTA Section */}
-          <motion.div 
-            variants={fadeInUp}
-            className="text-center"
-          >
-            <div className="inline-flex flex-col items-center gap-6 p-8 rounded-2xl bg-gradient-to-br from-accent/5 to-orange-500/5 border border-accent/20">
-              <div>
-                <h3 className="text-2xl font-bold text-primary mb-2">
-                  Siap untuk memulai sesuatu yang luar biasa?
-                </h3>
-                <p className="text-muted">
-                  Mari kita ciptakan solusi inovatif bersama-sama.
-                </p>
-              </div>
-              <Button 
-                onClick={() => window.location.href = PROFILE.socials.email}
-                className="px-8 py-3 text-lg"
-              >
-                Mulai Percakapan
-                <ArrowUpRight className="w-5 h-5 ml-2" />
-              </Button>
-            </div>
-          </motion.div>
 
           {/* Footer Note */}
           <motion.p 

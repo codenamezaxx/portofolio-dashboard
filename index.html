@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zakky Ahmad El-Kholily | Developer Portfolio</title>
+    <title>codenamezaxx | Personal Portfolio</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.svg" />
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,14 +20,13 @@
         theme: {
           extend: {
             colors: {
-              background: '#FAF6F1',
-              surface: '#F5EBE0',
-              card: 'rgba(184, 134, 11, 0.08)',
-              'card-hover': 'rgba(184, 134, 11, 0.12)',
-              accent: '#B8860B',
-              'accent-glow': 'rgba(184, 134, 11, 0.3)',
-              primary: '#4A4A4A',
-              muted: '#8B7355',
+              background: 'var(--color-background)',
+              surface: 'var(--color-surface)',
+              card: 'var(--color-card)',
+              accent: 'var(--color-accent)',
+              'accent-glow': 'var(--color-accent-glow)',
+              primary: 'var(--color-primary)',
+              muted: 'var(--color-muted)',
             },
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
@@ -56,36 +58,69 @@
       }
     </script>
     <style>
+      /* CSS Variables for theming */
+      :root {
+        --color-background: #FAF6F1;
+        --color-surface: #F5EBE0;
+        --color-card: #FFFFFF;
+        --color-primary: #4A4A4A;
+        --color-muted: #8B7355;
+        --color-accent: #B8860B;
+        --color-accent-glow: rgba(184, 134, 11, 0.12);
+      }
+
+      html[data-theme="dark"] {
+        --color-background: #1F1F1F;
+        --color-surface: #2A2A2A;
+        --color-card: #242424;
+        --color-primary: #F5F5F5;
+        --color-muted: #B0B0B0;
+        --color-accent: #D4AF37;
+        --color-accent-glow: rgba(212, 175, 55, 0.12);
+      }
+
+      * {
+        transition-property: background-color, border-color, color;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 300ms;
+      }
+
       body {
-        background-color: #FAF6F1;
-        color: #4A4A4A;
+        background-color: var(--color-background);
+        color: var(--color-primary);
         overflow-x: hidden;
       }
+
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
-        height: 8px; /* Added height for horizontal scrollbars */
+        height: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #FAF6F1; 
+        background: var(--color-background);
       }
       ::-webkit-scrollbar-thumb {
-        background: #D4AF6F; 
+        background: var(--color-accent);
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #B8860B; 
+        background: var(--color-accent);
+        opacity: 0.8;
       }
       
       .glass-nav {
-        background: rgba(250, 246, 241, 0.8);
+        background: rgba(var(--color-surface-rgb, 250, 246, 241), 0.8);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(184, 134, 11, 0.1);
+        border-bottom: 1px solid var(--color-accent-glow);
+      }
+
+      html[data-theme="dark"] .glass-nav {
+        background: rgba(42, 42, 42, 0.8);
       }
 
       .text-gradient {
-        background: linear-gradient(to right, #B8860B, #CD853F, #A0724E);
+        background: linear-gradient(to right, var(--color-accent), #CD853F, #A0724E);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
@@ -96,8 +131,8 @@
       }
       /* Hide scrollbar for IE, Edge and Firefox */
       .scrollbar-hide {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
     </style>
   <script type="importmap">

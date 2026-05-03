@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Terminal } from 'lucide-react';
+import { Menu, X, Terminal, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { NAV_ITEMS } from '../../data/portfolio';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,15 +38,36 @@ const Navbar: React.FC = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
+          
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg bg-accent/10 hover:bg-accent/20 text-accent transition-all duration-300"
+            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          >
+            {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+          </button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-primary p-2"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X /> : <Menu />}
-        </button>
+        {/* Mobile Controls */}
+        <div className="md:hidden flex items-center gap-4">
+          {/* Theme Toggle Mobile */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg bg-accent/10 hover:bg-accent/20 text-accent transition-all duration-300"
+            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          >
+            {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+          </button>
+          
+          {/* Menu Button */}
+          <button 
+            className="text-primary p-2"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X /> : <Menu />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Dropdown */}

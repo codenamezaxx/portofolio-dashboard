@@ -104,7 +104,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 3,
-    title: "Cyberurnner (DEMO)",
+    title: "Cyberurnner",
     description: "Game platformer 2D dengan tema cyberpunk. Pemain mengendalikan karakter yang harus berlari dan melompat melewati rintangan serta serangan musuh sambil mengumpulkan koin dan gems.",
     category: "Game Dev",
     image: "https://img.itch.zone/aW1nLzkwNzYzNTEuanBn/315x250%23c/uI6egT.jpg",
@@ -122,6 +122,7 @@ export const PROJECTS: Project[] = [
     tech: ["Construct 2", "Photoshop"],
     links: {
       itchio: "https://codenamezaxx.itch.io/diamond-hunter-the-rivals",
+      demo: "https://diamond-hunter.netlify.app"
     }
   }
 ];
@@ -132,4 +133,5 @@ export const ACHIEVEMENTS: Achievement[] = [
   { id: 3, title: "Public Speaking Training Course", category: "Seminar Pelatihan", year: "2024", pdfPath: "/certificates/cert-3.pdf" },
   { id: 4, title: "Public Speaking With Trainer", category: "Webinar Online", year: "2024", pdfPath: "/certificates/cert-4.pdf" },
   { id: 5, title: "Building Persona and Image", category: "Webinar Online", year: "2024", pdfPath: "/certificates/cert-5.pdf" },
+  { id: 6, title: "Youth Leadership Camps", category: "Webinar Online", year: "2024", pdfPath: "/certificates/cert-6.pdf" },
 ];

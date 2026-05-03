@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, Github, Linkedin, MousePointer2 } from 'lucide-react';
+import { MessageCircle, Download, Github, Linkedin, MousePointer2 } from 'lucide-react';
 import { PROFILE } from '../../data/portfolio';
 import { fadeInUp, staggerContainer } from '../../lib/motion';
 import Button from '../ui/Button';
@@ -57,7 +57,7 @@ const Hero: React.FC = () => {
             {/* Actions */}
             <motion.div variants={fadeInUp} className="flex flex-wrap justify-start items-center gap-4 mb-12">
               <Button onClick={() => document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' })}>
-                Ayo Bicara <ArrowRight className="w-4 h-4" />
+                Mari Berbicara <MessageCircle className="w-4 h-4" />
               </Button>
               <Button variant="secondary" onClick={() => window.open('/resume.pdf', '_blank')}>
                 Unduh CV <Download className="w-4 h-4" />
@@ -73,7 +73,7 @@ const Hero: React.FC = () => {
                  <Linkedin className="w-6 h-6" />
                </a>
                <div className="h-4 w-px bg-accent/15" />
-               <span className="text-sm text-muted">Berbasis di Indonesia</span>
+               <span className="text-sm text-muted">Based in Indonesia</span>
             </motion.div>
           </motion.div>
 

@@ -111,7 +111,7 @@ const Projects: React.FC = () => {
                       {project.links.itchio && (
                         <Button 
                           onClick={() => window.open(project.links.itchio, '_blank')}
-                          className="!py-2 !px-3 text-sm bg-orange-600/20 hover:bg-orange-600/30 text-orange-400 border border-orange-500/30 flex-shrink-0"
+                          className="!py-2 !px-3 text-sm bg-rose-600 hover:bg-rose-600/50 text-orange-400 border border-rose-500/30 flex-shrink-0"
                           title="Mainkan di itch.io"
                         >
                           <Gamepad2 className="w-4 h-4 mr-1.5" /> itch.io

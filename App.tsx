@@ -1,4 +1,5 @@
 import React from 'react';
+import { ThemeProvider } from './contexts/ThemeContext';
 import Navbar from './components/layout/Navbar';
 import BackgroundGrid from './components/shared/BackgroundGrid';
 import Hero from './components/sections/Hero';
@@ -10,9 +11,10 @@ import Contacts from './components/sections/Contacts';
 
 const App: React.FC = () => {
   return (
-    <div className="antialiased text-primary selection:bg-accent/30 selection:text-white">
-      <BackgroundGrid />
-      <Navbar />
+    <ThemeProvider>
+      <div className="antialiased text-primary selection:bg-accent/30 selection:text-white transition-colors duration-300">
+        <BackgroundGrid />
+        <Navbar />
       
       <main className="flex flex-col">
         <Hero />
@@ -27,6 +29,7 @@ const App: React.FC = () => {
         <p>© {new Date().getFullYear()} | Made by codenamezaxx.</p>
       </footer>
     </div>
+    </ThemeProvider>
   );
 };
 
