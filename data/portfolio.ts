@@ -87,7 +87,7 @@ export const PROJECTS: Project[] = [
     tech: ["React",  "W3.CSS", "Al-Quran API"],
     links: {
       github: "https://github.com/codenamezaxx/ReactJs-Online-Quran",
-      demo: "https://reactjs-quran.vercel.app"
+      demo: "https://alquran.codenamezaxx.my.id"
     }
   },
   {
@@ -128,10 +128,56 @@ export const PROJECTS: Project[] = [
 ];
 
 export const ACHIEVEMENTS: Achievement[] = [
-  { id: 1, title: "Memulai Pemrograman dengan Python", category: "Kursus Online", year: "2025", pdfPath: "/certificates/cert-1.pdf" },
-  { id: 2, title: "Belajar Dasar AI", category: "Kursus Online", year: "2025", pdfPath: "/certificates/cert-2.pdf" },
-  { id: 3, title: "Public Speaking Training Course", category: "Seminar Pelatihan", year: "2024", pdfPath: "/certificates/cert-3.pdf" },
-  { id: 4, title: "Public Speaking With Trainer", category: "Webinar Online", year: "2024", pdfPath: "/certificates/cert-4.pdf" },
-  { id: 5, title: "Building Persona and Image", category: "Webinar Online", year: "2024", pdfPath: "/certificates/cert-5.pdf" },
-  { id: 6, title: "Youth Leadership Camps", category: "Webinar Online", year: "2024", pdfPath: "/certificates/cert-6.pdf" },
+  { 
+    id: 1, 
+    title: "Memulai Pemrograman dengan Python", 
+    category: "Kursus Online", 
+    issuer: "Dicoding Indonesia",
+    year: "2025", 
+    pdfPath: "/certificates/cert-1.pdf",
+    link: "https://dicoding.com"
+  },
+  { 
+    id: 2, 
+    title: "Belajar Dasar AI", 
+    category: "Kursus Online", 
+    issuer: "Dicoding Indonesia",
+    year: "2025", 
+    pdfPath: "/certificates/cert-2.pdf",
+    link: "https://dicoding.com"
+  },
+  { 
+    id: 3, 
+    title: "Public Speaking Training Course", 
+    category: "Seminar Pelatihan", 
+    issuer: "Professional Development Center",
+    year: "2024", 
+    pdfPath: "/certificates/cert-3.pdf"
+  },
+  { 
+    id: 4, 
+    title: "Public Speaking With Trainer", 
+    category: "Webinar Online", 
+    issuer: "Communication Skills Academy",
+    year: "2024", 
+    pdfPath: "/certificates/cert-4.pdf",
+    link: "https://communicationskills.edu"
+  },
+  { 
+    id: 5, 
+    title: "Building Persona and Image", 
+    category: "Webinar Online", 
+    issuer: "Personal Branding Institute",
+    year: "2024", 
+    pdfPath: "/certificates/cert-5.pdf"
+  },
+  { 
+    id: 6, 
+    title: "Youth Leadership Camps", 
+    category: "Webinar Online", 
+    issuer: "Leadership Development Network",
+    year: "2024", 
+    pdfPath: "/certificates/cert-6.pdf",
+    link: "https://youthleadership.org"
+  },
 ];

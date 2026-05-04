@@ -23,7 +23,9 @@ export interface Achievement {
   title: string;
   category: string;
   year: string;
+  issuer: string;
   pdfPath: string;
+  link?: string;
 }
 
 export interface JourneyItem {

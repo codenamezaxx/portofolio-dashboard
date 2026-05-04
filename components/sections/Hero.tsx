@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
               variants={fadeInUp} 
               className="text-4xl md:text-5xl lg:text-7xl font-display font-bold tracking-tight mb-4 leading-tight text-primary"
             >
-              Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-orange-600">{PROFILE.name.split(' ')[0]}</span>
+              Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-orange-600">Zakky Ell</span>
             </motion.h1>
 
             <motion.h2
@@ -73,7 +73,7 @@ const Hero: React.FC = () => {
                  <Linkedin className="w-6 h-6" />
                </a>
                <div className="h-4 w-px bg-accent/15" />
-               <span className="text-sm text-muted">Based in Indonesia</span>
+               <span className="text-sm text-muted">Jawa Timur, Indonesia</span>
             </motion.div>
           </motion.div>
 

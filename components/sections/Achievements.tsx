@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { ACHIEVEMENTS } from '../../data/portfolio';
 import { staggerContainer, fadeInUp } from '../../lib/motion';
 import PDFPreviewCard from '../ui/PDFPreviewCard';
@@ -7,6 +8,8 @@ import SectionHeader from '../shared/SectionHeader';
 import Button from '../ui/Button';
 
 const Achievements: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="achievements" className="py-20 relative border-t border-accent/10">
       <div className="container mx-auto px-6">
@@ -35,7 +38,11 @@ const Achievements: React.FC = () => {
           </div>
 
           <motion.div variants={fadeInUp} className="text-center">
-             <Button variant="outline" className="text-sm">
+             <Button 
+               variant="outline" 
+               className="text-sm cursor-pointer"
+               onClick={() => navigate('/certificates')}
+             >
                 Lihat Semua Sertifikat
              </Button>
           </motion.div>

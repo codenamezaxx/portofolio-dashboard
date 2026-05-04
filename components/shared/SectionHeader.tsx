@@ -5,10 +5,11 @@ import { fadeInUp } from '../../lib/motion';
 interface SectionHeaderProps {
   title: string;
   subtitle: string;
+  description?: string;
   center?: boolean;
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, center = false }) => {
+const SectionHeader: React.FC<SectionHeaderProps> = ({ title, description, subtitle, center = false }) => {
   return (
     <div className={`mb-16 ${center ? 'text-center' : ''}`}>
       <motion.span 
@@ -23,6 +24,14 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, center =
       >
         {title}
       </motion.h2>
+      {description && (
+        <motion.p 
+          variants={fadeInUp}
+          className="text-lg text-muted mt-4"
+        >
+          {description}
+        </motion.p>
+      )}
     </div>
   );
 };

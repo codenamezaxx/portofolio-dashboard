@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Instagram, MessageCircle, Linkedin, ExternalLink, ArrowUpRight } from 'lucide-react';
+import { Mail, Instagram, Send, Linkedin, ArrowUpRight } from 'lucide-react';
 import { PROFILE } from '../../data/portfolio';
 import { staggerContainer, fadeInUp } from '../../lib/motion';
 import Button from '../ui/Button';
@@ -42,7 +42,7 @@ const Contacts: React.FC = () => {
       id: 4,
       label: 'Telegram',
       value: '@codenamezaxx',
-      icon: MessageCircle,
+      icon: Send,
       link: PROFILE.socials.telegram || '#',
       color: 'from-cyan-500/20 to-blue-500/20 border-cyan-500/30 hover:border-cyan-500/50 text-cyan-400',
       bgIcon: 'bg-cyan-500/10 text-cyan-400',
