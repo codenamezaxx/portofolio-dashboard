@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MessageCircle, Download, Github, Linkedin, MousePointer2 } from 'lucide-react';
+import { MessageCircle, Download, Instagram, Github, Linkedin, MousePointer2 } from 'lucide-react';
 import { PROFILE } from '../../data/portfolio';
 import { fadeInUp, staggerContainer } from '../../lib/motion';
 import Button from '../ui/Button';
@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
           >
             {/* Main Typography */}
             <motion.div variants={fadeInUp}>
-              <span className="inline-block py-1 px-3 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
+              <span className="inline-block py-1 px-3 rounded-full bg-accent/10 border border-accent text-accent text-sm font-medium mb-6">
                 Open to work
               </span>
             </motion.div>
@@ -65,12 +65,15 @@ const Hero: React.FC = () => {
             </motion.div>
 
             {/* Social Proof / Links */}
-            <motion.div variants={fadeInUp} className="flex items-center gap-6 pt-8 border-t border-accent/10 w-full justify-start">
-               <a href={PROFILE.socials.github} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
-                 <Github className="w-6 h-6" />
-               </a>
-               <a href={PROFILE.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
-                 <Linkedin className="w-6 h-6" />
+            <motion.div variants={fadeInUp} className="flex items-center gap-6 pt-8 border-t border-muted w-full justify-start">
+              <a href={PROFILE.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
+                <Instagram className="w-6 h-6" />
+              </a>
+              <a href={PROFILE.socials.github} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
+                <Github className="w-6 h-6" />
+              </a>
+              <a href={PROFILE.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
+                <Linkedin className="w-6 h-6" />
                </a>
                <div className="h-4 w-px bg-accent/15" />
                <span className="text-sm text-muted">Jawa Timur, Indonesia</span>
@@ -89,7 +92,7 @@ const Hero: React.FC = () => {
              
              {/* Glass Frame Container */}
              <motion.div 
-                className="relative z-10 p-4 bg-primary/5 backdrop-blur-sm border border-accent/30 rounded-[2rem] shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 w-full max-w-[280px] lg:max-w-sm"
+                className="relative z-10 p-4 bg-primary/5 backdrop-blur-sm border border-transparent rounded-[2rem] shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 w-full max-w-[280px] lg:max-w-sm"
              >
                 {/* Inner Image Container */}
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">

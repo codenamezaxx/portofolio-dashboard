@@ -7,7 +7,7 @@ import SectionHeader from '../shared/SectionHeader';
 
 const Journey: React.FC = () => {
   return (
-    <section id="journey" className="py-20 relative border-t border-accent/10">
+    <section id="journey" className="py-20 relative">
       <div className="container mx-auto px-6">
         <motion.div
           variants={staggerContainer}

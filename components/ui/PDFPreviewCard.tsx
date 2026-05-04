@@ -52,7 +52,7 @@ const PDFPreviewCard: React.FC<PDFPreviewCardProps> = ({
   return (
     <motion.div
       whileHover={{ y: -5 }}
-      className="group relative h-full rounded-2xl border border-accent/20 overflow-hidden bg-primary/[0.02] backdrop-blur-xl hover:border-accent/40 transition-all duration-300"
+      className="group relative h-full rounded-2xl border border-surface overflow-hidden bg-primary/[0.02] backdrop-blur-xl hover:border-accent/40 transition-all duration-300"
     >
       {/* Background Preview or Placeholder */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-amber-500/10">

@@ -1,9 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, ExternalLink, FileText, X, ArrowLeft } from 'lucide-react';
+import { Search, FileText, X, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { ACHIEVEMENTS } from '../data/portfolio';
 import SectionHeader from '../components/shared/SectionHeader';
+import CertificateCard from '../components/shared/CertificateCard';
 import { fadeInUp, staggerContainer } from '../lib/motion';
 
 type SortOption = 'newest' | 'oldest' | 'a-z';
@@ -67,10 +68,10 @@ const CertificatesPageFull: React.FC = () => {
 
   return (
     <>
-      <main className="flex flex-col min-h-screen mt-16">
+      <main className="flex flex-col min-h-screen mt-24">
         {/* Header with Back Button */}
         <motion.div
-          className="py-12 bg-gradient-to-b from-accent/5 to-transparent "
+          className="bg-gradient-to-b from-accent/5 to-transparent "
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -93,15 +94,15 @@ const CertificatesPageFull: React.FC = () => {
 
         {/* Content */}
         <motion.section 
-          className="py-12 flex-1"
+          className="flex-1 mt-0"
           variants={staggerContainer}
           initial="hidden"
-          animate="show"
+          animate="visible"
         >
           <div className="container mx-auto px-6">
             {/* Filters Section */}
             <motion.div 
-              className="bg-card rounded-2xl p-6 mb-8 border border-accent/10"
+              className="bg-card rounded-2xl p-6 mb-8"
               variants={fadeInUp}
             >
               {/* Search Bar */}
@@ -113,7 +114,7 @@ const CertificatesPageFull: React.FC = () => {
                     placeholder="Cari sertifikat berdasarkan judul, penerbit, atau kategori..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3 bg-background border border-accent/20 rounded-xl text-primary placeholder-muted focus:outline-none focus:border-accent transition-colors"
+                    className="w-full pl-12 pr-4 py-3 bg-background rounded-xl text-primary placeholder-muted focus:outline-none focus:border-accent transition-colors"
                   />
                   {searchTerm && (
                     <button
@@ -134,7 +135,7 @@ const CertificatesPageFull: React.FC = () => {
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="w-full px-4 py-2 bg-background border border-accent/20 rounded-lg text-primary focus:outline-none focus:border-accent transition-colors"
+                    className="w-full px-4 py-2 bg-background rounded-lg text-primary focus:outline-none focus:border-accent transition-colors"
                   >
                     <option value="all">Semua Kategori</option>
                     {categories.map(cat => (
@@ -149,7 +150,7 @@ const CertificatesPageFull: React.FC = () => {
                   <select
                     value={selectedYear}
                     onChange={(e) => setSelectedYear(e.target.value)}
-                    className="w-full px-4 py-2 bg-background border border-accent/20 rounded-lg text-primary focus:outline-none focus:border-accent transition-colors"
+                    className="w-full px-4 py-2 bg-background rounded-lg text-primary focus:outline-none focus:border-accent transition-colors"
                   >
                     <option value="all">Semua Tahun</option>
                     {years.map(year => (
@@ -164,7 +165,7 @@ const CertificatesPageFull: React.FC = () => {
                   <select
                     value={sortOption}
                     onChange={(e) => setSortOption(e.target.value as SortOption)}
-                    className="w-full px-4 py-2 bg-background border border-accent/20 rounded-lg text-primary focus:outline-none focus:border-accent transition-colors"
+                    className="w-full px-4 py-2 bg-background rounded-lg text-primary focus:outline-none focus:border-accent transition-colors"
                   >
                     <option value="newest">Terbaru</option>
                     <option value="oldest">Tertua</option>
@@ -197,69 +198,10 @@ const CertificatesPageFull: React.FC = () => {
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 variants={staggerContainer}
                 initial="hidden"
-                animate="show"
+                animate="visible"
               >
                 {filteredCerts.map((cert) => (
-                  <motion.div
-                    key={cert.id}
-                    className="bg-card rounded-xl p-6 border border-accent/10 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300 group"
-                    variants={fadeInUp}
-                  >
-                    {/* Header */}
-                    <div className="mb-4">
-                      <div className="flex items-start gap-3 mb-3">
-                        <div className="p-2 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors">
-                          <FileText className="w-5 h-5 text-accent" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-primary group-hover:text-accent transition-colors line-clamp-2">
-                            {cert.title}
-                          </h3>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Details */}
-                    <div className="space-y-2 mb-4">
-                      <p className="text-sm text-muted">
-                        <span className="font-medium">Penerbit:</span> {cert.issuer}
-                      </p>
-                      <div className="flex gap-2">
-                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-accent/10 text-accent text-xs font-medium rounded-full">
-                          {cert.category}
-                        </span>
-                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-muted/10 text-muted text-xs font-medium rounded-full">
-                          {cert.year}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex gap-2">
-                      <a
-                        href={cert.pdfPath}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-accent/10 hover:bg-accent/20 text-accent rounded-lg transition-colors text-sm font-medium"
-                        title="Lihat Sertifikat PDF"
-                      >
-                        <FileText className="w-4 h-4" />
-                        <span>PDF</span>
-                      </a>
-                      {cert.link && (
-                        <a
-                          href={cert.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-accent/10 hover:bg-accent/20 text-accent rounded-lg transition-colors text-sm font-medium"
-                          title="Kunjungi halaman penerbit"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                          <span>Link</span>
-                        </a>
-                      )}
-                    </div>
-                  </motion.div>
+                  <CertificateCard key={cert.id} cert={cert} />
                 ))}
               </motion.div>
             ) : (
@@ -281,7 +223,7 @@ const CertificatesPageFull: React.FC = () => {
         </motion.section>
       </main>
 
-      <footer className="py-8 border-t border-accent/10 text-center text-muted text-sm bg-background">
+      <footer className="py-8 mt-12 border-t border-accent text-center text-muted text-sm bg-background">
         <p>© {new Date().getFullYear()} | Made by codenamezaxx.</p>
       </footer>
     </>

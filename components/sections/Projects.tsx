@@ -32,7 +32,7 @@ const Projects: React.FC = () => {
             subtitle="Portfolio" 
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
             {PROJECTS.map((project) => (
               <motion.div key={project.id} variants={fadeInUp}>
                 <GlassCard className="group h-[400px] md:h-[450px] flex flex-col justify-end overflow-hidden">

@@ -11,7 +11,7 @@ const Achievements: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="achievements" className="py-20 relative border-t border-accent/10">
+    <section id="achievements" className="py-20 relative">
       <div className="container mx-auto px-6">
         <motion.div
           variants={staggerContainer}
@@ -25,7 +25,7 @@ const Achievements: React.FC = () => {
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {ACHIEVEMENTS.map((item) => (
+            {ACHIEVEMENTS.slice(0, 6).map((item) => (
               <motion.div key={item.id} variants={fadeInUp}>
                 <PDFPreviewCard 
                   title={item.title}

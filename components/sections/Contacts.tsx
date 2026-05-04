@@ -51,7 +51,7 @@ const Contacts: React.FC = () => {
   ];
 
   return (
-    <section id="contacts" className="py-20 md:py-32 relative border-t border-accent/10">
+    <section id="contacts" className="py-20 md:py-32 relative border-t border-surface">
       <div className="container mx-auto px-6">
         <motion.div
           variants={staggerContainer}
@@ -124,9 +124,9 @@ const Contacts: React.FC = () => {
           {/* Footer Note */}
           <motion.p 
             variants={fadeInUp}
-            className="text-center text-sm text-muted/60 mt-12"
+            className="text-center text-sm text-muted mt-12"
           >
-            💌 Waktu respons rata-rata: 60 menit
+            Terima kasih atas kunjungan Anda! Saya menantikan kesempatan untuk terhubung dan bekerja sama dengan Anda.
           </motion.p>
         </motion.div>
       </div>

@@ -11,7 +11,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider>
       <BrowserRouter>
-        <div className="antialiased text-primary selection:bg-accent/30 selection:text-white transition-colors duration-300">
+        <div className="antialiased text-primary selection:bg-accent selection:text-primary transition-colors duration-300">
           <BackgroundGrid />
           <Navbar />
           <FloatingChatButton />

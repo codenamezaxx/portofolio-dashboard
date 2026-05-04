@@ -58,6 +58,18 @@ export const JOURNEY: JourneyItem[] = [
     year: "2025",
     title: "Membangun Portofolio",
     description: "Membangun proyek portofolio serta terjun ke dunia kerja melalui program internship."
+  },
+  { 
+    id: 7,
+    year: "Sekarang",
+    title: "Berkembang dan Membangun Karier",
+    description: "Berkomitmen untuk terus belajar teknologi baru, meningkatkan skill, dan membangun karier di bidang IT."
+  },
+  {
+    id: 8,
+    year: "Mendatang",
+    title: "Menjadi Profesional IT yang Handal",
+    description: "Berkeinginan menjadi seorang Fullstack Web Developer serta menjadi Indie Game Developer yang kompeten."
   }
 ];
 
@@ -135,7 +147,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     issuer: "Dicoding Indonesia",
     year: "2025", 
     pdfPath: "/certificates/cert-1.pdf",
-    link: "https://dicoding.com"
+    link: "https://www.dicoding.com/certificates/98XWOL0DLZM3"
   },
   { 
     id: 2, 
@@ -144,13 +156,13 @@ export const ACHIEVEMENTS: Achievement[] = [
     issuer: "Dicoding Indonesia",
     year: "2025", 
     pdfPath: "/certificates/cert-2.pdf",
-    link: "https://dicoding.com"
+    link: "https://www.dicoding.com/certificates/98XWOL0DLZM3"
   },
   { 
     id: 3, 
-    title: "Public Speaking Training Course", 
-    category: "Seminar Pelatihan", 
-    issuer: "Professional Development Center",
+    title: "Participant of Mercu Buana Yogyakarta International Youth Forum (MIYF) 2024", 
+    category: "International Forum", 
+    issuer: "Mercu Buana University Yogyakarta",
     year: "2024", 
     pdfPath: "/certificates/cert-3.pdf"
   },
@@ -158,16 +170,15 @@ export const ACHIEVEMENTS: Achievement[] = [
     id: 4, 
     title: "Public Speaking With Trainer", 
     category: "Webinar Online", 
-    issuer: "Communication Skills Academy",
+    issuer: "KT&G SangSang University",
     year: "2024", 
     pdfPath: "/certificates/cert-4.pdf",
-    link: "https://communicationskills.edu"
   },
   { 
     id: 5, 
     title: "Building Persona and Image", 
     category: "Webinar Online", 
-    issuer: "Personal Branding Institute",
+    issuer: "KT&G SangSang University",
     year: "2024", 
     pdfPath: "/certificates/cert-5.pdf"
   },
@@ -175,9 +186,48 @@ export const ACHIEVEMENTS: Achievement[] = [
     id: 6, 
     title: "Youth Leadership Camps", 
     category: "Webinar Online", 
-    issuer: "Leadership Development Network",
+    issuer: "PT. Seasia Intelektual Akademis",
     year: "2024", 
     pdfPath: "/certificates/cert-6.pdf",
-    link: "https://youthleadership.org"
   },
+  { 
+    id: 7, 
+    title: "Public Speaking Training Course", 
+    category: "Seminar Pelatihan", 
+    issuer: "Accelerate Hub & Young People Talks Indonesia",
+    year: "2024", 
+    pdfPath: "/certificates/cert-7.pdf"
+  },
+  { 
+    id: 8, 
+    title: "Belajar HTML", 
+    category: "Kursus Online", 
+    issuer: "Always Ngoding",
+    year: "2022", 
+    pdfPath: "/certificates/cert-8.pdf"
+  },
+  { 
+    id: 9, 
+    title: "Game Development with JavaScript", 
+    category: "Kursus Online", 
+    issuer: "Sololearn",
+    year: "2022", 
+    pdfPath: "/certificates/cert-9.pdf"
+  },
+  { 
+    id: 10, 
+    title: "Python Core", 
+    category: "Kursus Online", 
+    issuer: "Sololearn",
+    year: "2021", 
+    pdfPath: "/certificates/cert-10.pdf"
+  },
+  {
+    id: 11,
+    title: "Python Course Completion",
+    category: "Kursus Online",
+    issuer: "Mimo",
+    year: "2023",
+    pdfPath: "/certificates/cert-11.pdf"
+  } 
 ];

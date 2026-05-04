@@ -18,7 +18,7 @@ const Home: React.FC = () => {
         <Contacts />
       </main>
       
-      <footer className="py-8 border-t border-accent/10 text-center text-muted text-sm bg-background">
+      <footer className="py-8 border-t border-accent text-center text-muted text-sm bg-background">
         <p>© {new Date().getFullYear()} | Made by codenamezaxx.</p>
       </footer>
     </>
