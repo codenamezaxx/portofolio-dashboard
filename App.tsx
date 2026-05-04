@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Navbar from './components/layout/Navbar';
 import BackgroundGrid from './components/shared/BackgroundGrid';
@@ -23,6 +24,7 @@ const App: React.FC = () => {
           </Routes>
         </div>
         <Analytics />
+        <SpeedInsights />
       </BrowserRouter>
     </ThemeProvider>
   );
