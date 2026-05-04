@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Navbar from './components/layout/Navbar';
 import BackgroundGrid from './components/shared/BackgroundGrid';
@@ -21,6 +22,7 @@ const App: React.FC = () => {
             <Route path="/certificates" element={<CertificatesPageFull />} />
           </Routes>
         </div>
+        <Analytics />
       </BrowserRouter>
     </ThemeProvider>
   );
