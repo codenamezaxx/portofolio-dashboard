@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Search, FileText, X, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,11 @@ const CertificatesPageFull: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedYear, setSelectedYear] = useState<string>('all');
   const [sortOption, setSortOption] = useState<SortOption>('newest');
+
+  // Auto-scroll to top when page loads
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Get unique categories and years
   const categories = useMemo(() => {

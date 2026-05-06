@@ -14,6 +14,7 @@ interface ContactOption {
 
 const FloatingChatButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const { theme } = useTheme();
 
   const contactOptions: ContactOption[] = [
@@ -54,8 +55,14 @@ const FloatingChatButton: React.FC = () => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
-        scale: 0.9,
+      scale: 0.9,
       opacity: 1,
+      transition: { duration: 0.2, ease: 'linear' },
+    },
+    exit: {
+      scale: 0,
+      opacity: 0,
+      transition: { duration: 0.3, ease: 'linear' },
     },
   };
 
@@ -64,9 +71,12 @@ const FloatingChatButton: React.FC = () => {
     visible: {
       scale: 0.9,
       opacity: 1,
+      transition: { duration: 0.2, ease: 'linear' },
     },
     exit: {
+      scale: 0,
       opacity: 0,
+      transition: { duration: 0.3, ease: 'linear' },
     },
   };
 
@@ -90,19 +100,23 @@ const FloatingChatButton: React.FC = () => {
                   target={option.id !== 'email' ? '_blank' : undefined}
                   rel={option.id !== 'email' ? 'noopener noreferrer' : undefined}
                   variants={itemVariants}
-                  className={`w-16 h-16 ${option.bgColor} ${option.hoverColor} rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 group relative`}
-                  title={option.label}
-                  onClick={() => {
-                    // Close menu after clicking
-                    setTimeout(() => setIsOpen(false), 300);
-                  }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onHoverStart={() => setHoveredId(option.id)}
+                  onHoverEnd={() => setHoveredId(null)}
+                  className={`w-16 h-16 ${option.bgColor} ${option.hoverColor} rounded-full flex items-center justify-center text-white shadow-lg relative`}
                 >
                   {option.icon}
                   
                   {/* Tooltip */}
-                  <span className="absolute -left-20 top-1/2 -translate-y-1/2 bg-primary text-background px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: hoveredId === option.id ? 1 : 0 }}
+                    transition={{ duration: 0.2, ease: 'linear' }}
+                    className="absolute -left-20 top-1/2 -translate-y-1/2 bg-primary text-background px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap pointer-events-none"
+                  >
                     {option.label}
-                  </span>
+                  </motion.span>
                 </motion.a>
               ))}
             </div>
@@ -121,27 +135,15 @@ const FloatingChatButton: React.FC = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         animate={isOpen ? { rotate: 45 } : { rotate: 0 }}
+        transition={{ duration: 0.3, ease: 'linear' }}
       >
         <motion.div
           animate={isOpen ? { rotate: -45 } : { rotate: 0 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          transition={{ duration: 0.3, ease: 'linear' }}
         >
           <MessageCircleMore className="w-6 h-6" />
         </motion.div>
       </motion.button>
-
-      {/* Backdrop */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="fixed inset-0 z-30"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
-          />
-        )}
-      </AnimatePresence>
     </div>
   );
 };

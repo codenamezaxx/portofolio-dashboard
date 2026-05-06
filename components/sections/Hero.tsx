@@ -57,7 +57,7 @@ const Hero: React.FC = () => {
             {/* Actions */}
             <motion.div variants={fadeInUp} className="flex flex-wrap justify-start items-center gap-4 mb-12">
               <Button onClick={() => document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' })}>
-                Mari Berbicara <MessageCircle className="w-4 h-4" />
+                Ngobrol Yuk! <MessageCircle className="w-4 h-4" />
               </Button>
               <Button variant="secondary" onClick={() => window.open('/resume.pdf', '_blank')}>
                 Unduh CV <Download className="w-4 h-4" />
@@ -118,7 +118,7 @@ const Hero: React.FC = () => {
         transition={{ delay: 2, duration: 1, repeat: Infinity, repeatType: "reverse" }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted hidden md:flex"
       >
-        <span className="text-xs uppercase tracking-widest">Gulir</span>
+        <span className="text-xs uppercase tracking-widest">Scroll</span>
         <MousePointer2 className="w-5 h-5" />
       </motion.div>
     </section>
