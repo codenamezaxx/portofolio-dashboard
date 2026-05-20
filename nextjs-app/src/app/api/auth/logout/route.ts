@@ -10,7 +10,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { formatClearSessionCookie, getSessionFromHeaders } from '@/lib/auth';
+import { getSessionFromHeaders, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { createAuditLog } from '@/lib/db';
 import type { ApiError } from '@/types';
 
@@ -50,14 +50,19 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       userAgent,
     });
 
-    // Create response
+    // Create response and clear session cookie using Next.js cookies API
     const response = NextResponse.json(
       { message: 'Logged out successfully' },
       { status: 200 }
     );
 
-    // Clear session cookie
-    response.headers.set('Set-Cookie', formatClearSessionCookie());
+    response.cookies.set(SESSION_COOKIE_NAME, '', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production' || !!process.env.VERCEL_ENV,
+      sameSite: 'lax',
+      maxAge: 0,
+      path: '/',
+    });
 
     return response;
   } catch (error) {

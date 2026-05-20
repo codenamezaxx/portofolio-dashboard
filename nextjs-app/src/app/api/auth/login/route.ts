@@ -17,7 +17,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { loginSchema } from '@/lib/validation';
-import { hashPassword, verifyPassword, generateSessionToken, formatSessionCookie, getSessionExpirationSeconds } from '@/lib/auth';
+import { verifyPassword, generateSessionToken, getSessionExpirationSeconds, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { findAdminUserByEmail, updateAdminUserLastLogin, createAuditLog } from '@/lib/db';
 import type { AdminUser, ApiError } from '@/types';
 
@@ -176,10 +176,21 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       { status: 200 }
     );
 
-    // Set session cookie
-    const cookieString = formatSessionCookie(sessionToken);
-    console.log('🍪 Setting session cookie:', cookieString);
-    response.headers.set('Set-Cookie', cookieString);
+    // Set session cookie using Next.js cookies API (more reliable on Vercel)
+    const isProduction =
+      process.env.NODE_ENV === 'production' ||
+      process.env.VERCEL_ENV === 'preview' ||
+      process.env.VERCEL_ENV === 'production';
+
+    response.cookies.set(SESSION_COOKIE_NAME, sessionToken, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: 'lax',
+      maxAge: expiresIn,
+      path: '/',
+    });
+
+    console.log('🍪 Session cookie set via cookies API');
 
     return response;
   } catch (error) {
