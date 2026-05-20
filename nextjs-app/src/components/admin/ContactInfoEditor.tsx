@@ -216,6 +216,9 @@ export function ContactInfoEditor({ initialData }: ContactInfoEditorProps) {
       setSuccessMessage('Contact information updated successfully!');
       setHasChanges(false);
 
+      // Trigger ISR revalidation
+      await fetch('/api/revalidate', { method: 'POST', credentials: 'include' }).catch(() => {});
+
       // Redirect after success
       setTimeout(() => {
         router.push('/admin');

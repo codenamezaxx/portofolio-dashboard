@@ -117,6 +117,7 @@ export function JourneyEditor() {
       setIsFormOpen(false);
       fetchItems();
       setTimeout(() => setSuccessMessage(null), 3000);
+      await fetch('/api/revalidate', { method: 'POST', credentials: 'include' }).catch(() => {});
     } catch (error) {
       setErrorMessage('Failed to save journey item.');
     } finally {
@@ -134,6 +135,7 @@ export function JourneyEditor() {
       setDeleteConfirm(null);
       fetchItems();
       setTimeout(() => setSuccessMessage(null), 3000);
+      await fetch('/api/revalidate', { method: 'POST', credentials: 'include' }).catch(() => {});
     } catch (error) {
       setErrorMessage('Failed to delete item.');
     } finally {

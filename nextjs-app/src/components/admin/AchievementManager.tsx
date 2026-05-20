@@ -165,6 +165,7 @@ export function AchievementManager() {
       setIsFormOpen(false);
       fetchAchievements();
       setTimeout(() => setSuccessMessage(null), 3000);
+      await fetch('/api/revalidate', { method: 'POST', credentials: 'include' }).catch(() => {});
     } catch (error) {
       setErrorMessage('Failed to save achievement.');
     } finally {
@@ -195,6 +196,7 @@ export function AchievementManager() {
       setSelectedIds(new Set());
       fetchAchievements();
       setTimeout(() => setSuccessMessage(null), 3000);
+      await fetch('/api/revalidate', { method: 'POST', credentials: 'include' }).catch(() => {});
     } catch (error) {
       setErrorMessage('Failed to delete achievement(s).');
     } finally {

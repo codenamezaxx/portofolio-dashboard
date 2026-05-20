@@ -187,6 +187,12 @@ export function HeroEditor({ initialData }: HeroEditorProps) {
       setSuccessMessage('Hero section updated successfully!');
       setHasChanges(false);
 
+      // Trigger ISR revalidation so public page reflects changes immediately
+      await fetch('/api/revalidate', {
+        method: 'POST',
+        credentials: 'include',
+      }).catch(() => {}); // Non-blocking — don't fail save if revalidate fails
+
       // Redirect after success
       setTimeout(() => {
         router.push('/admin');

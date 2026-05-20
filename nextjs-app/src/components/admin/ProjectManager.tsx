@@ -139,6 +139,9 @@ export function ProjectManager() {
       setIsFormOpen(false);
       fetchProjects();
       setTimeout(() => setSuccessMessage(null), 3000);
+
+      // Trigger ISR revalidation
+      await fetch('/api/revalidate', { method: 'POST', credentials: 'include' }).catch(() => {});
     } catch (error) {
       setErrorMessage('Failed to save project.');
     } finally {
@@ -169,6 +172,9 @@ export function ProjectManager() {
       setSelectedIds(new Set());
       fetchProjects();
       setTimeout(() => setSuccessMessage(null), 3000);
+
+      // Trigger ISR revalidation
+      await fetch('/api/revalidate', { method: 'POST', credentials: 'include' }).catch(() => {});
     } catch (error) {
       setErrorMessage('Failed to delete project(s).');
     } finally {

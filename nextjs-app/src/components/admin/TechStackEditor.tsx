@@ -201,6 +201,7 @@ export function TechStackEditor({ initialData }: TechStackEditorProps) {
       setIsFormOpen(false);
       setEditingItem(null);
       setTimeout(() => setSuccessMessage(null), 3000);
+      await fetch('/api/revalidate', { method: 'POST', credentials: 'include' }).catch(() => {});
     } catch (error) {
       console.error('Error saving tech stack item:', error);
       setErrorMessage(error instanceof Error ? error.message : 'Failed to save tech stack item');
@@ -234,6 +235,7 @@ export function TechStackEditor({ initialData }: TechStackEditorProps) {
       setSuccessMessage('Tech stack item deleted successfully!');
       setDeleteConfirm(null);
       setTimeout(() => setSuccessMessage(null), 3000);
+      await fetch('/api/revalidate', { method: 'POST', credentials: 'include' }).catch(() => {});
     } catch (error) {
       console.error('Error deleting tech stack item:', error);
       setErrorMessage(error instanceof Error ? error.message : 'Failed to delete tech stack item');

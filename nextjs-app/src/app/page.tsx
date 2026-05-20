@@ -13,8 +13,8 @@ import {
 import { getAllPortfolioData, type Project as PortfolioProject, type Achievement as PortfolioAchievement } from '@/lib/portfolio-data';
 import type { Project, Achievement } from '@/types';
 
-// ISR configuration: revalidate every 3600 seconds (1 hour)
-export const revalidate = 3600;
+// ISR configuration: revalidate every 60 seconds (1 minute) for near-realtime updates
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Zakky Ahmad El-Kholily | Junior Front-End Web Developer Portofolio',
