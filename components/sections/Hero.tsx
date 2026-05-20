@@ -10,8 +10,8 @@ const Hero: React.FC = () => {
     <section id="hero" className="relative min-h-screen flex items-center justify-center pt-28 pb-10 overflow-hidden">
       
       {/* Background Decorative Elements for Depth */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/20 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-orange-400/15 rounded-full blur-[80px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/20 dark:bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-orange-400/15 dark:bg-orange-400/8 rounded-full blur-[80px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Adjusted grid gap from lg:gap-20 to lg:gap-12 to bring elements closer */}
@@ -27,21 +27,30 @@ const Hero: React.FC = () => {
           >
             {/* Main Typography */}
             <motion.div variants={fadeInUp}>
-              <span className="inline-block py-1 px-3 rounded-full bg-accent/10 border border-accent text-accent text-sm font-medium mb-6">
+              <span 
+                className="inline-block py-1 px-3 rounded-full text-sm font-medium mb-6"
+                style={{ 
+                  backgroundColor: 'var(--color-accent-glow)',
+                  border: '1px solid var(--color-accent)',
+                  color: 'var(--color-accent)'
+                }}
+              >
                 Open to work
               </span>
             </motion.div>
 
             <motion.h1 
               variants={fadeInUp} 
-              className="text-4xl md:text-5xl lg:text-7xl font-display font-bold tracking-tight mb-4 leading-tight text-primary"
+              className="text-4xl md:text-5xl lg:text-7xl font-display font-bold tracking-tight mb-4 leading-tight"
+              style={{ color: 'var(--color-primary)' }}
             >
               Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-orange-600">Zakky Ell</span>
             </motion.h1>
 
             <motion.h2
                variants={fadeInUp}
-               className="text-md md:text-2xl text-muted font-medium mb-6"
+               className="text-lg md:text-2xl font-medium mb-6 leading-snug"
+               style={{ color: 'var(--color-muted)' }}
             >
               {PROFILE.role}
             </motion.h2>
@@ -49,7 +58,13 @@ const Hero: React.FC = () => {
             {/* Tagline */}
             <motion.p 
               variants={fadeInUp} 
-              className="text-sm md:text-md text-muted/90 max-w-xl mb-10 leading-relaxed"
+              className="text-sm md:text-base max-w-xl mb-10 leading-relaxed"
+              style={{ 
+                color: 'var(--color-muted)',
+                whiteSpace: 'normal',
+                wordBreak: 'normal',
+                overflowWrap: 'break-word'
+              }}
             >
               {PROFILE.tagline}
             </motion.p>
@@ -65,18 +80,18 @@ const Hero: React.FC = () => {
             </motion.div>
 
             {/* Social Proof / Links */}
-            <motion.div variants={fadeInUp} className="flex items-center gap-6 pt-8 border-t border-muted w-full justify-start">
-              <a href={PROFILE.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
+            <motion.div variants={fadeInUp} className="flex items-center gap-6 pt-8 w-full justify-start" style={{ borderTop: '1px solid var(--color-muted)', opacity: 1 }}>
+              <a href={PROFILE.socials.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors" style={{ color: 'var(--color-muted)' }}>
                 <Instagram className="w-6 h-6" />
               </a>
-              <a href={PROFILE.socials.github} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
+              <a href={PROFILE.socials.github} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors" style={{ color: 'var(--color-muted)' }}>
                 <Github className="w-6 h-6" />
               </a>
-              <a href={PROFILE.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
+              <a href={PROFILE.socials.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors" style={{ color: 'var(--color-muted)' }}>
                 <Linkedin className="w-6 h-6" />
                </a>
-               <div className="h-4 w-px bg-accent/15" />
-               <span className="text-sm text-muted">Jawa Timur, Indonesia</span>
+               <div className="h-4 w-px" style={{ backgroundColor: 'var(--color-accent)', opacity: 0.3 }} />
+               <span className="text-sm" style={{ color: 'var(--color-muted)' }}>Jawa Timur, Indonesia</span>
             </motion.div>
           </motion.div>
 
@@ -92,17 +107,23 @@ const Hero: React.FC = () => {
              
              {/* Glass Frame Container */}
              <motion.div 
-                className="relative z-10 p-4 bg-primary/5 backdrop-blur-sm border border-transparent rounded-[2rem] shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 w-full max-w-[280px] lg:max-w-sm"
+                className="relative z-10 p-4 backdrop-blur-md rounded-[2rem] shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 w-full max-w-[280px] lg:max-w-sm"
+                style={{
+                  backgroundColor: 'var(--color-card)',
+                  border: '1px solid var(--color-accent-glow)',
+                  boxShadow: '0 25px 50px rgba(0,0,0,0.3)'
+                }}
              >
                 {/* Inner Image Container */}
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10" />
+                  {/* Subtle bottom gradient - tidak terlalu gelap */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-10" />
                   
                   {/* Professional Placeholder Image */}
                   <img 
                     src="/hero.jpg"
                     alt="Zakky Ahmad El-Kholily"
-                    className="w-full h-full object-cover filter grayscale-[20%] contrast-110 hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
              </motion.div>

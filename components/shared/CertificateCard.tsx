@@ -37,7 +37,7 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert }) => {
 
   return (
     <motion.div
-      className="relative bg-card border border-surface rounded-xl overflow-hidden hover:border-accent hover:shadow-lg hover:shadow-accent/10 transition-all duration-300 group h-full"
+      className="relative bg-card border border-surface rounded-xl overflow-hidden hover:border-accent transition-all duration-300 group h-full"
       variants={fadeInUp}
     >
       {/* PDF Preview Background */}

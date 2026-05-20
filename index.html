@@ -16,6 +16,22 @@
     <!-- Tailwind Config -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+      // Apply saved theme BEFORE React mounts to prevent flash
+      (function() {
+        var saved = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', saved);
+        if (saved === 'dark') {
+          document.documentElement.style.setProperty('--color-background', '#1F1F1F');
+          document.documentElement.style.setProperty('--color-surface', '#2A2A2A');
+          document.documentElement.style.setProperty('--color-card', '#242424');
+          document.documentElement.style.setProperty('--color-primary', '#F5F5F5');
+          document.documentElement.style.setProperty('--color-muted', '#B0B0B0');
+          document.documentElement.style.setProperty('--color-accent', '#D4AF37');
+          document.documentElement.style.setProperty('--color-accent-glow', 'rgba(212, 175, 55, 0.12)');
+        }
+      })();
+    </script>
+    <script>
       tailwind.config = {
         theme: {
           extend: {
@@ -89,6 +105,7 @@
         background-color: var(--color-background);
         color: var(--color-primary);
         overflow-x: hidden;
+        transition: background-color 300ms ease, color 300ms ease;
       }
 
       /* Custom Scrollbar */

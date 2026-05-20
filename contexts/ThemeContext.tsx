@@ -43,6 +43,10 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       root.style.setProperty('--color-accent', '#B8860B');
       root.style.setProperty('--color-accent-glow', 'rgba(184, 134, 11, 0.12)');
     }
+
+    // Force body background to follow CSS variable
+    document.body.style.backgroundColor = newTheme === 'dark' ? '#1F1F1F' : '#FAF6F1';
+    document.body.style.color = newTheme === 'dark' ? '#F5F5F5' : '#4A4A4A';
   };
 
   const toggleTheme = () => {
