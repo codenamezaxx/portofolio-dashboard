@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ExternalLink, Code2, Gamepad2 } from 'lucide-react';
 import { GithubIcon } from '../ui/Icons';
@@ -67,6 +68,8 @@ const defaultProjects: Project[] = [
 ];
 
 const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
+  const router = useRouter();
+
   return (
     <section id="projects" className="py-20 md:py-32 relative bg-canvas dark:bg-canvas">
       <div className="container mx-auto px-6">
@@ -192,8 +195,8 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
           </div>
 
           <motion.div variants={fadeInUp} className="mt-16 text-center">
-            <Button variant="outline" onClick={() => window.open('https://github.com/codenamezaxx', '_blank')}>
-              <Code2 className="w-4 h-4 mr-2" /> Lihat Semua Proyek di GitHub
+            <Button variant="outline" onClick={() => router.push('/projects')}>
+              <Code2 className="w-4 h-4 mr-2" /> Lihat Semua Proyek
             </Button>
           </motion.div>
         </motion.div>

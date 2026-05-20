@@ -25,7 +25,7 @@ const BackgroundGrid: React.FC = () => {
         - Uses the theme's accent color (Gold)
       */}
       <div 
-        className="absolute inset-0 opacity-[0.07] dark:opacity-[0.14]" 
+        className="absolute inset-0 opacity-[0.1] dark:opacity-[0.1]" 
         style={{
           backgroundImage: `
             linear-gradient(var(--color-accent) 1px, transparent 1px), 
@@ -42,13 +42,13 @@ const BackgroundGrid: React.FC = () => {
         These create a subtle, moving background effect with theme-aware colors
       */}
       <div 
-        className="absolute top-[-10%] -left-[10%] w-[60%] h-[60%] rounded-full blur-[120px] opacity-[0.15] dark:opacity-[0.2] animate-blob"
+        className="absolute top-[-10%] -left-[10%] w-[60%] h-[60%] rounded-full blur-[120px] opacity-[0.07] dark:opacity-[0.07] animate-blob"
         style={{ 
           backgroundColor: 'var(--color-accent)'
         }}
       />
       <div 
-        className="absolute bottom-[-10%] -right-[10%] w-[60%] h-[60%] rounded-full blur-[120px] opacity-[0.12] dark:opacity-[0.18] animate-blob animation-delay-2000"
+        className="absolute bottom-[-10%] -right-[10%] w-[60%] h-[60%] rounded-full blur-[120px] opacity-[0.07] dark:opacity-[0.07] animate-blob animation-delay-2000"
         style={{ 
           backgroundColor: 'var(--color-accent)'
         }}

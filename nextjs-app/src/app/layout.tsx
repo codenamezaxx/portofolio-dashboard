@@ -44,10 +44,29 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      // Admin dashboard will use light theme by default for the "warm cream" aesthetic
-      data-theme="light"
       className={`${ibmPlexSans.variable} ${sourceCodePro.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        {/* Inline script to apply theme before first paint — prevents flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var stored = localStorage.getItem('portfolio-theme');
+                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  var theme = stored || (prefersDark ? 'dark' : 'light');
+                  document.documentElement.setAttribute('data-theme', theme);
+                  if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--body)] font-plex">
         <ThemeProvider defaultTheme="light" storageKey="portfolio-theme">
           <RealtimeProvider enableNotifications={true}>
