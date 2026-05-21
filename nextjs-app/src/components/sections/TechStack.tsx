@@ -76,7 +76,7 @@ const TechStack: React.FC<TechStackProps> = ({ initialData = [] }) => {
                 CSS animates translateX(0) → translateX(-50%), which lands 
                 exactly at the start of the second copy — creating a seamless loop.
               */}
-              <div className="flex gap-8 w-max animate-marquee">
+              <div className="flex gap-5 w-max animate-marquee">
                 {[...displayData, ...displayData].map((skill, index) => (
                   <GlassCard 
                     key={`${skill.id || skill.name}-${index}`} 

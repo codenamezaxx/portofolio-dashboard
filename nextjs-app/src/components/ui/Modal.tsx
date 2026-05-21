@@ -58,9 +58,28 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
   ) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const previousActiveElement = useRef<HTMLElement | null>(null);
+    const wasOpen = useRef(false);
 
-    // Handle keyboard events (ESC to close)
+    // Handle keyboard events and initial focus
     useEffect(() => {
+      if (isOpen && !wasOpen.current) {
+        // Modal just opened
+        previousActiveElement.current = document.activeElement as HTMLElement;
+        
+        // Focus the modal for accessibility
+        if (modalRef.current) {
+          modalRef.current.focus();
+        }
+        
+        wasOpen.current = true;
+      } else if (!isOpen && wasOpen.current) {
+        // Modal just closed
+        if (previousActiveElement.current) {
+          previousActiveElement.current.focus();
+        }
+        wasOpen.current = false;
+      }
+
       if (!isOpen) return;
 
       const handleKeyDown = (event: KeyboardEvent) => {
@@ -69,9 +88,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
         }
       };
 
-      // Store the previously focused element
-      previousActiveElement.current = document.activeElement as HTMLElement;
-
       // Prevent body scroll when modal is open
       const originalOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
@@ -79,19 +95,9 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       // Add event listener
       document.addEventListener('keydown', handleKeyDown);
 
-      // Focus the modal
-      if (modalRef.current) {
-        modalRef.current.focus();
-      }
-
       return () => {
         document.removeEventListener('keydown', handleKeyDown);
         document.body.style.overflow = originalOverflow;
-
-        // Restore focus to previously focused element
-        if (previousActiveElement.current) {
-          previousActiveElement.current.focus();
-        }
       };
     }, [isOpen, isDismissible, onClose]);
 

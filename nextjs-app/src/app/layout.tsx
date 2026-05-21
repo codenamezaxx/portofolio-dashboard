@@ -19,10 +19,10 @@ const sourceCodePro = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
-  title: 'Zakky Ahmad El-Kholily | Junior Front-End Web Developer Portofolio',
+  title: 'Zakky Ahmad El-Kholily | Junior Front-End Developer Portofolio',
   description:
-    'Portfolio of Zakky Ahmad El-Kholily — Junior Front-End Web Developer from East Java, Indonesia. Showcasing projects, skills, and certifications.',
-  keywords: ['portfolio', 'web developer', 'front-end', 'React', 'Next.js', 'TypeScript'],
+    'Portfolio of Zakky Ahmad El-Kholily — Junior Front-End Developer and Network Engineer from East Java, Indonesia. Showcasing projects, skills, and certifications.',
+  keywords: ['portfolio', 'web developer', 'it enthusiast', 'network engineer', 'front-end', 'React', 'Next.js', 'TypeScript'],
   authors: [{ name: 'Zakky Ahmad El-Kholily' }],
   icons: {
     icon: '/favicon.svg',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Zakky Ahmad El-Kholily | Portfolio',
-    description: 'Junior Front-End Web Developer',
+    description: 'Junior Front-End Developer & Network Engineer',
     type: 'website',
   },
 };
@@ -72,7 +72,7 @@ export default function RootLayout({
           <RealtimeProvider enableNotifications={true}>
             <BackgroundGrid />
             {children}
-            <FloatingChatButton />
+            <FloatingChatButton/>
           </RealtimeProvider>
         </ThemeProvider>
       </body>

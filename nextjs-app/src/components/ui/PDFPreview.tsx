@@ -13,12 +13,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import * as pdfjsLib from 'pdfjs-dist';
-
-// Set up PDF.js worker locally from public directory
-if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
-}
 
 export interface PDFPreviewProps {
   url: string;
@@ -43,9 +37,27 @@ export function PDFPreview({
   const [error, setError] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pdfRef = useRef<any>(null);
+  const [pdfjs, setPdfjs] = useState<any>(null);
+
+  // Load PDF.js library on the client only
+  useEffect(() => {
+    const importPdfjs = async () => {
+      try {
+        const pdfjsLib = await import('pdfjs-dist');
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
+        setPdfjs(pdfjsLib);
+      } catch (err) {
+        console.error('Failed to load PDF.js library:', err);
+        setError('Failed to initialize PDF viewer');
+      }
+    };
+    importPdfjs();
+  }, []);
 
   // Load PDF and render first page
   useEffect(() => {
+    if (!pdfjs) return;
+
     const loadPDF = async () => {
       try {
         setLoading(true);
@@ -60,7 +72,7 @@ export function PDFPreview({
         const arrayBuffer = await response.arrayBuffer();
 
         // Load PDF document
-        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        const pdf = await pdfjs.getDocument({ data: arrayBuffer }).promise;
         pdfRef.current = pdf;
         setTotalPages(pdf.numPages);
 
@@ -76,7 +88,7 @@ export function PDFPreview({
     };
 
     loadPDF();
-  }, [url]);
+  }, [url, pdfjs]);
 
   // Render specific page
   const renderPage = async (pdf: any, pageNum: number) => {

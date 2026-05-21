@@ -49,12 +49,12 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
       link: `mailto:${contact.email || 'zakky.ahmad@protonmail.com'}`,
       descriptionId: 'email',
       colors: {
-        bg: 'rgba(30, 58, 138, 0.15)',
-        bgHover: 'rgba(30, 58, 138, 0.3)',
-        border: 'rgba(59, 130, 246, 0.2)',
-        borderHover: 'rgba(59, 130, 246, 0.5)',
-        iconBg: 'rgba(59, 130, 246, 0.15)',
-        text: '#60a5fa',
+        bg: 'bg-blue-900/10 dark:bg-blue-900/15',
+        bgHover: 'bg-blue-900/20 dark:bg-blue-900/30',
+        border: 'border-blue-500/20',
+        borderHover: 'border-blue-500/50',
+        iconBg: 'bg-blue-500/15',
+        text: 'text-blue-600 dark:text-blue-400',
       }
     },
     {
@@ -65,12 +65,12 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
       link: contact.linkedin_url || 'https://linkedin.com/in/zakky-el',
       descriptionId: 'linkedin',
       colors: {
-        bg: 'rgba(17, 47, 54, 0.2)',
-        bgHover: 'rgba(17, 47, 54, 0.35)',
-        border: 'rgba(20, 184, 166, 0.2)',
-        borderHover: 'rgba(20, 184, 166, 0.5)',
-        iconBg: 'rgba(20, 184, 166, 0.15)',
-        text: '#2dd4bf',
+        bg: 'bg-teal-900/10 dark:bg-teal-900/20',
+        bgHover: 'bg-teal-900/20 dark:bg-teal-900/35',
+        border: 'border-teal-500/20',
+        borderHover: 'border-teal-500/50',
+        iconBg: 'bg-teal-500/15',
+        text: 'text-teal-700 dark:text-teal-400',
       }
     },
     {
@@ -81,12 +81,12 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
       link: contact.instagram_url || 'https://instagram.com/codenamezaxx',
       descriptionId: 'instagram',
       colors: {
-        bg: 'rgba(54, 30, 54, 0.2)',
-        bgHover: 'rgba(54, 30, 54, 0.35)',
-        border: 'rgba(236, 72, 153, 0.2)',
-        borderHover: 'rgba(236, 72, 153, 0.5)',
-        iconBg: 'rgba(236, 72, 153, 0.15)',
-        text: '#f472b6',
+        bg: 'bg-pink-900/10 dark:bg-pink-900/20',
+        bgHover: 'bg-pink-900/20 dark:bg-pink-900/35',
+        border: 'border-pink-500/20',
+        borderHover: 'border-pink-500/50',
+        iconBg: 'bg-pink-500/15',
+        text: 'text-pink-600 dark:text-pink-400',
       }
     },
     {
@@ -97,12 +97,12 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
       link: contact.telegram_url || 'https://t.me/codenamezaxx',
       descriptionId: 'telegram',
       colors: {
-        bg: 'rgba(16, 42, 54, 0.2)',
-        bgHover: 'rgba(16, 42, 54, 0.35)',
-        border: 'rgba(6, 182, 212, 0.2)',
-        borderHover: 'rgba(6, 182, 212, 0.5)',
-        iconBg: 'rgba(6, 182, 212, 0.15)',
-        text: '#22d3ee',
+        bg: 'bg-sky-900/10 dark:bg-sky-900/20',
+        bgHover: 'bg-sky-900/20 dark:bg-sky-900/35',
+        border: 'border-sky-500/20',
+        borderHover: 'border-sky-500/50',
+        iconBg: 'bg-sky-500/15',
+        text: 'text-sky-600 dark:text-sky-400',
       }
     },
   ];
@@ -144,29 +144,20 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
                   whileHover={{ y: -8 }}
                   onMouseEnter={() => setHoveredId(method.id)}
                   onMouseLeave={() => setHoveredId(null)}
-                  style={{
-                    backgroundColor: isHovered ? method.colors.bgHover : method.colors.bg,
-                    borderColor: isHovered ? method.colors.borderHover : method.colors.border,
-                  }}
-                  className="group relative rounded-lg border p-6 overflow-hidden transition-all duration-300 cursor-pointer backdrop-blur-sm"
+                  className={`group relative rounded-lg border p-6 overflow-hidden transition-all duration-300 cursor-pointer backdrop-blur-sm ${isHovered ? `${method.colors.bgHover} ${method.colors.borderHover}` : `${method.colors.bg} ${method.colors.border}`}`}
                   aria-label={`Contact via ${method.label}`}
                   aria-describedby={method.descriptionId}
                 >
                   {/* Background Accent Glow */}
                   <div 
-                    className="absolute top-0 right-0 w-32 h-32 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full blur-2xl -mr-16 -mt-16" 
-                    style={{ backgroundColor: method.colors.text }}
+                    className={`absolute top-0 right-0 w-32 h-32 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full blur-2xl -mr-16 -mt-16 bg-current ${method.colors.text}`}
                   />
 
                   {/* Content */}
                   <div className="relative z-10 flex flex-col h-full justify-between">
                     {/* Circle Icon Container */}
                     <div 
-                      className="w-12 h-12 rounded-full flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-                      style={{ 
-                        backgroundColor: method.colors.iconBg, 
-                        color: method.colors.text 
-                      }}
+                      className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${method.colors.iconBg} ${method.colors.text}`}
                     >
                       <IconComponent className="w-5 h-5" aria-hidden="true" />
                     </div>
@@ -177,8 +168,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
                         {method.label}
                       </h3>
                       <p 
-                        className="text-body-sm mb-4 transition-colors duration-300" 
-                        style={{ color: method.colors.text }}
+                        className={`text-body-sm mb-4 transition-colors duration-300 font-medium ${method.colors.text}`}
                         id={method.descriptionId}
                       >
                         {method.value}
@@ -188,14 +178,12 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
                     {/* Arrow Icon & Button Text */}
                     <div className="flex items-center justify-between">
                       <span 
-                        className="text-[10px] uppercase font-bold tracking-wider transition-colors duration-300"
-                        style={{ color: method.colors.text }}
+                        className={`text-[10px] uppercase font-bold tracking-wider transition-colors duration-300 ${method.colors.text}`}
                       >
                         Hubungi
                       </span>
                       <ArrowUpRight 
-                        className="w-4 h-4 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" 
-                        style={{ color: method.colors.text }}
+                        className={`w-4 h-4 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 ${method.colors.text}`}
                         aria-hidden="true" 
                       />
                     </div>

@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { FileCheck } from 'lucide-react'
 import { staggerContainer, fadeInUp } from '@/lib/motion';
 import PDFPreviewCard from '../ui/PDFPreviewCard';
+import { PDFPreview } from '../ui/PDFPreview';
 import SectionHeader from '../shared/SectionHeader';
 import Button from '../ui/Button';
 import type { Achievement } from '@/types';
@@ -70,6 +71,13 @@ const defaultAchievements: Achievement[] = [
 
 const Achievements: React.FC<AchievementsProps> = ({ items = defaultAchievements, onViewAll }) => {
   const router = useRouter();
+  const constraintsRef = React.useRef<HTMLDivElement>(null);
+  const [selectedAchievement, setSelectedAchievement] = React.useState<Achievement | null>(null);
+
+  // Sort by displayOrder and take top 6 for landing page
+  const featuredAchievements = [...items]
+    .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
+    .slice(0, 6);
 
   return (
     <section id="achievements" className="py-20 relative bg-canvas dark:bg-canvas">
@@ -79,28 +87,54 @@ const Achievements: React.FC<AchievementsProps> = ({ items = defaultAchievements
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
+          className="max-w-7xl mx-auto"
         >
           <SectionHeader 
             title="Pelatihan & Penghargaan" 
             subtitle="Sertifikat & highlights" 
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {items.slice(0, 6).map((item) => (
-              <motion.div key={item.id} variants={fadeInUp}>
-                <PDFPreviewCard 
-                  title={item.title}
-                  category={item.category}
-                  year={String(item.year)}
-                  pdfPath={item.pdfPath || item.pdfUrl}
-                />
-              </motion.div>
-            ))}
+          <div ref={constraintsRef} className="relative mb-12 overflow-hidden">
+            {/* Carousel Inner Track */}
+            <motion.div 
+              className="flex gap-6 pb-8 pt-4 cursor-grab active:cursor-grabbing mask-fade-sides w-max"
+              drag="x"
+              dragConstraints={constraintsRef}
+              dragElastic={0.1}
+              dragMomentum={true}
+              whileTap={{ cursor: 'grabbing' }}
+            >
+              {featuredAchievements.map((item) => (
+                <motion.div 
+                  key={item.id} 
+                  variants={fadeInUp}
+                  className="flex-shrink-0 w-[300px] md:w-[350px]"
+                >
+                  <PDFPreviewCard 
+                    title={item.title}
+                    category={item.category}
+                    year={String(item.year)}
+                    pdfPath={item.pdfPath || item.pdfUrl}
+                    issuer={item.issuer}
+                    link={item.link}
+                    onView={() => setSelectedAchievement(item)}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Hint for scrolling */}
+            <div className="mt-2 flex justify-center md:justify-start">
+              <div className="flex items-center gap-2 text-xs text-mute/50 uppercase tracking-widest">
+                <span>Geser untuk melihat sertifikat</span>
+                <div className="w-12 h-px bg-mute/30" />
+              </div>
+            </div>
           </div>
 
           <motion.div variants={fadeInUp} className="text-center">
              <Button 
-               variant="outline" 
+               variant="primary" 
                className="text-sm cursor-pointer relative z-10"
                onClick={(e) => {
                  e.preventDefault();
@@ -108,12 +142,98 @@ const Achievements: React.FC<AchievementsProps> = ({ items = defaultAchievements
                  onViewAll ? onViewAll() : router.push('/certificates');
                }}
              >
-                Lihat Semua Sertifikat
+              <FileCheck className='w-4 h-4 mr-2' /> Lihat Semua Sertifikat
              </Button>
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Global PDF Preview Modal - Rendered outside the draggable container */}
+      {selectedAchievement && (
+        <AchievementModal 
+          achievement={selectedAchievement} 
+          onClose={() => setSelectedAchievement(null)} 
+        />
+      )}
     </section>
+  );
+};
+
+// Internal Modal Component for clean hierarchy
+const AchievementModal: React.FC<{ achievement: Achievement, onClose: () => void }> = ({ achievement, onClose }) => {
+  const pdfPath = achievement.pdfPath || achievement.pdfUrl;
+  
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 md:p-8" onClick={onClose}>
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        className="bg-zinc-900 rounded-xl max-w-5xl w-full max-h-[90vh] overflow-hidden border border-white/10 shadow-2xl flex flex-col"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Modal Header */}
+        <div className="bg-zinc-900/50 backdrop-blur-md border-b border-white/10 p-5 flex items-center justify-between">
+          <div className="flex-1">
+            <span className="text-[10px] uppercase tracking-wider text-primary font-bold">{achievement.category}</span>
+            <h3 className="text-heading-md text-white font-bold line-clamp-1">{achievement.title}</h3>
+            {achievement.issuer && <p className="text-xs text-zinc-400">{achievement.issuer}</p>}
+          </div>
+          <button
+            onClick={onClose}
+            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors text-white"
+          >
+            <span className="text-xl">✕</span>
+          </button>
+        </div>
+
+        {/* Modal Content - PDF Viewer Area */}
+        <div className="flex-1 overflow-auto bg-black relative p-2 md:p-4">
+          {pdfPath ? (
+            <div className="w-full h-full min-h-[500px]">
+              <PDFPreview
+                url={pdfPath}
+                filename={`${achievement.title}.pdf`}
+                maxHeight="100%"
+                className="w-full h-full"
+                showDownload={false}
+                showPageInfo={true}
+              />
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full py-20 text-zinc-500">
+              <span className="text-4xl mb-4">📄</span>
+              <p>Pratinjau sertifikat tidak tersedia.</p>
+            </div>
+          )}
+        </div>
+
+        {/* Modal Footer */}
+        <div className="p-4 bg-zinc-900 border-t border-white/10 flex flex-wrap justify-between items-center gap-4">
+           <div className="text-xs text-zinc-500">
+             Tahun: {achievement.year}
+           </div>
+           <div className="flex gap-3">
+             <Button variant="secondary" onClick={onClose} className="!bg-zinc-800 !text-white !border-zinc-700 hover:!bg-zinc-700">Tutup</Button>
+             {achievement.link && (
+               <Button onClick={() => window.open(achievement.link, '_blank')}>Lihat Asli</Button>
+             )}
+             {pdfPath && (
+               <Button 
+                 onClick={() => {
+                   const a = document.createElement('a');
+                   a.href = pdfPath;
+                   a.download = `${achievement.title}.pdf`;
+                   a.click();
+                 }}
+               >
+                 Unduh PDF
+               </Button>
+             )}
+           </div>
+        </div>
+      </motion.div>
+    </div>
   );
 };
 

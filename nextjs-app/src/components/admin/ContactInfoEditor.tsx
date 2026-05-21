@@ -94,19 +94,22 @@ export function ContactInfoEditor({ initialData }: ContactInfoEditorProps) {
         throw new Error('Failed to fetch contact information');
       }
 
-      const data = await response.json();
-      const contactInfo = data.data?.[0];
+      const res = await response.json();
+      const contactInfo = res.data?.[0];
 
       if (contactInfo) {
         setContactInfoId(contactInfo.id);
         setFormData({
-          githubUrl: contactInfo.github_url || '',
-          linkedinUrl: contactInfo.linkedin_url || '',
-          instagramUrl: contactInfo.instagram_url || '',
-          telegramUrl: contactInfo.telegram_url || '',
+          githubUrl: contactInfo.githubUrl || '',
+          linkedinUrl: contactInfo.linkedinUrl || '',
+          instagramUrl: contactInfo.instagramUrl || '',
+          telegramUrl: contactInfo.telegramUrl || '',
           email: contactInfo.email || '',
         });
-        setLastUpdated(new Date(contactInfo.updated_at));
+        
+        if (contactInfo.updatedAt) {
+          setLastUpdated(new Date(contactInfo.updatedAt));
+        }
       }
     } catch (error) {
       console.error('Error fetching contact info:', error);
@@ -127,8 +130,8 @@ export function ContactInfoEditor({ initialData }: ContactInfoEditorProps) {
         throw new Error('Failed to fetch version history');
       }
 
-      const data = await response.json();
-      setVersionHistory(data.data || []);
+      const res = await response.json();
+      setVersionHistory(res.data || []);
     } catch (error) {
       console.error('Error fetching version history:', error);
       setErrorMessage('Failed to load version history. Please try again.');
@@ -201,12 +204,14 @@ export function ContactInfoEditor({ initialData }: ContactInfoEditorProps) {
       });
 
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to save contact information');
+        const res = await response.json();
+        throw new Error(res.error || 'Failed to save contact information');
       }
 
-      const data = await response.json();
-      setLastUpdated(new Date(data.data.updated_at));
+      const res = await response.json();
+      if (res.data?.updatedAt) {
+        setLastUpdated(new Date(res.data.updatedAt));
+      }
       
       // Refresh version history
       if (showVersionHistory) {
@@ -275,11 +280,11 @@ export function ContactInfoEditor({ initialData }: ContactInfoEditorProps) {
         });
 
         if (!response.ok) {
-          const data = await response.json();
-          throw new Error(data.error || 'Failed to restore version');
+          const res = await response.json();
+          throw new Error(res.error || 'Failed to restore version');
         }
 
-        const data = await response.json();
+        const res = await response.json();
         
         // Update form with restored data
         setFormData({
@@ -290,7 +295,9 @@ export function ContactInfoEditor({ initialData }: ContactInfoEditorProps) {
           email: version.email || '',
         });
         
-        setLastUpdated(new Date(data.data.updated_at));
+        if (res.data?.updatedAt) {
+          setLastUpdated(new Date(res.data.updatedAt));
+        }
         setHasChanges(false);
         setShowVersionHistory(false);
         
@@ -316,13 +323,18 @@ export function ContactInfoEditor({ initialData }: ContactInfoEditorProps) {
     );
   }
 
+  const formatLastUpdated = (date: Date | null) => {
+    if (!date || isNaN(date.getTime())) return 'Never';
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+  };
+
   return (
     <div className="space-y-6">
       {/* Breadcrumb Navigation */}
       <div className="flex items-center justify-between">
         <Breadcrumb />
         <span className="text-xs text-[var(--muted)]">
-          {lastUpdated && `Last updated: ${lastUpdated.toLocaleDateString()} ${lastUpdated.toLocaleTimeString()}`}
+          Last updated: {formatLastUpdated(lastUpdated)}
         </span>
       </div>
 

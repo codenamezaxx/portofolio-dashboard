@@ -14,6 +14,7 @@ interface PDFPreviewCardProps {
   pdfPath?: string;
   link?: string;
   issuer?: string;
+  onView?: () => void;
 }
 
 const PDFPreviewCard: React.FC<PDFPreviewCardProps> = ({
@@ -23,9 +24,9 @@ const PDFPreviewCard: React.FC<PDFPreviewCardProps> = ({
   pdfPath,
   link,
   issuer,
+  onView,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [showPDF, setShowPDF] = useState(false);
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -43,115 +44,87 @@ const PDFPreviewCard: React.FC<PDFPreviewCardProps> = ({
   const handleViewPDF = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    setShowPDF(true);
+    if (onView) onView();
   };
 
   return (
-    <>
-      <div
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onClick={pdfPath ? handleViewPDF : undefined}
-        className={`group relative h-full overflow-hidden transition-all duration-300 ${pdfPath ? 'cursor-pointer' : ''}`}
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={pdfPath ? handleViewPDF : undefined}
+      className={`group relative h-full overflow-hidden transition-all duration-300 ${pdfPath ? 'cursor-pointer' : ''}`}
+    >
+      <GlassCard
+        className="h-full hover:border-primary/30 dark:hover:border-primary/30"
       >
-        <GlassCard
-          className="h-full hover:border-primary/30 dark:hover:border-primary/30"
-        >
-          {/* Background */}
-          <div className="absolute inset-0 bg-surface-soft dark:bg-surface-soft opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
+        {/* Background */}
+        <div className="absolute inset-0 bg-surface-soft dark:bg-surface-soft opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
 
-          {/* Content */}
-          <div className="relative p-6 h-full flex flex-col justify-between">
-            {/* Icon */}
-            <div className="mb-4">
-              <div className="w-12 h-12 rounded-md bg-primary/10 dark:bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 dark:group-hover:bg-primary/20 transition-colors duration-300">
-                <FileText className="w-6 h-6 text-primary dark:text-primary" />
-              </div>
+        {/* Content */}
+        <div className="relative p-6 h-full flex flex-col justify-between">
+          {/* Icon */}
+          <div className="mb-4">
+            <div className="w-12 h-12 rounded-md bg-primary/10 dark:bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 dark:group-hover:bg-primary/20 transition-colors duration-300">
+              <FileText className="w-6 h-6 text-primary dark:text-primary" />
             </div>
+          </div>
 
-            {/* Text Content */}
-            <div className="flex-1">
-              <p className="text-body-xs uppercase tracking-widest text-primary dark:text-primary font-semibold mb-2">
-                {category}
+          {/* Text Content */}
+          <div className="flex-1">
+            <p className="text-body-xs uppercase tracking-widest text-primary dark:text-primary font-semibold mb-2">
+              {category}
+            </p>
+            <h3 className="text-heading-md font-bold text-ink dark:text-ink mb-2 line-clamp-3 group-hover:text-primary dark:group-hover:text-primary transition-colors duration-300">
+              {title}
+            </h3>
+            {issuer && (
+              <p className="text-body-sm text-body dark:text-body mb-3">
+                {issuer}
               </p>
-              <h3 className="text-heading-md font-bold text-ink dark:text-ink mb-2 line-clamp-3 group-hover:text-primary dark:group-hover:text-primary transition-colors duration-300">
-                {title}
-              </h3>
-              {issuer && (
-                <p className="text-body-sm text-body dark:text-body mb-3">
-                  {issuer}
-                </p>
+            )}
+          </div>
+
+          {/* Footer */}
+          <div className="flex items-center justify-between pt-4 border-t border-hairline dark:border-hairline">
+            <span className="text-body-sm font-medium text-body dark:text-body">
+              {year}
+            </span>
+            <div className="flex gap-2 relative z-10">
+              {pdfPath && (
+                <>
+                  <button
+                    onClick={handleViewPDF}
+                    className="p-2 rounded-md bg-primary/10 dark:bg-primary/10 hover:bg-primary/20 dark:hover:bg-primary/20 text-primary dark:text-primary transition-colors duration-300"
+                    title="View PDF"
+                  >
+                    <Eye className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={handleDownload}
+                    className="p-2 rounded-md bg-primary/10 dark:bg-primary/10 hover:bg-primary/20 dark:hover:bg-primary/20 text-primary dark:text-primary transition-colors duration-300"
+                    title="Download PDF"
+                  >
+                    <Download className="w-4 h-4" />
+                  </button>
+                </>
+              )}
+              {link && (
+                <a
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="p-2 rounded-md bg-primary/10 dark:bg-primary/10 hover:bg-primary/20 dark:hover:bg-primary/20 text-primary dark:text-primary transition-colors duration-300"
+                  title="View certificate"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                </a>
               )}
             </div>
-
-            {/* Footer */}
-            <div className="flex items-center justify-between pt-4 border-t border-hairline dark:border-hairline">
-              <span className="text-body-sm font-medium text-body dark:text-body">
-                {year}
-              </span>
-              <div className="flex gap-2 relative z-10">
-                {pdfPath && (
-                  <>
-                    <button
-                      onClick={handleViewPDF}
-                      className="p-2 rounded-md bg-primary/10 dark:bg-primary/10 hover:bg-primary/20 dark:hover:bg-primary/20 text-primary dark:text-primary transition-colors duration-300"
-                      title="View PDF"
-                    >
-                      <Eye className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={handleDownload}
-                      className="p-2 rounded-md bg-primary/10 dark:bg-primary/10 hover:bg-primary/20 dark:hover:bg-primary/20 text-primary dark:text-primary transition-colors duration-300"
-                      title="Download PDF"
-                    >
-                      <Download className="w-4 h-4" />
-                    </button>
-                  </>
-                )}
-                {link && (
-                  <a
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="p-2 rounded-md bg-primary/10 dark:bg-primary/10 hover:bg-primary/20 dark:hover:bg-primary/20 text-primary dark:text-primary transition-colors duration-300"
-                    title="View certificate"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                )}
-              </div>
-            </div>
           </div>
-        </GlassCard>
-      </div>
-
-      {/* PDF Preview Modal */}
-      {showPDF && pdfPath && (
-        <Suspense fallback={<div>Loading PDF...</div>}>
-          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-            <div className="bg-surface-card dark:bg-surface-card rounded-md max-w-2xl w-full max-h-[90vh] overflow-auto border border-hairline dark:border-hairline">
-              <div className="sticky top-0 bg-surface-soft dark:bg-surface-soft border-b border-hairline dark:border-hairline p-4 flex items-center justify-between">
-                <h3 className="text-heading-md text-ink dark:text-ink font-semibold">{title}</h3>
-                <button
-                  onClick={() => setShowPDF(false)}
-                  className="text-body dark:text-body hover:text-ink dark:hover:text-ink font-bold text-lg p-1"
-                >
-                  ✕
-                </button>
-              </div>
-              <div className="p-4">
-                <PDFPreview
-                  url={pdfPath}
-                  filename={`${title}.pdf`}
-                  maxHeight="600px"
-                />
-              </div>
-            </div>
-          </div>
-        </Suspense>
-      )}
-    </>
+        </div>
+      </GlassCard>
+    </div>
   );
 };
 

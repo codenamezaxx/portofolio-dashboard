@@ -52,6 +52,10 @@ export function AchievementManager() {
   // Delete state
   const [deleteConfirm, setDeleteConfirm] = useState<{ type: 'single' | 'bulk'; item?: Achievement } | null>(null);
 
+  // Drag and drop state
+  const [draggedItem, setDraggedItem] = useState<string | number | null>(null);
+  const [dragOverItem, setDragOverItem] = useState<string | number | null>(null);
+
   useEffect(() => {
     fetchAchievements();
   }, []);
@@ -68,6 +72,47 @@ export function AchievementManager() {
       setErrorMessage('Failed to load achievements.');
     } finally {
       setIsFetching(false);
+    }
+  };
+
+  // Drag and Drop handlers
+  const handleDragStart = (id: string | number) => setDraggedItem(id);
+  const handleDragOver = (e: React.DragEvent, id: string | number) => {
+    e.preventDefault();
+    setDragOverItem(id);
+  };
+  const handleDrop = async (e: React.DragEvent, targetId: string | number) => {
+    e.preventDefault();
+    setDragOverItem(null);
+    if (!draggedItem || draggedItem === targetId) return;
+
+    const newItems = [...achievements];
+    const draggedIdx = newItems.findIndex(i => i.id === draggedItem);
+    const targetIdx = newItems.findIndex(i => i.id === targetId);
+    
+    if (draggedIdx === -1 || targetIdx === -1) return;
+
+    const [removed] = newItems.splice(draggedIdx, 1);
+    newItems.splice(targetIdx, 0, removed);
+
+    const reordered = newItems.map((item, idx) => ({ ...item, displayOrder: idx }));
+    setAchievements(reordered);
+
+    try {
+      const response = await fetch('/api/content/achievements', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(reordered.map(i => ({ id: i.id, displayOrder: i.displayOrder }))),
+      });
+
+      if (!response.ok) throw new Error('Failed to save order');
+      
+      setSuccessMessage('Achievement order updated!');
+      setTimeout(() => setSuccessMessage(null), 2000);
+      await fetch('/api/revalidate', { method: 'POST', credentials: 'include' }).catch(() => {});
+    } catch (error) {
+      setErrorMessage('Failed to save new order.');
+      fetchAchievements();
     }
   };
 
@@ -243,53 +288,84 @@ export function AchievementManager() {
       {successMessage && <FormSuccess message={successMessage} />}
       {errorMessage && <FormError message={errorMessage} />}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* List Header / Bulk Action */}
+      <div className="flex items-center gap-4 px-4 py-3 bg-surface-soft border border-hairline rounded-t-md text-xs font-bold text-mute uppercase tracking-wider">
+        <input 
+          type="checkbox" 
+          className="w-4 h-4 rounded border-hairline bg-surface-card text-primary focus:ring-accent-blue/50"
+          checked={filteredAchievements.length > 0 && selectedIds.size === filteredAchievements.length}
+          onChange={handleSelectAll}
+        />
+        <span className="flex-1">Achievement Details</span>
+        <span className="w-24 hidden md:block">Category</span>
+        <span className="w-32 text-right">Actions</span>
+      </div>
+
+      <div className="flex flex-col border-x border-b border-hairline rounded-b-md divide-y divide-hairline bg-surface-card overflow-hidden">
         {filteredAchievements.length === 0 ? (
-          <p className="col-span-full p-8 text-center text-[var(--muted)] bg-surface-card border border-[var(--border)] rounded-lg">
+          <p className="p-12 text-center text-mute bg-surface-doc">
             No achievements found matching your criteria.
           </p>
         ) : (
           filteredAchievements.map((item) => (
-            <div key={item.id} className={`bg-surface-card border border-[var(--border)] rounded-lg p-5 flex flex-col gap-4 transition-all ${selectedIds.has(item.id) ? 'ring-2 ring-blue-500/50' : 'hover:border-blue-500/30'}`}>
-              <div className="flex justify-between items-start">
-                <div className="flex gap-3 items-start">
-                  <input 
-                    type="checkbox" 
-                    className="mt-1.5 rounded border-[var(--border)] bg-[var(--card)]"
-                    checked={selectedIds.has(item.id)}
-                    onChange={() => handleSelectOne(item.id)}
-                  />
-                  <div>
-                    <span className="px-2 py-0.5 bg-gold/10 text-gold text-xs font-bold rounded mb-2 inline-block">
-                      {item.year}
-                    </span>
-                    <h3 className="font-bold text-[var(--foreground)] text-lg">{item.title}</h3>
-                    <p className="text-sm text-[var(--muted)]">{item.issuer}</p>
-                  </div>
+            <div 
+              key={item.id} 
+              draggable
+              onDragStart={() => handleDragStart(item.id)}
+              onDragOver={(e) => handleDragOver(e, item.id)}
+              onDrop={(e) => handleDrop(e, item.id)}
+              className={`flex items-center gap-4 p-4 transition-colors cursor-move ${
+                selectedIds.has(item.id) ? 'bg-accent-blue-soft/30' : 'hover:bg-surface-doc'
+              } ${dragOverItem === item.id ? 'bg-accent-blue/10 border-y border-accent-blue/30' : ''} ${
+                draggedItem === item.id ? 'opacity-50' : ''
+              }`}
+            >
+              <div className="text-mute dark:text-mute text-xl select-none">⋮⋮</div>
+
+              <input 
+                type="checkbox" 
+                className="w-4 h-4 rounded border-hairline bg-surface-card text-primary focus:ring-accent-blue/50"
+                checked={selectedIds.has(item.id)}
+                onChange={() => handleSelectOne(item.id)}
+              />
+              
+              <div className="flex-1 min-w-0 flex items-center gap-4">
+                <div className="w-10 h-10 rounded-md bg-gold/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-gold font-bold text-[10px]">{item.year}</span>
                 </div>
-                <div className="flex gap-1">
-                  <Button variant="ghost" size="sm" onClick={() => handleEdit(item)}>Edit</Button>
-                  <Button variant="ghost" size="sm" className="text-red-400" onClick={() => setDeleteConfirm({ type: 'single', item })}>Delete</Button>
+                <div className="min-w-0">
+                  <h3 className="font-bold text-foreground truncate">{item.title}</h3>
+                  <p className="text-xs text-mute truncate">{item.issuer}</p>
                 </div>
               </div>
-              
-              <div className="mt-auto pt-4 border-t border-[var(--border)] flex justify-between items-center">
-                <span className="text-xs text-[var(--muted)] uppercase tracking-wider">{item.category}</span>
-                <div className="flex gap-3">
-                  {item.pdfUrl && (
-                    <button 
-                      onClick={() => setPreviewUrl(item.pdfUrl || null)}
-                      className="text-xs text-blue-400 hover:underline"
-                    >
-                      Preview PDF
-                    </button>
-                  )}
-                  {item.externalLink && (
-                    <a href={item.externalLink} target="_blank" rel="noopener noreferrer" className="text-xs text-[var(--muted)] hover:text-[var(--foreground)]">
-                      Link ↗
-                    </a>
-                  )}
-                </div>
+
+              <div className="w-24 hidden md:block">
+                <span className="px-2 py-0.5 bg-accent-blue-soft text-accent-blue text-[10px] font-bold uppercase rounded-full">
+                  {item.category}
+                </span>
+              </div>
+
+              <div className="w-32 flex justify-end gap-2">
+                {item.pdfUrl && (
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setPreviewUrl(item.pdfUrl || null);
+                    }}
+                    className="p-1.5 text-blue-400 hover:bg-blue-400/10 rounded-md transition-colors"
+                    title="Preview PDF"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                  </button>
+                )}
+                <Button variant="ghost" size="sm" onClick={(e) => {
+                  e.stopPropagation();
+                  handleEdit(item);
+                }}>Edit</Button>
+                <Button variant="ghost" size="sm" className="text-accent-red hover:text-accent-red" onClick={(e) => {
+                  e.stopPropagation();
+                  setDeleteConfirm({ type: 'single', item });
+                }}>Delete</Button>
               </div>
             </div>
           ))
@@ -307,36 +383,44 @@ export function AchievementManager() {
           <div className="grid grid-cols-2 gap-4">
             <TextInput 
               label="Title" 
+              name="achievement-title"
               placeholder="e.g. Meta Front-End Developer" 
               value={editingAchievement?.title || ''} 
-              onChange={e => setEditingAchievement(prev => ({ ...prev!, title: e.target.value }))}
+              onChange={e => setEditingAchievement(prev => prev ? { ...prev, title: e.target.value } : null)}
               error={formErrors.title}
+              disabled={isLoading}
               required
             />
             <TextInput 
               label="Issuer" 
+              name="achievement-issuer"
               placeholder="e.g. Coursera" 
               value={editingAchievement?.issuer || ''} 
-              onChange={e => setEditingAchievement(prev => ({ ...prev!, issuer: e.target.value }))}
+              onChange={e => setEditingAchievement(prev => prev ? { ...prev, issuer: e.target.value } : null)}
               error={formErrors.issuer}
+              disabled={isLoading}
               required
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <TextInput 
               label="Category" 
+              name="achievement-category"
               placeholder="e.g. Certification" 
               value={editingAchievement?.category || ''} 
-              onChange={e => setEditingAchievement(prev => ({ ...prev!, category: e.target.value }))}
+              onChange={e => setEditingAchievement(prev => prev ? { ...prev, category: e.target.value } : null)}
               error={formErrors.category}
+              disabled={isLoading}
               required
             />
             <TextInput 
               label="Year" 
+              name="achievement-year"
               type="number"
               value={editingAchievement?.year?.toString() || ''} 
-              onChange={e => setEditingAchievement(prev => ({ ...prev!, year: parseInt(e.target.value) }))}
+              onChange={e => setEditingAchievement(prev => prev ? { ...prev, year: parseInt(e.target.value) || 0 } : null)}
               error={formErrors.year}
+              disabled={isLoading}
               required
             />
           </div>

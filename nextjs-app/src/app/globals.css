@@ -513,6 +513,24 @@ h3 {
 }
 
 /* ============================================================
+   Carousel & Layout Utilities
+   ============================================================ */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.mask-fade-right {
+  mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+
+/* ============================================================
    Marquee / Infinite Scroll Animation
    ============================================================ */
 @keyframes marquee {
@@ -528,7 +546,7 @@ h3 {
 .animate-marquee {
   /* Override the global theme transition so it doesn't interfere */
   transition-property: none !important;
-  animation: marquee 30s linear infinite;
+  animation: marquee 20s linear infinite;
   will-change: transform;
 }
 

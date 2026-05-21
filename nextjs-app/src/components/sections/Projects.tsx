@@ -69,6 +69,12 @@ const defaultProjects: Project[] = [
 
 const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
   const router = useRouter();
+  const [activeProjectId, setActiveProjectId] = React.useState<number | string | null>(null);
+
+  // Sort by displayOrder and take top 4 for landing page
+  const featuredProjects = [...items]
+    .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
+    .slice(0, 4);
 
   return (
     <section id="projects" className="py-20 md:py-32 relative bg-canvas dark:bg-canvas">
@@ -80,46 +86,64 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
           viewport={{ once: true, margin: "-100px" }}
         >
           <SectionHeader
-            title="Projek & Aplikasi"
+            title="Projek Pilihan"
             subtitle="Portfolio"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
-            {items.map((project) => (
-              <motion.div key={project.id} variants={fadeInUp}>
-                <GlassCard className="group h-[400px] md:h-[450px] flex flex-col justify-end overflow-hidden">
+            {featuredProjects.map((project) => (
+              <motion.div 
+                key={project.id} 
+                variants={fadeInUp}
+                animate={activeProjectId === project.id ? "hover" : "initial"}
+                onMouseEnter={() => setActiveProjectId(project.id)}
+                onMouseLeave={() => setActiveProjectId(null)}
+                onClick={() => setActiveProjectId(activeProjectId === project.id ? null : project.id)}
+                initial="initial"
+                className="cursor-pointer"
+              >
+                <GlassCard className="h-[400px] md:h-[450px] flex flex-col justify-end overflow-hidden">
 
                   {/* Background Image */}
                   <div className="absolute inset-0 z-0">
-                    {/* 
-                      Responsive project image with srcset for different screen sizes:
-                      - Mobile (100vw): Full viewport width
-                      - Tablet/Desktop (50vw): Half viewport width (2-column grid)
-                      
-                      Next.js automatically generates srcset with:
-                      - AVIF format (best compression)
-                      - WebP format (fallback)
-                      - Original format (final fallback)
-                      
-                      Lazy loading for off-screen images (default behavior)
-                      Quality set to 80 for good balance between quality and file size
-                    */}
-                    <Image
-                      src={project.image || project.imageUrl || '/images/placeholder.jpg'}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      priority={false}
-                      quality={80}
-                      loading="lazy"
-                    />
+                    <motion.div
+                      variants={{
+                        initial: { scale: 1 },
+                        hover: { scale: 1.1 }
+                      }}
+                      transition={{ duration: 0.7 }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={project.image || project.imageUrl || '/images/placeholder.jpg'}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        priority={false}
+                        quality={80}
+                        loading="lazy"
+                      />
+                    </motion.div>
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-95" />
+                    <motion.div 
+                      variants={{
+                        initial: { opacity: 0.9 },
+                        hover: { opacity: 0.95 }
+                      }}
+                      className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent transition-opacity duration-300" 
+                    />
                   </div>
 
                   {/* Content */}
-                  <div className="relative z-10 p-8 transform transition-transform duration-300 translate-y-4 group-hover:translate-y-0">
+                  <motion.div 
+                    variants={{
+                      initial: { y: 20 },
+                      hover: { y: 0 }
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="relative z-10 p-8"
+                  >
                     {/* Category */}
                     <div className="mb-4">
                       <span className="text-body-xs text-primary dark:text-primary font-semibold tracking-wide uppercase">
@@ -133,11 +157,18 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
                     </h3>
 
                     {/* Description (Reveals on Hover) */}
-                    <div className="overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-24 group-hover:opacity-100 group-hover:mb-6">
+                    <motion.div 
+                      variants={{
+                        initial: { height: 0, opacity: 0, marginBottom: 0 },
+                        hover: { height: 'auto', opacity: 1, marginBottom: 24 }
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
                       <p className="text-body-sm text-body dark:text-body leading-relaxed">
                         {project.description}
                       </p>
-                    </div>
+                    </motion.div>
 
                     {/* Tech Stack */}
                     <div className={`flex gap-2 mb-6 ${(project.tech || project.technologies || []).length > 5 ? 'overflow-x-auto scrollbar-hide pb-1 mask-fade-right' : 'flex-wrap'}`}>
@@ -153,49 +184,69 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex flex-wrap items-center gap-3 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 delay-75">
+                    <motion.div 
+                      variants={{
+                        initial: { opacity: 0, y: 20 },
+                        hover: { opacity: 1, y: 0 }
+                      }}
+                      transition={{ duration: 0.3, delay: 0.1 }}
+                      className="flex flex-wrap items-center gap-3"
+                    >
                       {/* GitHub Button */}
                       {project.links?.github && (
                         <Button
-                          onClick={() => window.open(project.links!.github, '_blank')}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(project.links!.github, '_blank');
+                          }}
                           variant="secondary"
-                          className="!py-2 !px-3 text-sm bg-white/10 hover:bg-white/20 border-0 flex-shrink-0"
+                          className="!py-2 !px-3 text-sm bg-white/10 hover:bg-white/20 border-0 flex-shrink-0 cursor-pointer"
                           title="Lihat source code di GitHub"
                         >
                           <GithubIcon className="w-4 h-4 mr-1.5" /> GitHub
                         </Button>
                       )}
 
-                      {/* Demo Langsung Button */}
-                      {(project.links?.demo || project.links?.live) && (
+                      {/* Demo Langsung Button (Live Link) */}
+                      {project.links?.live && (
                         <Button
-                          onClick={() => window.open(project.links!.demo || project.links!.live, '_blank')}
-                          className="!py-2 !px-3 text-sm flex-shrink-0"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(project.links!.live, '_blank');
+                          }}
+                          className="!py-2 !px-3 text-sm flex-shrink-0 cursor-pointer"
                           title="Buka demo aplikasi"
                         >
                           <ExternalLink className="w-4 h-4 mr-1.5" /> Demo
                         </Button>
                       )}
 
-                      {/* Itch.io Button */}
-                      {project.links?.itchio && (
+                      {/* Itch.io Button (Demo Link in Backend) */}
+                      {(project.links?.demo || project.links?.itchio) && (
                         <Button
-                          onClick={() => window.open(project.links!.itchio, '_blank')}
-                          className="!py-2 !px-3 text-sm bg-rose-600 hover:bg-rose-600/50 text-white border border-rose-500/30 flex-shrink-0"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(project.links!.demo || project.links!.itchio, '_blank');
+                          }}
+                          className="!py-2 !px-3 text-sm bg-rose-600 hover:bg-rose-600/50 text-white border border-rose-500/30 flex-shrink-0 cursor-pointer"
                           title="Mainkan di itch.io"
                         >
                           <Gamepad2 className="w-4 h-4 mr-1.5" /> itch.io
                         </Button>
                       )}
-                    </div>
-                  </div>
+                    </motion.div>
+                  </motion.div>
                 </GlassCard>
               </motion.div>
             ))}
           </div>
 
           <motion.div variants={fadeInUp} className="mt-16 text-center">
-            <Button variant="outline" onClick={() => router.push('/projects')}>
+            <Button 
+              variant="primary" 
+              className='cursor-pointer'
+              onClick={() => router.push('/projects')}
+              >
               <Code2 className="w-4 h-4 mr-2" /> Lihat Semua Proyek
             </Button>
           </motion.div>

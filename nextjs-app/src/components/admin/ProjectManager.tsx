@@ -44,6 +44,10 @@ export function ProjectManager() {
   // Delete state
   const [deleteConfirm, setDeleteConfirm] = useState<{ type: 'single' | 'bulk'; item?: Project } | null>(null);
 
+  // Drag and drop state
+  const [draggedItem, setDraggedItem] = useState<string | number | null>(null);
+  const [dragOverItem, setDragOverItem] = useState<string | number | null>(null);
+
   useEffect(() => {
     fetchProjects();
   }, []);
@@ -60,6 +64,47 @@ export function ProjectManager() {
       setErrorMessage('Failed to load projects.');
     } finally {
       setIsFetching(false);
+    }
+  };
+
+  // Drag and Drop handlers
+  const handleDragStart = (id: string | number) => setDraggedItem(id);
+  const handleDragOver = (e: React.DragEvent, id: string | number) => {
+    e.preventDefault();
+    setDragOverItem(id);
+  };
+  const handleDrop = async (e: React.DragEvent, targetId: string | number) => {
+    e.preventDefault();
+    setDragOverItem(null);
+    if (!draggedItem || draggedItem === targetId) return;
+
+    const newItems = [...projects];
+    const draggedIdx = newItems.findIndex(i => i.id === draggedItem);
+    const targetIdx = newItems.findIndex(i => i.id === targetId);
+    
+    if (draggedIdx === -1 || targetIdx === -1) return;
+
+    const [removed] = newItems.splice(draggedIdx, 1);
+    newItems.splice(targetIdx, 0, removed);
+
+    const reordered = newItems.map((item, idx) => ({ ...item, displayOrder: idx }));
+    setProjects(reordered);
+
+    try {
+      const response = await fetch('/api/content/projects', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(reordered.map(i => ({ id: i.id, displayOrder: i.displayOrder }))),
+      });
+
+      if (!response.ok) throw new Error('Failed to save order');
+      
+      setSuccessMessage('Project order updated!');
+      setTimeout(() => setSuccessMessage(null), 2000);
+      await fetch('/api/revalidate', { method: 'POST', credentials: 'include' }).catch(() => {});
+    } catch (error) {
+      setErrorMessage('Failed to save new order.');
+      fetchProjects();
     }
   };
 
@@ -241,7 +286,20 @@ export function ProjectManager() {
           </p>
         ) : (
           filteredProjects.map((project) => (
-            <div key={project.id} className={`flex items-center gap-4 p-4 transition-colors ${selectedIds.has(project.id) ? 'bg-accent-blue-soft/30' : 'hover:bg-surface-doc'}`}>
+            <div 
+              key={project.id} 
+              draggable
+              onDragStart={() => handleDragStart(project.id)}
+              onDragOver={(e) => handleDragOver(e, project.id)}
+              onDrop={(e) => handleDrop(e, project.id)}
+              className={`flex items-center gap-4 p-4 transition-colors cursor-move ${
+                selectedIds.has(project.id) ? 'bg-accent-blue-soft/30' : 'hover:bg-surface-doc'
+              } ${dragOverItem === project.id ? 'bg-accent-blue/10 border-y border-accent-blue/30' : ''} ${
+                draggedItem === project.id ? 'opacity-50' : ''
+              }`}
+            >
+              <div className="text-mute dark:text-mute text-xl select-none">⋮⋮</div>
+
               <input 
                 type="checkbox" 
                 className="w-4 h-4 rounded border-hairline bg-surface-card text-primary focus:ring-accent-blue/50"

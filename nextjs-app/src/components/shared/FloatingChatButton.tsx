@@ -123,7 +123,7 @@ export default function FloatingChatButton() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: hoveredId === option.id ? 1 : 0 }}
                     transition={{ duration: 0.2, ease: 'linear' }}
-                    className="absolute -left-20 top-1/2 -translate-y-1/2 bg-primary text-canvas dark:text-surface-card px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap pointer-events-none shadow-md"
+                    className="absolute -left-20 top-1/2 -translate-y-1/2 bg-[var(--background)] text-[var(--foreground)] px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap pointer-events-none shadow-md"
                   >
                     {option.label}
                   </motion.span>
@@ -137,7 +137,7 @@ export default function FloatingChatButton() {
       {/* Main Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-16 h-16 rounded-full flex items-center justify-center text-white shadow-lg bg-primary hover:bg-primary-pressed transition-all duration-200"
+        className="w-16 h-16 rounded-full flex items-center justify-center text-white shadow-lg bg-primary hover:bg-primary-pressed transition-all duration-200 cursor-pointer"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         animate={isOpen ? { rotate: 45 } : { rotate: 0 }}

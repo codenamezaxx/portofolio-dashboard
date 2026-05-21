@@ -440,6 +440,7 @@ export function TechStackEditor({ initialData }: TechStackEditorProps) {
           <div>
             <TextInput
               label="Technology Name"
+              name="tech-name"
               placeholder="e.g., React, TypeScript, Tailwind CSS"
               value={editingItem?.name || ''}
               onChange={(e) =>
@@ -462,6 +463,7 @@ export function TechStackEditor({ initialData }: TechStackEditorProps) {
           <div>
             <TextInput
               label="Icon URL"
+              name="tech-icon"
               placeholder="https://example.com/icon.svg"
               value={editingItem?.icon || ''}
               onChange={(e) =>

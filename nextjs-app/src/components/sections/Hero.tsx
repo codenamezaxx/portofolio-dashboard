@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { MessageCircle, Download, Heart, GitBranch, Share2, MousePointer2 } from 'lucide-react';
+import Image from 'next/image';
+import Typewriter from 'typewriter-effect';
+import { Download, MousePointer2, ArrowRight } from 'lucide-react';
 import { LinkedinIcon, InstagramIcon, GithubIcon } from '@/components/ui/Icons';
 import { fadeInUp, staggerContainer } from '@/lib/motion';
 import Button from '../ui/Button';
@@ -17,15 +18,16 @@ interface HeroProps {
 /**
  * Hero Component
  * Main landing section with introduction, call-to-action buttons, and profile image
- * Migrated from Vite React portfolio to Next.js with optimizations:
- * - Uses Next.js Image component for automatic optimization
- * - Server-side rendering compatible
- * - Maintains all original styling and animations
- * - TypeScript types properly defined
+ * Features:
+ * - Optimized for both desktop (hover) and mobile (tap toggle)
+ * - Uses Framer Motion for smooth animations
+ * - Responsive layout for all screen sizes
  */
 const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
   const [isDownloading, setIsDownloading] = useState(false);
   const [liveResumeUrl, setLiveResumeUrl] = useState<string | null>(null);
+  const [isHeroActive, setIsHeroActive] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const defaultProfile: Profile = {
     name: 'Zakky Ahmad El-Kholily',
@@ -44,6 +46,11 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
 
   const profileData = profile || defaultProfile;
   const contactData = contactInfo || defaultContactInfo;
+
+  // Dynamically split roles for typewriter effect
+  const rolesArray = profileData.role 
+    ? profileData.role.split(' | ').map(role => role.trim()) 
+    : ['Front-End Developer', 'Network Engineer'];
 
   // Use prop value initially, but we'll fetch a fresh one to avoid ISR cache issues
   const resumeUrl = liveResumeUrl || profileData.resume_url;
@@ -66,12 +73,12 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
     fetchResumeUrl();
   }, []);
 
-  const handleContactClick = () => {
-    const contactSection = document.getElementById('contacts');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+  const handleProjectClick = () => {
+    const projectSection = document.getElementById('projects');
+    if (projectSection) {
+      projectSection.scrollIntoView({ behavior: 'smooth'} )
     }
-  };
+  }
 
   const handleDownloadResume = async () => {
     if (!resumeUrl) {
@@ -81,11 +88,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
 
     setIsDownloading(true);
     try {
-      // Use the stable API endpoint for download to ensure we always get the latest
-      // This also avoids issues with Supabase public URLs if they change
       const downloadUrl = `/api/portfolio/resume?download=true&t=${Date.now()}`;
-
-      // Create a temporary anchor element to trigger download
       const link = document.createElement('a');
       link.href = downloadUrl;
       link.target = '_blank';
@@ -102,11 +105,11 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center pt-28 pb-10 overflow-hidden" style={{ backgroundColor: 'var(--color-background)' }}>
+    <section id="hero" className="relative min-h-screen flex items-center justify-center pt-28 pb-10 overflow-hidden">
 
       {/* Background Decorative Elements for Depth */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/20 dark:bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-orange-400/15 dark:bg-orange-400/8 rounded-full blur-[80px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/5 dark:bg-amber-500/5 rounded-full blur-[200px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
@@ -132,20 +135,42 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
               </span>
             </motion.div>
 
-            <motion.p
+            <motion.div
               variants={fadeInUp}
-              className="text-4xl md:text-6xl lg:text-4xl font-bold tracking-tight mb-4 leading-tight"
+              className="text-4xl md:text-6xl lg:text-4xl font-bold tracking-tight mb-4 leading-tight min-h-[1.2em] flex flex-wrap gap-x-3"
             >
-              Hi, I'm <span className="text-gradient">{profileData.name}</span>
-            </motion.p>
+              <span>Hi, I'm</span>
+              <span className="text-gradient">
+                <Typewriter
+                  onInit={(typewriter) => {
+                    typewriter
+                      .typeString(profileData.name)
+                      .start();
+                  }}
+                  options={{
+                    delay: 75,
+                    cursor: ''
+                  }}
+                />
+              </span>
+            </motion.div>
 
-            <motion.p
+            <motion.div
               variants={fadeInUp}
-              className="text-xl md:text-2xl font-medium font-mono mb-6 leading-snug"
+              className="text-xl md:text-2xl font-medium font-mono mb-6 leading-snug h-[1.5em]"
               style={{ color: 'var(--color-mute)' }}
             >
-              {profileData.role}
-            </motion.p>
+              <Typewriter
+                key={profileData.role} // Key ensures re-run if data changes
+                options={{
+                  strings: rolesArray,
+                  autoStart: true,
+                  loop: true,
+                  delay: 75,
+                  cursor: "_"
+                }}
+              />
+            </motion.div>
 
             {/* Tagline */}
             <motion.p
@@ -163,14 +188,15 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
             {/* Actions */}
             <motion.div variants={fadeInUp} className="flex flex-wrap justify-start items-center gap-4 mb-12 relative z-10">
               <Button
+                variant='primary'
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  handleContactClick();
+                  handleProjectClick();
                 }}
-                className="cursor-pointer"
-              >
-                Ngobrol Yuk! <MessageCircle className="w-4 h-4" />
+                className='cursor-pointer'
+                >
+                  Lihat Proyek <ArrowRight className='w-4 h-4' />
               </Button>
               <Button
                 variant="secondary"
@@ -214,20 +240,39 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
 
             {/* Glass Frame Container */}
             <motion.div
-              className="relative z-10 p-4 backdrop-blur-md rounded-[2rem] shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 w-full max-w-[320px] lg:max-w-md mx-auto lg:ml-auto lg:mr-0"
+              className="relative z-10 p-4 backdrop-blur-md rounded-[2rem] shadow-2xl w-full max-w-[320px] lg:max-w-md mx-auto lg:ml-auto lg:mr-0 cursor-pointer"
               style={{
                 border: '1px solid rgba(184, 134, 11, 0.12)',
               }}
+              initial={{ rotate: 2 }}
+              animate={{ rotate: isHeroActive ? 0 : 2 }}
+              onMouseEnter={() => setIsHeroActive(true)}
+              onMouseLeave={() => setIsHeroActive(false)}
+              onClick={() => setIsHeroActive(!isHeroActive)}
+              transition={{ duration: 0.5 }}
             >
               {/* Inner Image Container */}
               <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-10" />
 
-                {/* Original Image Component to avoid Next.js Image optimizer issues */}
-                <img
+                {/* Shimmer Skeleton Placeholder */}
+                {!isImageLoaded && (
+                  <div className="absolute inset-0 z-20 animate-pulse bg-zinc-800/85">
+                    <div className="w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent shimmer-effect" />
+                  </div>
+                )}
+
+                {/* Image Component with Next.js Image for optimization */}
+                <Image
                   src={profileData.hero_image_url || '/hero.jpg'}
                   alt={profileData.name}
-                  className="w-full h-full object-cover filter grayscale-[20%] contrast-110 hover:grayscale-0 hover:scale-105 transition-all duration-700"
+                  fill
+                  className={`object-cover transition-all duration-700 ${
+                    isHeroActive ? 'scale-105' : 'scale-100'
+                  }`}
+                  onLoadingComplete={() => setIsImageLoaded(true)}
+                  priority
+                  quality={90}
                 />
               </div>
             </motion.div>

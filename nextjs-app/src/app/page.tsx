@@ -17,12 +17,12 @@ import type { Project, Achievement } from '@/types';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Zakky Ahmad El-Kholily | Junior Front-End Web Developer Portofolio',
-  description: 'Portfolio of Zakky Ahmad El-Kholily, a Junior Front-End Web Developer from East Java, Indonesia. Showcasing projects, skills, and achievements.',
-  keywords: ['web developer', 'front-end', 'react', 'typescript', 'portfolio'],
+  title: 'Zakky Ahmad El-Kholily | Junior Front-End Developer Portofolio',
+  description: 'Portfolio of Zakky Ahmad El-Kholily, a Junior Front-End Web Developer & Network Engineer from East Java, Indonesia. Showcasing projects, skills, and achievements.',
+  keywords: ['web developer', 'front-end', 'network engineer', 'it enthusiast', 'public speaker', 'react', 'typescript', 'portfolio'],
   openGraph: {
-    title: 'Zakky Ahmad El-Kholily | Junior Front-End Web Developer Portofolio',
-    description: 'Portfolio of Zakky Ahmad El-Kholily, a Junior Front-End Web Developer from East Java, Indonesia.',
+    title: 'Zakky Ahmad El-Kholily | Junior Front-End Developer Portofolio',
+    description: 'Portfolio of Zakky Ahmad El-Kholily, a Junior Front-End Developer from East Java, Indonesia.',
     type: 'website',
     url: 'https://zakky-portfolio.vercel.app',
     images: [
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Zakky Ahmad El-Kholily | Junior Front-End Web Developer & Public Speaker',
-    description: 'Portfolio of Zakky Ahmad El-Kholily, a Front-End Web Developer and Public Speaker from East Java, Indonesia.',
+    title: 'Zakky Ahmad El-Kholily | Junior Front-End Developer & Network Engineer',
+    description: 'Portfolio of Zakky Ahmad El-Kholily, a Front-End Web Developer and Network Engineer from East Java, Indonesia.',
     images: ['/hero.jpg']
   }
 };
@@ -82,7 +82,7 @@ export default async function Home() {
         <DynamicAchievements items={transformedAchievements} />
         <DynamicContacts contactInfo={portfolioData.contactInfo} />
       </main>
-      <Footer />
+      <Footer profile={portfolioData.profile} contactInfo={portfolioData.contactInfo} />
     </>
   );
 }

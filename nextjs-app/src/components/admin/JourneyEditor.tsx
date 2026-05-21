@@ -231,28 +231,34 @@ export function JourneyEditor() {
         <form onSubmit={handleFormSubmit} className="space-y-4">
           <TextInput 
             label="Year / Period" 
+            name="year"
             placeholder="e.g. 2023 or 2021 - Present" 
             value={editingItem?.year || ''} 
-            onChange={e => setEditingItem(prev => ({ ...prev!, year: e.target.value }))}
+            onChange={e => setEditingItem(prev => prev ? { ...prev, year: e.target.value } : null)}
             error={formErrors.year}
+            disabled={isLoading}
           />
           <TextInput 
             label="Title" 
+            name="title"
             placeholder="e.g. Software Engineer at Google" 
             value={editingItem?.title || ''} 
-            onChange={e => setEditingItem(prev => ({ ...prev!, title: e.target.value }))}
+            onChange={e => setEditingItem(prev => prev ? { ...prev, title: e.target.value } : null)}
             error={formErrors.title}
+            disabled={isLoading}
           />
           <TextArea 
             label="Description" 
+            name="description"
             placeholder="Describe your achievements or responsibilities" 
             value={editingItem?.description || ''} 
-            onChange={e => setEditingItem(prev => ({ ...prev!, description: e.target.value }))}
+            onChange={e => setEditingItem(prev => prev ? { ...prev, description: e.target.value } : null)}
             error={formErrors.description}
             rows={4}
+            disabled={isLoading}
           />
           <div className="flex justify-end gap-3 pt-4">
-            <Button variant="secondary" onClick={() => setIsFormOpen(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={() => setIsFormOpen(false)} disabled={isLoading}>Cancel</Button>
             <Button type="submit" isLoading={isLoading}>Save</Button>
           </div>
         </form>

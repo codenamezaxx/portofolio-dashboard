@@ -6,7 +6,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useFormValidation } from '@/lib/useFormValidation';
 import { projectSchema, type ProjectInput } from '@/lib/validation';
 import { FormField, TextAreaField, SelectField, Button, FormGroup, ImageUpload } from '@/components/ui';
@@ -31,11 +31,12 @@ const defaultValues: ProjectInput = {
 };
 
 const categoryOptions = [
-  { value: 'web', label: 'Web Application' },
-  { value: 'mobile', label: 'Mobile App' },
-  { value: 'desktop', label: 'Desktop Application' },
-  { value: 'library', label: 'Library/Package' },
-  { value: 'other', label: 'Other' },
+  { value: 'Web App', label: 'Web Application' },
+  { value: 'Game Dev', label: 'Game Development' },
+  { value: 'Mobile', label: 'Mobile App' },
+  { value: 'Desktop', label: 'Desktop Application' },
+  { value: 'Library', label: 'Library/Package' },
+  { value: 'Other', label: 'Other' },
 ];
 
 export function ProjectForm({
@@ -64,6 +65,13 @@ export function ProjectForm({
       }
     },
   });
+
+  // Sync form values when initialData changes (important for editing)
+  useEffect(() => {
+    if (initialData) {
+      form.setValues(initialData);
+    }
+  }, [initialData]);
 
   const handleAddTechnology = () => {
     if (techInput.trim()) {
@@ -235,10 +243,10 @@ export function ProjectForm({
         />
 
         <FormField
-          label="Demo Link"
+          label="Itch.io / Demo Link"
           name="demoLink"
           type="url"
-          placeholder="https://demo.example.com"
+          placeholder="https://codenamezaxx.itch.io/..."
           value={form.values.demoLink || ''}
           onChange={form.handleChange}
           onBlur={form.handleBlur}
@@ -246,7 +254,7 @@ export function ProjectForm({
           touched={form.touched.demoLink}
           variant="admin"
           disabled={isLoading || form.isSubmitting}
-          helperText="Optional: Link to project demo"
+          helperText="Optional: Link to Itch.io game page or demo"
         />
       </FormGroup>
 
@@ -254,7 +262,7 @@ export function ProjectForm({
       <div className="flex gap-3 pt-4">
         <Button
           type="submit"
-          disabled={isLoading || form.isSubmitting || !form.isValid}
+          disabled={isLoading || form.isSubmitting }
           className="flex-1"
         >
           {form.isSubmitting ? 'Saving...' : 'Save Project'}

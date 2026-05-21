@@ -14,6 +14,7 @@ import { usePathname } from 'next/navigation';
 import { useLogout } from '@/lib/useLogout';
 import { useTheme } from '@/contexts/ThemeProvider';
 import { Sun, Moon, Terminal, ArrowLeft } from 'lucide-react';
+import Button from '../ui/Button';
 import Swal from 'sweetalert2';
 
 interface NavItem {
@@ -208,7 +209,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
             </div>
             <button
               onClick={toggleTheme}
-              className="flex-shrink-0 p-2 rounded-lg bg-[var(--primary)]/10 hover:bg-[var(--primary)]/20 text-[var(--primary)] transition-all duration-300 w-9 h-9 flex items-center justify-center"
+              className="flex-shrink-0 p-2 rounded-lg bg-[var(--primary)]/10 hover:bg-[var(--primary)]/20 text-[var(--primary)] transition-all duration-300 w-9 h-9 flex items-center justify-center cursor-pointer"
               title="Switch mode"
             >
               {mounted && (theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />)}
@@ -221,13 +222,14 @@ export function Sidebar({ userEmail }: SidebarProps) {
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Kembali
             </Link>
-            <button
+            <Button
+              variant='danger'
               onClick={handleLogout}
               disabled={isLoggingOut}
-              className="w-full px-3 py-2 bg-[var(--surface-soft)] hover:bg-[var(--accent-red-soft)] text-[var(--ink)] hover:text-[var(--accent-red)] border border-[var(--hairline)] rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-body-xs font-medium tracking-wider"
+              className="w-full px-3 py-2 text-body-xs font-medium tracking-wider cursor-pointer"
             >
               {isLoggingOut ? 'Logging out...' : 'Logout'}
-            </button>
+            </Button>
           </div>
         </div>
       </aside>

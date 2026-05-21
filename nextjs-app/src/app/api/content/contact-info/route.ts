@@ -40,6 +40,21 @@ const ContactInfoUpdateSchema = z.object({
   { message: 'At least one contact information field is required' }
 );
 
+// Helper to transform snake_case database object to camelCase frontend object
+const transformContactInfo = (info: any) => {
+  if (!info) return null;
+  return {
+    id: info.id,
+    githubUrl: info.github_url,
+    linkedinUrl: info.linkedin_url,
+    instagramUrl: info.instagram_url,
+    telegramUrl: info.telegram_url,
+    email: info.email,
+    createdAt: info.created_at,
+    updatedAt: info.updated_at,
+  };
+};
+
 export async function GET(request: NextRequest) {
   try {
     // Fetch contact info (public read)
@@ -57,16 +72,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Map snake_case to camelCase
-    const transformedData = (data || []).map(info => ({
-      id: info.id,
-      githubUrl: info.github_url,
-      linkedinUrl: info.linkedin_url,
-      instagramUrl: info.instagram_url,
-      telegramUrl: info.telegram_url,
-      email: info.email,
-      createdAt: info.created_at,
-      updatedAt: info.updated_at,
-    }));
+    const transformedData = (data || []).map(transformContactInfo);
 
     return NextResponse.json({
       data: transformedData,
@@ -167,7 +173,7 @@ export async function PUT(request: NextRequest) {
     }
 
     return NextResponse.json({
-      data,
+      data: transformContactInfo(data),
       message: 'Contact information updated successfully',
     });
   } catch (error) {

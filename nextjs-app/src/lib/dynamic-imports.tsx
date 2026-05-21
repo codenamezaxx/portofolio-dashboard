@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Dynamic Imports Utility - Server Components
  * 
@@ -7,6 +9,12 @@
 
 import dynamic from 'next/dynamic';
 import { ReactNode } from 'react';
+import { 
+  JourneySkeleton, 
+  TechStackSkeleton, 
+  ProjectSkeleton, 
+  AchievementSkeleton 
+} from '@/components/ui/SectionSkeletons';
 
 /**
  * Loading component for dynamic imports
@@ -49,15 +57,15 @@ export const DynamicHero = dynamic(
 export const DynamicJourney = dynamic(
   () => import('@/components/sections/Journey'),
   {
-    loading: () => <DynamicLoadingFallback />,
-    ssr: true,
+    loading: () => <JourneySkeleton />,
+    ssr: false, // Disable SSR to prevent carousel layout calculation issues on server
   }
 );
 
 export const DynamicTechStack = dynamic(
   () => import('@/components/sections/TechStack'),
   {
-    loading: () => <DynamicLoadingFallback />,
+    loading: () => <TechStackSkeleton />,
     ssr: true,
   }
 );
@@ -65,7 +73,7 @@ export const DynamicTechStack = dynamic(
 export const DynamicProjects = dynamic(
   () => import('@/components/sections/Projects'),
   {
-    loading: () => <DynamicLoadingFallback />,
+    loading: () => <ProjectSkeleton />,
     ssr: true,
   }
 );
@@ -73,8 +81,8 @@ export const DynamicProjects = dynamic(
 export const DynamicAchievements = dynamic(
   () => import('@/components/sections/Achievements'),
   {
-    loading: () => <DynamicLoadingFallback />,
-    ssr: true,
+    loading: () => <AchievementSkeleton />,
+    ssr: false, // Disable SSR to prevent 'DOMMatrix is not defined' error from pdfjs
   }
 );
 
