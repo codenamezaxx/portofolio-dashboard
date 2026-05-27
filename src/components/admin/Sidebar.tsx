@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLogout } from '@/lib/useLogout';
 import { useTheme } from '@/contexts/ThemeProvider';
-import { Sun, Moon, Terminal, ArrowLeft } from 'lucide-react';
+import { Sun, Moon, Terminal, ArrowLeft, LogOut } from 'lucide-react';
 import Button from '../ui/Button';
 import Swal from 'sweetalert2';
 
@@ -217,7 +217,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
           <div className="flex flex-col gap-2">
             <Link
               href="/"
-              className="flex items-center justify-center gap-2 w-full px-3 py-2 bg-[var(--surface-soft)] hover:bg-[var(--surface-card)] text-[var(--ink)] border border-[var(--hairline)] rounded-md transition-colors text-body-xs font-medium tracking-wider"
+              className="flex items-center justify-center gap-2 w-full px-3 py-2 bg-[var(--surface-soft)] hover:bg-[var(--surface-card)] text-[var(--ink)] border border-[var(--hairline)] rounded-md transition-colors text-md font-medium tracking-wider"
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Kembali
             </Link>
@@ -225,9 +225,10 @@ export function Sidebar({ userEmail }: SidebarProps) {
               variant='danger'
               onClick={handleLogout}
               disabled={isLoggingOut}
-              className="w-full px-3 py-2 text-body-xs font-medium tracking-wider cursor-pointer"
+              className="w-full px-3 py-2 text-md font-medium tracking-wider cursor-pointer"
             >
               {isLoggingOut ? 'Logging out...' : 'Logout'}
+              <LogOut className="w-3.5 h-3.5" />
             </Button>
           </div>
         </div>

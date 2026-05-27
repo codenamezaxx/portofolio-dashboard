@@ -214,8 +214,20 @@ export function JourneyEditor() {
                 <p className="text-sm text-[var(--muted)] line-clamp-2">{item.description}</p>
               </div>
               <div className="flex gap-2">
-                <Button variant="ghost" size="sm" onClick={() => handleEdit(item)}>Edit</Button>
-                <Button variant="ghost" size="sm" className="text-red-400" onClick={() => setDeleteConfirm(item)}>Delete</Button>
+                <Button 
+                  variant="secondary"
+                  className="text-sm" 
+                  onClick={() => handleEdit(item)}
+                  >
+                    Edit
+                </Button>
+                <Button 
+                  variant="secondary" 
+                  className="text-sm text-red-400 hover:text-red-500"  
+                  onClick={() => setDeleteConfirm(item)}
+                  >
+                    Delete
+                  </Button>
               </div>
             </div>
           ))

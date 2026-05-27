@@ -118,7 +118,7 @@ export function CVPreviewSection() {
             }
           >
             <PDFPreview
-              url={`/api/portfolio/resume?download=true&v=${previewVersion}`}
+              url={`/api/portfolio/resume?view=true&v=${previewVersion}`}
               filename="CV - Zakky Ahmad El-Kholily.pdf"
               maxHeight="500px"
               showDownload={true}

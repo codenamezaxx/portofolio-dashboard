@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Typewriter from 'typewriter-effect';
-import { Download, MousePointer2, ArrowRight } from 'lucide-react';
+import { FileSearchCorner, MousePointer2, ArrowRight } from 'lucide-react';
 import { LinkedinIcon, InstagramIcon, GithubIcon } from '@/components/ui/Icons';
 import { fadeInUp, staggerContainer } from '@/lib/motion';
 import Button from '../ui/Button';
@@ -24,7 +24,7 @@ interface HeroProps {
  * - Responsive layout for all screen sizes
  */
 const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
-  const [isDownloading, setIsDownloading] = useState(false);
+  const [isActionLoading, setIsActionLoading] = useState(false);
   const [liveResumeUrl, setLiveResumeUrl] = useState<string | null>(null);
   const [isHeroActive, setIsHeroActive] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -80,27 +80,21 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
     }
   }
 
-  const handleDownloadResume = async () => {
+  const handleViewResume = async () => {
     if (!resumeUrl) {
       alert('Resume tidak tersedia. Silakan hubungi admin.');
       return;
     }
 
-    setIsDownloading(true);
+    setIsActionLoading(true);
     try {
-      const downloadUrl = `/api/portfolio/resume?download=true&t=${Date.now()}`;
-      const link = document.createElement('a');
-      link.href = downloadUrl;
-      link.target = '_blank';
-      link.download = `CV - Zakky Ahmad El-Kholily.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      const viewUrl = `/api/portfolio/resume?view=true&t=${Date.now()}`;
+      window.open(viewUrl, '_blank');
     } catch (error) {
-      console.error('Failed to download resume:', error);
-      alert('Gagal mengunduh resume. Silakan coba lagi.');
+      console.error('Failed to view resume:', error);
+      alert('Gagal menampilkan resume. Silakan coba lagi.');
     } finally {
-      setIsDownloading(false);
+      setIsActionLoading(false);
     }
   };
 
@@ -203,12 +197,12 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  handleDownloadResume();
+                  handleViewResume();
                 }}
-                disabled={isDownloading || !resumeUrl}
+                disabled={isActionLoading || !resumeUrl}
                 className="cursor-pointer"
               >
-                {isDownloading ? 'Mengunduh...' : 'Unduh CV'} <Download className="w-4 h-4" />
+                {isActionLoading ? 'Memuat...' : 'Lihat CV'} <FileSearchCorner className="w-4 h-4" />
               </Button>
             </motion.div>
 

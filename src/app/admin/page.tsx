@@ -30,13 +30,13 @@ export default function AdminDashboard() {
   return (
     <main className="flex flex-1 flex-col min-h-screen bg-canvas dark:bg-canvas">
       {/* Main Content */}
-      <div className="flex-1 w-full py-8">
+      <div className="flex-1 w-full py-6 lg:py-8">
         {/* Welcome Section */}
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-ink dark:text-ink mb-4">
+        <div className="mb-10 lg:mb-12">
+          <h1 className="text-4xl md:text-5xl font-black text-ink dark:text-ink mb-4">
             Welcome back, <span className="text-primary dark:text-primary">{user?.email?.split('@')[0]}</span>!
           </h1>
-          <p className="text-lg text-body dark:text-body">
+          <p className="text-lg text-body dark:text-body font-medium">
             Manage your portfolio content from this dashboard
           </p>
         </div>
@@ -73,7 +73,7 @@ export default function AdminDashboard() {
         {/* Quick Actions */}
         <div className="mb-12">
           <h2 className="text-2xl font-extrabold text-ink dark:text-ink mb-6">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { href: '/admin/hero', icon: '🎯', label: 'Edit Hero', desc: 'Update profile info' },
               { href: '/admin/projects', icon: '💼', label: 'Projects', desc: 'Manage portfolio' },
@@ -83,13 +83,13 @@ export default function AdminDashboard() {
               <Link
                 key={action.href}
                 href={action.href}
-                className="p-4 bg-surface-card dark:bg-surface-card border border-hairline dark:border-hairline rounded-md hover:border-stone dark:hover:border-stone hover:bg-surface-soft dark:hover:bg-surface-soft transition-all duration-200"
+                className="p-6 bg-surface-card dark:bg-surface-card border border-hairline dark:border-hairline rounded-xl shadow-sm hover:shadow-md hover:border-primary/20 dark:hover:border-primary/20 transition-all duration-200"
               >
-                <div className="flex flex-col items-start gap-3">
-                  <span className="text-3xl grayscale opacity-50">{action.icon}</span>
+                <div className="flex flex-col items-start gap-4">
+                  <span className="text-4xl opacity-40">{action.icon}</span>
                   <div>
-                    <p className="font-bold text-ink dark:text-ink">{action.label}</p>
-                    <p className="text-xs text-mute dark:text-mute mt-1">{action.desc}</p>
+                    <p className="font-bold text-ink dark:text-ink text-base">{action.label}</p>
+                    <p className="text-xs text-mute dark:text-mute mt-2">{action.desc}</p>
                   </div>
                 </div>
               </Link>
@@ -98,7 +98,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Recent Activity Section */}
-        <div className="p-8 bg-surface-card dark:bg-surface-card border border-hairline dark:border-hairline rounded-md">
+        <div className="p-6 lg:p-8 bg-surface-card dark:bg-surface-card border border-hairline dark:border-hairline rounded-xl shadow-sm">
           <h2 className="text-2xl font-extrabold text-ink dark:text-ink mb-6">Recent Activity</h2>
           <div className="text-center py-12">
             <p className="text-lg text-mute dark:text-mute font-medium">No recent activity yet</p>

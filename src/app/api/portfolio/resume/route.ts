@@ -37,8 +37,9 @@ export async function GET(request: NextRequest) {
 
     // Check if we should download (by proxying/streaming the file) or return JSON
     const shouldDownload = request.nextUrl.searchParams.get('download') === 'true';
+    const shouldView = request.nextUrl.searchParams.get('view') === 'true';
 
-    if (shouldDownload) {
+    if (shouldDownload || shouldView) {
       try {
         const fileResponse = await fetch(data.resume_url, { cache: 'no-store' });
         if (!fileResponse.ok) {
@@ -51,7 +52,7 @@ export async function GET(request: NextRequest) {
           status: 200,
           headers: {
             'Content-Type': 'application/pdf',
-            'Content-Disposition': 'attachment; filename="CV - Zakky Ahmad El-Kholily.pdf"',
+            'Content-Disposition': shouldView ? 'inline' : 'attachment; filename="CV - Zakky Ahmad El-Kholily.pdf"',
             'Cache-Control': 'no-store, max-age=0',
           },
         });

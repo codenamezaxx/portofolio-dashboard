@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { TextInput } from '@/components/ui/TextInput';
 import { Modal } from '@/components/ui/Modal';
 import { PDFPreview } from '@/components/ui/PDFPreview';
-import { Search, X, ChevronLeft, ChevronRight, Download } from 'lucide-react';
+import { Search, X, ChevronLeft, ChevronRight, Download, ExternalLink } from 'lucide-react';
 
 interface CertificatesGalleryProps {
   achievements: Achievement[];
@@ -271,15 +271,16 @@ export default function CertificatesGallery({ achievements }: CertificatesGaller
                   onClick={() => handleViewPDF(certificate)}
                   variant="secondary"
                   size="sm"
-                  className="flex-1"
+                  className="cursor-pointer flex-1"
                   aria-label={`View ${certificate.title} PDF`}
                 >
                   Lihat PDF
                 </Button>
                 <Button
                   onClick={() => handleDownloadPDF(certificate)}
-                  variant="ghost"
+                  variant="outline"
                   size="sm"
+                  className="cursor-pointer"
                   aria-label={`Download ${certificate.title} PDF`}
                 >
                   <Download className="w-4 h-4" />
@@ -292,12 +293,12 @@ export default function CertificatesGallery({ achievements }: CertificatesGaller
                     className="flex-1"
                   >
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
-                      className="w-full"
+                      className="cursor-pointer w-full"
                       aria-label={`View ${certificate.title} external link`}
                     >
-                      Tautan Eksternal
+                      <ExternalLink className="w-4 h-4" />
                     </Button>
                   </a>
                 )}

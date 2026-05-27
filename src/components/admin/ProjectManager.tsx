@@ -332,8 +332,20 @@ export function ProjectManager() {
               </div>
 
               <div className="w-32 flex justify-end gap-1">
-                <Button variant="ghost" size="sm" onClick={() => handleEdit(project)}>Edit</Button>
-                <Button variant="ghost" size="sm" className="text-accent-red hover:text-accent-red" onClick={() => setDeleteConfirm({ type: 'single', item: project })}>Delete</Button>
+                <Button 
+                  variant="secondary"
+                  className="text-sm" 
+                  onClick={() => handleEdit(project)}
+                  >
+                    Edit
+                </Button>
+                <Button 
+                  variant="secondary" 
+                  className="text-sm text-red-400 hover:text-red-500" 
+                  onClick={() => setDeleteConfirm({ type: 'single', item: project })}
+                  >
+                    Delete
+                  </Button>
               </div>
             </div>
           ))
