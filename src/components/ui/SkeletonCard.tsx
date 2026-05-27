@@ -55,9 +55,11 @@ export const SkeletonCard: React.FC<SkeletonCardProps> = ({
   return (
     <div
       className={`
-        bg-white dark:bg-gray-800
+        bg-primary/5 dark:bg-white/5
+        backdrop-blur-md
         rounded-lg overflow-hidden
-        border border-gray-200 dark:border-gray-700
+        border border-primary/10 dark:border-white/10
+        animate-pulse
         ${className}
       `}
       role="status"
@@ -68,17 +70,18 @@ export const SkeletonCard: React.FC<SkeletonCardProps> = ({
         <div
           className={`
             ${imageHeight}
-            bg-gray-200 dark:bg-gray-700
+            bg-primary/10 dark:bg-white/10
             animate-pulse
           `}
         />
       )}
 
       <div className="p-4 space-y-3">
-        {/* Title skeleton */}\n        <div
+        {/* Title skeleton */}
+        <div
           className="
             h-5
-            bg-gray-200 dark:bg-gray-700
+            bg-primary/10 dark:bg-white/10
             rounded
             animate-pulse
             w-3/4
@@ -91,7 +94,7 @@ export const SkeletonCard: React.FC<SkeletonCardProps> = ({
             key={index}
             className="
               h-4
-              bg-gray-200 dark:bg-gray-700
+              bg-primary/10 dark:bg-white/10
               rounded
               animate-pulse
               w-full
@@ -107,7 +110,7 @@ export const SkeletonCard: React.FC<SkeletonCardProps> = ({
           <div
             className="
               h-8
-              bg-gray-200 dark:bg-gray-700
+              bg-primary/10 dark:bg-white/10
               rounded
               animate-pulse
               flex-1
@@ -116,7 +119,7 @@ export const SkeletonCard: React.FC<SkeletonCardProps> = ({
           <div
             className="
               h-8
-              bg-gray-200 dark:bg-gray-700
+              bg-primary/10 dark:bg-white/10
               rounded
               animate-pulse
               flex-1
@@ -126,6 +129,5 @@ export const SkeletonCard: React.FC<SkeletonCardProps> = ({
       </div>
     </div>
   );
-};
-
+  };
 SkeletonCard.displayName = 'SkeletonCard';

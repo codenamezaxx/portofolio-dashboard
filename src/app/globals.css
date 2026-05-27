@@ -347,26 +347,6 @@ h6 {
   font-family: var(--font-mono);
 }
 
-h1 {
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.5;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: 800;
-  line-height: 1.33;
-  letter-spacing: -0.6px;
-}
-
-h3 {
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 1.4;
-  letter-spacing: -0.5px;
-}
-
 /* Eyebrow Labels */
 .eyebrow {
   font-size: 14px;

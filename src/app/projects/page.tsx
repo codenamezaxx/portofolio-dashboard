@@ -53,9 +53,9 @@ export default async function ProjectsPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Title */}
           <div className="mb-12">
-            <h1 className="text-4xl font-bold text-[var(--ink)] mb-4">Proyek Saya</h1>
+            <h1 className="text-2xl font-bold text-[var(--ink)] mb-4">Proyek Saya</h1>
             <p className="text-lg text-[var(--body)]">
-              Kumpulan proyek web development dan game development yang pernah saya kerjakan.
+              Kumpulan proyek dan yang pernah saya kerjakan.
             </p>
           </div>
 
@@ -64,7 +64,7 @@ export default async function ProjectsPage() {
             const categoryProjects = projects.filter(p => p.category === category);
             return (
               <div key={category} className="mb-12">
-                <h2 className="text-2xl font-semibold text-[var(--ink)] mb-6 pb-2 border-b border-[var(--hairline)]">
+                <h2 className="text-xl font-semibold text-[var(--ink)] mb-6 pb-2 border-b border-[var(--hairline)]">
                   {category}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -133,9 +133,9 @@ export default async function ProjectsPage() {
                                 href={project.github_link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[var(--mute)] hover:text-[var(--ink)] transition-colors"
+                                className="text-[var(--mute)] hover:text-[var(--ink)] transition-colors cursor-pointer"
                               >
-                                <Button variant="ghost" size="sm">
+                                <Button variant="secondary" size="sm">
                                   GitHub
                                 </Button>
                               </a>
@@ -145,16 +145,16 @@ export default async function ProjectsPage() {
                                 href={project.live_link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[var(--mute)] hover:text-[var(--ink)] transition-colors"
+                                className="text-[var(--mute)] hover:text-[var(--ink)] transition-colors cursor-pointer"
                               >
-                                <Button variant="ghost" size="sm">
+                                <Button variant="secondary" size="sm">
                                   <ExternalLink className="w-4 h-4" />
                                 </Button>
                               </a>
                             )}
                             <div className="flex-1" />
                             <Link href={`/projects/${project.id}`}>
-                              <Button variant="ghost" size="sm" className="text-[var(--primary)]">
+                              <Button variant="secondary" size="sm" className="text-[var(--primary)] cursor-pointer">
                                 Detail →
                               </Button>
                             </Link>

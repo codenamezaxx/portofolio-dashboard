@@ -16,20 +16,20 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, description, subti
     <div className={`mb-16 ${center ? 'text-center' : ''}`}>
       <motion.span 
         variants={fadeInUp}
-        className="block text-primary font-semibold tracking-wider text-body-xs mb-2 uppercase"
+        className="block text-primary font-semibold tracking-wider text-body-sm md:text-2xl mb-2 uppercase"
       >
         {subtitle}
       </motion.span>
       <motion.h2 
         variants={fadeInUp}
-        className="text-display-lg md:text-display-xl font-bold text-ink dark:text-ink"
+        className="text-heading md:text-xl font-bold text-ink dark:text-ink"
       >
         {title}
       </motion.h2>
       {description && (
         <motion.p 
           variants={fadeInUp}
-          className="text-body-md text-body dark:text-body mt-4"
+          className="text-body-sm md:text-body-md text-body dark:text-body mt-4"
         >
           {description}
         </motion.p>

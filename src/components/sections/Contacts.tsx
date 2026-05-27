@@ -123,7 +123,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
 
           {/* Intro Text */}
           <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-body-md text-body dark:text-body leading-relaxed">
+            <p className="text-sm md:text-display-lg text-body dark:text-body leading-relaxed">
               Tertarik untuk berkolaborasi atau memiliki pertanyaan? Jangan ragu untuk menghubungi saya melalui salah satu platform di bawah ini.
             </p>
           </motion.div>
@@ -196,7 +196,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
           {/* Footer Note */}
           <motion.p
             variants={fadeInUp}
-            className="text-center text-body-sm text-body dark:text-body mt-12"
+            className="text-center text-sm md:text-display-lg dark:text-body mt-12"
           >
             Terima kasih atas kunjungan Anda! Saya menantikan kesempatan untuk terhubung dan bekerja sama dengan Anda.
           </motion.p>

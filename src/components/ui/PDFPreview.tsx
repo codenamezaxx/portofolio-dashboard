@@ -26,7 +26,7 @@ export interface PDFPreviewProps {
 export function PDFPreview({
   url,
   filename = 'document.pdf',
-  className = '',
+  className = 'bg-[var(--surface-card)]',
   maxHeight = '600px',
   showDownload = true,
   showPageInfo = true,

@@ -3,7 +3,6 @@ import { IBM_Plex_Sans, Source_Code_Pro } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/contexts/ThemeProvider';
 import { RealtimeProvider } from '@/components/providers/RealtimeProvider';
-import FloatingChatButton from '@/components/shared/FloatingChatButton';
 import BackgroundGrid from '@/components/shared/BackgroundGrid';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
@@ -101,7 +100,6 @@ export default function RootLayout({
           <RealtimeProvider enableNotifications={true}>
             <BackgroundGrid />
             {children}
-            <FloatingChatButton/>
           </RealtimeProvider>
         </ThemeProvider>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />

@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import FloatingChatButton from '@/components/shared/FloatingChatButton';
 import {
   DynamicHero,
   DynamicJourney,
@@ -71,8 +72,41 @@ export default async function Home() {
     link: a.external_link
   }));
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Zakky Ahmad El Kholily',
+    alternateName: 'codenamezaxx',
+    url: 'https://codenamezaxx.my.id',
+    jobTitle: 'Junior Front-End Developer',
+    alumniOf: {
+      '@type': 'EducationalOrganization',
+      name: 'SMK MUDISA',
+    },
+    knowledgableAbout: [
+      'Front-End Web Development',
+      'JavaScript',
+      'React',
+      'Next.js',
+      'Tailwind CSS',
+      'TypeScript',
+      'Computer Network and Telecommunications',
+    ],
+    sameAs: [
+      'https://github.com/codenamezaxx',
+      'https://www.linkedin.com/in/zakky-ahmad-el-kholily-57615b350',
+      'https://www.linkedin.com/in/codenamezaxx',
+      'https://id.linkedin.com/in/codenamezaxx',
+      'https://www.instagram.com/codenamezaxx',
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <main className="flex flex-1 flex-col">
         <DynamicHero profile={portfolioData.profile} contactInfo={portfolioData.contactInfo} />
@@ -82,6 +116,7 @@ export default async function Home() {
         <DynamicAchievements items={transformedAchievements} />
         <DynamicContacts contactInfo={portfolioData.contactInfo} />
       </main>
+      <FloatingChatButton/>
       <Footer profile={portfolioData.profile} contactInfo={portfolioData.contactInfo} />
     </>
   );

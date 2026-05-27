@@ -83,8 +83,8 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
         <div className="border-b border-[var(--hairline)] bg-[var(--background)]/80 backdrop-blur-sm sticky top-0 z-40">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <Link
-              href="/#projects"
-              className="inline-flex items-center gap-2 text-[var(--mute)] hover:text-[var(--primary)] transition-colors text-sm font-medium"
+              href="/projects"
+              className="inline-flex items-center gap-2 text-[var(--mute)] hover:text-[var(--primary)] transition-colors text-sm font-medium cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               Kembali ke Proyek
@@ -111,16 +111,16 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
           {/* Title and Category */}
           <div className="mb-8">
             <div className="flex items-start gap-3 mb-4 flex-wrap">
-              <h1 className="text-3xl md:text-4xl font-bold text-[var(--ink)]">{project.title}</h1>
+              <h1 className="text-2xl md:text-lg font-bold text-[var(--ink)]">{project.title}</h1>
               <Badge variant="accent">{project.category}</Badge>
             </div>
-            <p className="text-lg text-[var(--body)] leading-relaxed">{project.description}</p>
+            <p className="text-sm text-[var(--body)] leading-relaxed">{project.description}</p>
           </div>
 
           {/* Technologies */}
           {project.technologies && project.technologies.length > 0 && (
             <div className="mb-8 p-6 bg-[var(--surface-card)] border border-[var(--hairline)] rounded-xl">
-              <h2 className="text-lg font-semibold text-[var(--ink)] mb-4">Teknologi yang Digunakan</h2>
+              <h2 className="text-sm font-semibold text-[var(--ink)] mb-4">Teknologi yang Digunakan</h2>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech) => (
                   <Badge key={tech} variant="outline">
@@ -133,7 +133,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
           {/* Links */}
           <div className="mb-12">
-            <h2 className="text-lg font-semibold text-[var(--ink)] mb-4">Tautan</h2>
+            <h2 className="text-sm font-semibold text-[var(--ink)] mb-4">Tautan</h2>
             <div className="flex flex-wrap gap-3">
               {project.github_link && (
                 <a

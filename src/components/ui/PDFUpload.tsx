@@ -12,7 +12,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-import { uploadPDF } from '@/lib/storage';
+import { uploadPDFApi } from '@/lib/upload-utils';
 import { Button } from './Button';
 import { FileText, Upload, X, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
@@ -30,7 +30,6 @@ export interface PDFUploadProps {
 export function PDFUpload({
   onUpload,
   onError,
-  bucket = 'portfolio',
   folder = 'documents',
   maxSize = 10 * 1024 * 1024, // 10MB default
   disabled = false,
@@ -71,8 +70,7 @@ export function PDFUpload({
       setProgress(0);
 
       try {
-        const result = await uploadPDF(selectedFile, {
-          bucket,
+        const result = await uploadPDFApi(selectedFile, {
           folder,
           onProgress: (p) => setProgress(p),
         });

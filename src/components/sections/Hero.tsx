@@ -139,8 +139,8 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
               variants={fadeInUp}
               className="text-4xl md:text-6xl lg:text-4xl font-bold tracking-tight mb-4 leading-tight min-h-[1.2em] flex flex-wrap gap-x-3"
             >
-              <span>Hi, I'm</span>
-              <span className="text-gradient">
+              <h1>Hi, I'm</h1>
+              <h1 className="text-gradient">
                 <Typewriter
                   onInit={(typewriter) => {
                     typewriter
@@ -152,7 +152,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
                     cursor: ''
                   }}
                 />
-              </span>
+              </h1>
             </motion.div>
 
             <motion.div

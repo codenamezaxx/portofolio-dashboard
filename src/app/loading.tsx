@@ -1,3 +1,5 @@
+import { SkeletonCard } from '@/components/ui/SkeletonCard';
+
 /**
  * Loading UI for Next.js App Router
  * Displayed while page data is being fetched (SSG/ISR)
@@ -59,12 +61,12 @@ export default function Loading() {
 
         {/* Projects skeleton */}
         <section className="py-20">
-          <div className="container mx-auto px-6 animate-pulse">
-            <div className="h-10 w-44 bg-primary/10 rounded-lg mx-auto mb-4" />
-            <div className="h-5 w-24 bg-primary/10 rounded-lg mx-auto mb-12" />
+          <div className="container mx-auto px-6">
+            <div className="h-10 w-44 bg-primary/10 rounded-lg mx-auto mb-4 animate-pulse" />
+            <div className="h-5 w-24 bg-primary/10 rounded-lg mx-auto mb-12 animate-pulse" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="h-96 bg-primary/5 rounded-2xl border border-primary/10" />
+                <SkeletonCard key={i} showImage={true} lines={3} imageHeight="h-64" />
               ))}
             </div>
           </div>
