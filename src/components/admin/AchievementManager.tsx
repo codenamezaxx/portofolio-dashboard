@@ -336,7 +336,7 @@ export function AchievementManager() {
               onDragStart={() => handleDragStart(item.id)}
               onDragOver={(e) => handleDragOver(e, item.id)}
               onDrop={(e) => handleDrop(e, item.id)}
-              className={`group flex flex-col md:flex-row items-center gap-6 bg-surface-card dark:bg-white/5 border border-hairline dark:border-white/10 rounded-2xl p-4 md:p-5 transition-all duration-300 cursor-move hover:shadow-xl hover:border-primary/30
+              className={`group flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 bg-surface-card dark:bg-white/5 border border-hairline dark:border-white/10 rounded-2xl p-4 md:p-5 transition-all duration-300 cursor-move hover:shadow-xl hover:border-primary/30
                 ${selectedIds.has(item.id) ? 'ring-2 ring-primary/40 bg-primary/5' : ''} 
                 ${dragOverItem === item.id ? 'translate-y-2' : ''} 
                 ${draggedItem === item.id ? 'opacity-50 grayscale' : ''}`}
@@ -352,29 +352,43 @@ export function AchievementManager() {
                 </button>
               </div>
               
-              {/* Year Badge */}
-              <div className="w-16 h-16 rounded-xl bg-primary/10 border border-primary/20 flex flex-col items-center justify-center shrink-0">
-                <span className="text-primary font-black text-sm">{item.year}</span>
-                <span className="text-[8px] font-black text-primary/50 uppercase tracking-widest">Year</span>
+              <div className="flex items-center gap-4 w-full md:w-auto">
+                {/* Year Badge */}
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-primary/10 border border-primary/20 flex flex-col items-center justify-center shrink-0">
+                  <span className="text-primary font-black text-sm">{item.year}</span>
+                  <span className="text-[8px] font-black text-primary/50 uppercase tracking-widest">Year</span>
+                </div>
+
+                {/* Mobile Select & Drag (Visible only on mobile) */}
+                <div className="flex md:hidden items-center gap-3 ml-auto">
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); handleSelectOne(item.id); }}
+                    className={`transition-colors ${selectedIds.has(item.id) ? 'text-primary' : 'text-stone hover:text-mute'}`}
+                  >
+                    {selectedIds.has(item.id) ? <CheckSquare className="w-6 h-6" /> : <Square className="w-6 h-6" />}
+                  </button>
+                  <GripVertical className="text-mute w-5 h-5" />
+                </div>
               </div>
 
               {/* Achievement Content */}
-              <div className="flex-1 min-w-0">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex-1 min-w-0 w-full">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                   <div className="min-w-0">
-                    <h3 className="text-lg font-black text-ink dark:text-ink group-hover:text-primary transition-colors truncate">
+                    <h3 className="text-base md:text-lg font-black text-ink dark:text-ink group-hover:text-primary transition-colors truncate">
                       {item.title}
                     </h3>
-                    <p className="text-xs text-mute font-medium mt-1 flex items-center gap-1.5 uppercase tracking-wider">
-                      Issuer: <span className="text-body font-bold">{item.issuer}</span>
+                    <p className="text-[10px] md:text-xs text-mute font-medium mt-1 flex items-center gap-1.5 uppercase tracking-wider overflow-hidden">
+                      <span className="shrink-0">Issuer:</span> 
+                      <span className="text-body font-bold truncate">{item.issuer}</span>
                     </p>
                   </div>
                   
                   {/* Category & Actions */}
-                  <div className="flex items-center justify-between md:justify-end gap-6 min-w-0 md:min-w-[280px]">
+                  <div className="flex items-center justify-between lg:justify-end gap-4 md:gap-6 min-w-0 lg:min-w-[280px]">
                     {/* Category Badge - Fixed Overflow */}
                     <div className="shrink-0">
-                      <span className="px-3 py-1 bg-accent-blue-soft text-accent-blue text-[10px] font-black uppercase tracking-widest rounded-full border border-accent-blue/10">
+                      <span className="px-3 py-1 bg-accent-blue-soft text-accent-blue text-[9px] md:text-[10px] font-black uppercase tracking-widest rounded-full border border-accent-blue/10 block truncate max-w-[120px] md:max-w-none">
                         {item.category}
                       </span>
                     </div>
