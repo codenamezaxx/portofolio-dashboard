@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import useSWR from 'swr';
 import { staggerContainer, fadeInUp } from '@/lib/motion';
 import GlassCard from '../ui/GlassCard';
 import SectionHeader from '../shared/SectionHeader';
@@ -12,35 +13,19 @@ interface TechStackProps {
   initialData?: TechStackItem[];
 }
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 const TechStack: React.FC<TechStackProps> = ({ initialData = [] }) => {
-  const [techStack, setTechStack] = useState<TechStackItem[]>(initialData);
-  const [isLoading, setIsLoading] = useState(!initialData || initialData.length === 0);
+  const { data, error } = useSWR('/api/content/tech-stack', fetcher, {
+    fallbackData: initialData && initialData.length > 0 ? { data: initialData } : undefined,
+    revalidateOnFocus: false,
+  });
 
-  useEffect(() => {
-    // Only fetch if no initial data provided
-    if (!initialData || initialData.length === 0) {
-      const fetchTechStack = async () => {
-        try {
-          const response = await fetch('/api/content/tech-stack');
-          if (response.ok) {
-            const data = await response.json();
-            setTechStack(data.data || []);
-          }
-        } catch (error) {
-          console.error('Error fetching tech stack:', error);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-
-      fetchTechStack();
-    } else {
-      setIsLoading(false);
-    }
-  }, [initialData]);
+  const techStack = data?.data || [];
+  const isLoading = !data && !error;
 
   // Use initial data if provided, otherwise use fetched data
-  const displayData = initialData && initialData.length > 0 ? initialData : techStack;
+  const displayData = techStack;
 
   return (
     <section id="tech" className="py-20 relative bg-canvas dark:bg-canvas">
@@ -83,15 +68,23 @@ const TechStack: React.FC<TechStackProps> = ({ initialData = [] }) => {
                     className="px-6 py-4 flex items-center gap-3 bg-surface-card dark:bg-surface-card border-hairline dark:border-hairline hover:border-primary/30 dark:hover:border-primary/30 transition-colors min-w-[160px] justify-center group"
                   >
                     <div className="w-8 h-8 relative flex items-center justify-center flex-shrink-0">
-                      <Image 
-                        src={skill.icon_url} 
-                        alt={skill.name} 
-                        width={32}
-                        height={32}
-                        className={`w-full h-full object-contain transition-transform duration-300 group-hover:scale-110 ${skill.name === 'Next.js' ? 'dark:invert' : ''}`}
-                        loading="lazy"
-                        quality={80}
-                      />
+                      {skill.icon ? (
+                        <Image 
+                          src={skill.icon} 
+                          alt={skill.name} 
+                          width={32}
+                          height={32}
+                          className={`w-full h-full object-contain transition-transform duration-300 group-hover:scale-110 ${skill.name === 'Next.js' ? 'dark:invert' : ''}`}
+                          loading="lazy"
+                          quality={80}
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                          <span className="text-primary text-xs font-bold">
+                            {skill.name.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <span className="font-body-strong text-body-md text-body dark:text-body group-hover:text-primary transition-colors whitespace-nowrap">
                       {skill.name}

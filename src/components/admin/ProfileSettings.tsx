@@ -202,20 +202,6 @@ export function ProfileSettings({ user }: ProfileSettingsProps) {
       color: 'text-primary',
       bg: 'bg-primary/10',
     },
-    {
-      label: 'Security Settings',
-      icon: ShieldCheck,
-      href: '/admin/security',
-      color: 'text-accent-green',
-      bg: 'bg-accent-green/10',
-    },
-    {
-      label: 'Active Sessions',
-      icon: History,
-      href: '/admin/sessions',
-      color: 'text-accent-purple',
-      bg: 'bg-accent-purple/10',
-    },
   ];
 
   return (
@@ -238,15 +224,6 @@ export function ProfileSettings({ user }: ProfileSettingsProps) {
                 <ChevronRight className="w-5 h-5 text-mute opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" />
               </div>
             );
-
-            if (item.href) {
-              return (
-                <Link key={item.label} href={item.href} className="block p-2 rounded-xl hover:bg-surface-soft dark:hover:bg-surface-soft transition-colors">
-                  {Content}
-                </Link>
-              );
-            }
-
             return (
               <button key={item.label} onClick={item.onClick} className="w-full text-left p-2 rounded-xl hover:bg-surface-soft dark:hover:bg-surface-soft transition-colors cursor-pointer">
                 {Content}

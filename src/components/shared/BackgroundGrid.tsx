@@ -25,7 +25,7 @@ const BackgroundGrid: React.FC = () => {
         - Uses the theme's accent color (Gold)
       */}
       <div 
-        className="absolute inset-0 opacity-[0.1] dark:opacity-[0.06]" 
+        className="absolute inset-0 opacity-[0.05] dark:opacity-[0.04]" 
         style={{
           backgroundImage: `
             linear-gradient(var(--color-accent) 1px, transparent 1px), 
@@ -42,13 +42,13 @@ const BackgroundGrid: React.FC = () => {
         These create a subtle, moving background effect with theme-aware colors
       */}
       <div 
-        className="absolute top-[-10%] -left-[10%] w-[60%] h-[60%] rounded-full blur-[120px] opacity-[0.07] dark:opacity-[0.05] animate-blob"
+        className="absolute top-[-10%] -left-[10%] w-[60%] h-[60%] rounded-full blur-[120px] opacity-[0.05] dark:opacity-[0.03] animate-blob"
         style={{ 
           backgroundColor: 'var(--color-accent)'
         }}
       />
       <div 
-        className="absolute bottom-[-10%] -right-[10%] w-[60%] h-[60%] rounded-full blur-[120px] opacity-[0.07] dark:opacity-[0.05] animate-blob animation-delay-2000"
+        className="absolute bottom-[-10%] -right-[10%] w-[60%] h-[60%] rounded-full blur-[120px] opacity-[0.05] dark:opacity-[0.04] animate-blob animation-delay-2000"
         style={{ 
           backgroundColor: 'var(--color-accent)'
         }}
@@ -62,7 +62,7 @@ const BackgroundGrid: React.FC = () => {
 
       {/* Secondary Radial Glow for Depth */}
       <div 
-        className="absolute inset-0 opacity-[0.05] dark:opacity-[0.05]"
+        className="absolute inset-0 opacity-[0.04] dark:opacity-[0.03]"
         style={{
           background: 'radial-gradient(circle at 50% 50%, var(--color-accent) 0%, transparent 70%)'
         }}

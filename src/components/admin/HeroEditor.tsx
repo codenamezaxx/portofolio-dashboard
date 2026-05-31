@@ -225,7 +225,6 @@ export function HeroEditor({ initialData }: HeroEditorProps) {
     <div className="space-y-8 pb-20">
       {/* Breadcrumb Navigation & Last Updated */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <Breadcrumb />
         {lastUpdated && (
           <div className="flex items-center gap-2 px-3 py-1.5 bg-surface-soft dark:bg-surface-soft border border-hairline rounded-full">
             <Clock className="w-3.5 h-3.5 text-mute" />

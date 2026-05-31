@@ -21,6 +21,9 @@ export interface PDFPreviewProps {
   maxHeight?: string;
   showDownload?: boolean;
   showPageInfo?: boolean;
+  showControls?: boolean;
+  onPageChange?: (page: number, total: number) => void;
+  currentPage?: number;
 }
 
 export function PDFPreview({
@@ -30,8 +33,17 @@ export function PDFPreview({
   maxHeight = '600px',
   showDownload = true,
   showPageInfo = true,
+  showControls = true,
+  onPageChange,
+  currentPage: externalPage,
 }: PDFPreviewProps) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [internalPage, setInternalPage] = useState(1);
+  const currentPage = externalPage ?? internalPage;
+
+  const setCurrentPage = (page: number | ((prev: number) => number)) => {
+    if (externalPage !== undefined) return;
+    setInternalPage(page);
+  };
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -76,6 +88,7 @@ export function PDFPreview({
         const pdf = await pdfjs.getDocument({ data: arrayBuffer }).promise;
         setPdfDoc(pdf);
         setTotalPages(pdf.numPages);
+        if (onPageChange) onPageChange(currentPage, pdf.numPages);
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to load PDF';
         setError(errorMessage);
@@ -137,6 +150,10 @@ export function PDFPreview({
       renderCurrentPage();
     });
 
+    if (onPageChange && totalPages > 0) {
+      onPageChange(currentPage, totalPages);
+    }
+
     return () => {
       isCurrent = false;
       cancelAnimationFrame(animationFrame);
@@ -144,7 +161,7 @@ export function PDFPreview({
         renderTaskRef.current.cancel();
       }
     };
-  }, [pdfDoc, currentPage, loading]);
+  }, [pdfDoc, currentPage, loading, onPageChange, totalPages]);
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
@@ -182,7 +199,7 @@ export function PDFPreview({
       {/* PDF Canvas */}
       <div
         className="border border-[var(--hairline)] rounded-lg overflow-auto bg-[var(--surface-soft)] flex justify-center"
-        style={{ maxHeight }}
+        style={{ maxHeight: maxHeight }}
       >
         {loading ? (
           <div className="flex items-center justify-center w-full h-96">
@@ -201,7 +218,8 @@ export function PDFPreview({
       </div>
 
       {/* Controls */}
-      <div className="flex items-center justify-between gap-4 flex-wrap">
+      {showControls && (
+        <div className="flex items-center justify-between gap-4 flex-wrap">
         {/* Page Navigation */}
         <div className="flex items-center gap-2">
           <button
@@ -228,8 +246,6 @@ export function PDFPreview({
             Next →
           </button>
         </div>
-
-        {/* Download Button */}
         {showDownload && (
           <button
             onClick={handleDownload}
@@ -255,11 +271,14 @@ export function PDFPreview({
           </button>
         )}
       </div>
+      )}
 
       {/* File Info */}
-      <div className="text-xs text-[var(--mute)]">
-        <p className="truncate">File: {filename}</p>
-      </div>
+      {showControls && (
+        <div className="text-xs text-[var(--mute)]">
+          <p className="truncate">File: {filename}</p>
+        </div>
+      )}
     </div>
   );
 }

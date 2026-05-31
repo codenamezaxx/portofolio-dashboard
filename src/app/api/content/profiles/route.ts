@@ -14,6 +14,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/db';
 import { verifySession } from '@/lib/auth';
 import { z } from 'zod';
+import { sanitizeHtml, sanitizeUrl } from '@/lib/sanitization';
 
 // Validation schema for profile updates
 const ProfileUpdateSchema = z.object({
@@ -88,7 +89,18 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const { name, role, tagline, heroImageUrl } = validationResult.data;
+    const { 
+      name: rawName, 
+      role: rawRole, 
+      tagline: rawTagline, 
+      heroImageUrl: rawHeroImageUrl 
+    } = validationResult.data;
+
+    // Sanitize inputs
+    const name = sanitizeHtml(rawName);
+    const role = sanitizeHtml(rawRole);
+    const tagline = sanitizeHtml(rawTagline);
+    const heroImageUrl = rawHeroImageUrl ? sanitizeUrl(rawHeroImageUrl) : rawHeroImageUrl;
 
     // Get the existing profile record to find its ID
     const { data: existingProfiles, error: fetchError } = await supabase

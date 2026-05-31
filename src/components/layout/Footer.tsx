@@ -148,9 +148,6 @@ const Footer: React.FC<FooterProps> = ({ profile, contactInfo }) => {
               Dibangun Dengan
             </h3>
             <div className="space-y-4">
-              <p className="text-xs text-[var(--mute)] leading-relaxed">
-                Website ini dikembangkan menggunakan teknologi modern untuk performa optimal.
-              </p>
               <div className="flex flex-wrap gap-2">
                 {[
                   { icon: Zap, label: 'Next.js' },

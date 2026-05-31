@@ -11,6 +11,7 @@ import { useSession } from '@/lib/useSession';
 import { useStatistics } from '@/lib/useStatistics';
 import { StatisticsWidget } from '@/components/admin/StatisticsWidget';
 import { SyncStatus } from '@/components/admin/SyncStatus';
+import { RecentActivity } from '@/components/admin/RecentActivity';
 import { 
   Briefcase, 
   Trophy, 
@@ -19,7 +20,9 @@ import {
   Mail, 
   ChevronRight,
   Plus,
-  FileText
+  FileText,
+  Users,
+  Database
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -97,6 +100,8 @@ export default function AdminDashboard() {
                 { href: '/admin/projects', icon: Briefcase, label: 'Manage Projects', desc: 'Add or edit portfolio', color: 'border-accent-blue/20' },
                 { href: '/admin/achievements', icon: Trophy, label: 'Achievements', desc: 'Manage certificates', color: 'border-accent-green/20' },
                 { href: '/admin/contact', icon: Mail, label: 'Contact Info', desc: 'Manage social links', color: 'border-accent-purple/20' },
+                { href: '/admin/users', icon: Users, label: 'Users', desc: 'Manage admin accounts', color: 'border-accent-blue/20' },
+                { href: '/admin/backups', icon: Database, label: 'Backups', desc: 'Database snapshots', color: 'border-accent-green/20' },
               ].map((action) => (
                 <Link
                   key={action.href}
@@ -127,15 +132,7 @@ export default function AdminDashboard() {
         {/* Recent Activity Section */}
         <div className="p-6 lg:p-8 bg-surface-card dark:bg-surface-card border border-hairline dark:border-hairline rounded-xl shadow-sm">
           <h2 className="text-2xl font-extrabold text-ink dark:text-ink mb-6">Recent Activity</h2>
-          <div className="text-center py-12 border-2 border-dashed border-hairline dark:border-hairline rounded-xl bg-surface-soft/30">
-            <div className="w-16 h-16 bg-surface-soft dark:bg-surface-soft rounded-full flex items-center justify-center mx-auto mb-4">
-              <FileText className="w-8 h-8 text-mute" />
-            </div>
-            <p className="text-lg text-mute dark:text-mute font-medium">No recent activity yet</p>
-            <p className="text-sm text-stone dark:text-stone mt-2">
-              Your activity log will appear here as you make changes to your portfolio
-            </p>
-          </div>
+          <RecentActivity />
         </div>
       </div>
     </main>

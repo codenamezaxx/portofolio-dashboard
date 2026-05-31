@@ -4,6 +4,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import { queryCache, cacheKeys } from './query-cache';
 
 // Use service role key on server-side to bypass RLS, fall back to anon key
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -31,10 +32,10 @@ export interface Profile {
 export interface TechStackItem {
   id?: string;
   name: string;
-  icon_url: string;
-  display_order: number;
-  created_at?: string;
-  updated_at?: string;
+  icon: string;
+  displayOrder: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface JourneyItem {
@@ -92,6 +93,13 @@ export interface ContactInfo {
  * Fetch profile data
  */
 export async function getProfile(): Promise<Profile | null> {
+  const cacheKey = cacheKeys.profile();
+  const cached = queryCache.get<Profile | null>(cacheKey);
+  
+  if (cached !== null) {
+    return cached;
+  }
+
   try {
     const { data, error } = await supabase
       .from('profiles')
@@ -104,7 +112,9 @@ export async function getProfile(): Promise<Profile | null> {
       return null;
     }
 
-    return (data && data.length > 0 ? data[0] : null) as Profile | null;
+    const result = (data && data.length > 0 ? data[0] : null) as Profile | null;
+    queryCache.set(cacheKey, result);
+    return result;
   } catch (error) {
     console.error('Error fetching profile:', error);
     return null;
@@ -115,6 +125,13 @@ export async function getProfile(): Promise<Profile | null> {
  * Fetch all tech stack items
  */
 export async function getTechStack(): Promise<TechStackItem[]> {
+  const cacheKey = cacheKeys.techStack();
+  const cached = queryCache.get<TechStackItem[]>(cacheKey);
+  
+  if (cached !== null) {
+    return cached;
+  }
+
   try {
     const { data, error } = await supabase
       .from('tech_stack')
@@ -126,7 +143,9 @@ export async function getTechStack(): Promise<TechStackItem[]> {
       return [];
     }
 
-    return (data as TechStackItem[]) || [];
+    const result = (data as TechStackItem[]) || [];
+    queryCache.set(cacheKey, result);
+    return result;
   } catch (error) {
     console.error('Error fetching tech stack:', error);
     return [];
@@ -137,6 +156,13 @@ export async function getTechStack(): Promise<TechStackItem[]> {
  * Fetch all journey items
  */
 export async function getJourneyItems(): Promise<JourneyItem[]> {
+  const cacheKey = cacheKeys.journeyItems();
+  const cached = queryCache.get<JourneyItem[]>(cacheKey);
+  
+  if (cached !== null) {
+    return cached;
+  }
+
   try {
     const { data, error } = await supabase
       .from('journey_items')
@@ -148,7 +174,9 @@ export async function getJourneyItems(): Promise<JourneyItem[]> {
       return [];
     }
 
-    return (data as JourneyItem[]) || [];
+    const result = (data as JourneyItem[]) || [];
+    queryCache.set(cacheKey, result);
+    return result;
   } catch (error) {
     console.error('Error fetching journey items:', error);
     return [];
@@ -159,18 +187,27 @@ export async function getJourneyItems(): Promise<JourneyItem[]> {
  * Fetch all projects
  */
 export async function getProjects(): Promise<Project[]> {
+  const cacheKey = cacheKeys.projects();
+  const cached = queryCache.get<Project[]>(cacheKey);
+  
+  if (cached !== null) {
+    return cached;
+  }
+
   try {
     const { data, error } = await supabase
       .from('projects')
       .select('*')
-      .order('display_order', { ascending: true });
+      .order('display_order', { ascending: true});
 
     if (error) {
       console.error('Error fetching projects:', error);
       return [];
     }
 
-    return (data as Project[]) || [];
+    const result = (data as Project[]) || [];
+    queryCache.set(cacheKey, result);
+    return result;
   } catch (error) {
     console.error('Error fetching projects:', error);
     return [];
@@ -181,6 +218,13 @@ export async function getProjects(): Promise<Project[]> {
  * Fetch a single project by ID
  */
 export async function getProjectById(id: string): Promise<Project | null> {
+  const cacheKey = cacheKeys.projectById(id);
+  const cached = queryCache.get<Project | null>(cacheKey);
+  
+  if (cached !== null) {
+    return cached;
+  }
+
   try {
     const { data, error } = await supabase
       .from('projects')
@@ -193,7 +237,9 @@ export async function getProjectById(id: string): Promise<Project | null> {
       return null;
     }
 
-    return data as Project;
+    const result = data as Project;
+    queryCache.set(cacheKey, result);
+    return result;
   } catch (error) {
     console.error('Error fetching project:', error);
     return null;
@@ -204,6 +250,13 @@ export async function getProjectById(id: string): Promise<Project | null> {
  * Fetch projects by category
  */
 export async function getProjectsByCategory(category: string): Promise<Project[]> {
+  const cacheKey = cacheKeys.projectsByCategory(category);
+  const cached = queryCache.get<Project[]>(cacheKey);
+  
+  if (cached !== null) {
+    return cached;
+  }
+
   try {
     const { data, error } = await supabase
       .from('projects')
@@ -216,7 +269,9 @@ export async function getProjectsByCategory(category: string): Promise<Project[]
       return [];
     }
 
-    return (data as Project[]) || [];
+    const result = (data as Project[]) || [];
+    queryCache.set(cacheKey, result);
+    return result;
   } catch (error) {
     console.error('Error fetching projects by category:', error);
     return [];
@@ -227,6 +282,13 @@ export async function getProjectsByCategory(category: string): Promise<Project[]
  * Fetch all achievements
  */
 export async function getAchievements(): Promise<Achievement[]> {
+  const cacheKey = cacheKeys.achievements();
+  const cached = queryCache.get<Achievement[]>(cacheKey);
+  
+  if (cached !== null) {
+    return cached;
+  }
+
   try {
     const { data, error } = await supabase
       .from('achievements')
@@ -238,7 +300,9 @@ export async function getAchievements(): Promise<Achievement[]> {
       return [];
     }
 
-    return (data as Achievement[]) || [];
+    const result = (data as Achievement[]) || [];
+    queryCache.set(cacheKey, result);
+    return result;
   } catch (error) {
     console.error('Error fetching achievements:', error);
     return [];
@@ -249,6 +313,13 @@ export async function getAchievements(): Promise<Achievement[]> {
  * Fetch achievements by category
  */
 export async function getAchievementsByCategory(category: string): Promise<Achievement[]> {
+  const cacheKey = cacheKeys.achievementsByCategory(category);
+  const cached = queryCache.get<Achievement[]>(cacheKey);
+  
+  if (cached !== null) {
+    return cached;
+  }
+
   try {
     const { data, error } = await supabase
       .from('achievements')
@@ -261,7 +332,9 @@ export async function getAchievementsByCategory(category: string): Promise<Achie
       return [];
     }
 
-    return (data as Achievement[]) || [];
+    const result = (data as Achievement[]) || [];
+    queryCache.set(cacheKey, result);
+    return result;
   } catch (error) {
     console.error('Error fetching achievements by category:', error);
     return [];
@@ -272,6 +345,13 @@ export async function getAchievementsByCategory(category: string): Promise<Achie
  * Fetch contact information
  */
 export async function getContactInfo(): Promise<ContactInfo | null> {
+  const cacheKey = cacheKeys.contactInfo();
+  const cached = queryCache.get<ContactInfo | null>(cacheKey);
+  
+  if (cached !== null) {
+    return cached;
+  }
+
   try {
     const { data, error } = await supabase
       .from('contact_info')
@@ -284,7 +364,9 @@ export async function getContactInfo(): Promise<ContactInfo | null> {
       return null;
     }
 
-    return (data && data.length > 0 ? data[0] : null) as ContactInfo | null;
+    const result = (data && data.length > 0 ? data[0] : null) as ContactInfo | null;
+    queryCache.set(cacheKey, result);
+    return result;
   } catch (error) {
     console.error('Error fetching contact info:', error);
     return null;
@@ -293,8 +375,23 @@ export async function getContactInfo(): Promise<ContactInfo | null> {
 
 /**
  * Get all portfolio data at once
+ * Uses caching for individual queries via the underlying fetch functions
  */
-export async function getAllPortfolioData() {
+export async function getAllPortfolioData(): Promise<{
+  profile: Profile | null;
+  techStack: TechStackItem[];
+  journey: JourneyItem[];
+  projects: Project[];
+  achievements: Achievement[];
+  contactInfo: ContactInfo | null;
+}> {
+  const cacheKey = cacheKeys.allPortfolioData();
+  const cached = queryCache.get<Awaited<ReturnType<typeof getAllPortfolioData>>>(cacheKey);
+  
+  if (cached !== null) {
+    return cached;
+  }
+
   try {
     const [profile, techStack, journey, projects, achievements, contactInfo] = await Promise.all([
       getProfile(),
@@ -305,7 +402,7 @@ export async function getAllPortfolioData() {
       getContactInfo()
     ]);
 
-    return {
+    const result = {
       profile,
       techStack,
       journey,
@@ -313,6 +410,9 @@ export async function getAllPortfolioData() {
       achievements,
       contactInfo
     };
+    
+    queryCache.set(cacheKey, result);
+    return result;
   } catch (error) {
     console.error('Error fetching all portfolio data:', error);
     return {

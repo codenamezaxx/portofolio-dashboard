@@ -207,8 +207,6 @@ export function TechStackEditor({ initialData }: TechStackEditorProps) {
 
   return (
     <div className="space-y-8 pb-20">
-      <Breadcrumb />
-
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="flex items-center gap-4">
           <div className="p-3 bg-primary/10 rounded-2xl">
@@ -241,7 +239,7 @@ export function TechStackEditor({ initialData }: TechStackEditorProps) {
               onDragStart={() => handleDragStart(item.id || '')}
               onDragOver={(e) => handleDragOver(e, item.id || '')}
               onDrop={(e) => handleDrop(e, item.id || '')}
-              className={`group relative bg-surface-card dark:bg-white/5 border border-hairline dark:border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center gap-4 transition-all duration-300 cursor-move hover:shadow-xl hover:border-primary/30 hover:-translate-y-1
+              className={`group relative bg-[var(--surface-card)] border border-hairline dark:border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center gap-4 transition-all duration-300 cursor-move hover:shadow-xl hover:border-primary/30 hover:-translate-y-1
                 ${dragOverItem === item.id ? 'ring-2 ring-primary border-transparent' : ''} 
                 ${draggedItem === item.id ? 'opacity-50 scale-95' : ''}`}
             >
@@ -267,7 +265,7 @@ export function TechStackEditor({ initialData }: TechStackEditorProps) {
               </div>
 
               {/* Icon Container */}
-              <div className="w-16 h-16 flex items-center justify-center bg-surface-soft dark:bg-surface-dark rounded-xl border border-hairline transition-transform duration-500 group-hover:scale-110">
+              <div className="w-16 h-16 flex items-center justify-center bg-[var(--surface-soft)] rounded-xl border border-hairline transition-transform duration-500 group-hover:scale-110">
                 {item.icon ? (
                   <Image
                     src={item.icon}

@@ -5,6 +5,9 @@
 
 import { createClient, RealtimeChannel } from '@supabase/supabase-js';
 
+// Check if realtime is enabled (can be disabled in development)
+const REALTIME_ENABLED = process.env.NEXT_PUBLIC_ENABLE_REALTIME !== 'false';
+
 // Initialize Supabase client for real-time operations
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
@@ -37,6 +40,11 @@ export function subscribeToTableChanges(
   table: ContentTableType,
   callback: ContentChangeCallback
 ): () => void {
+  // Skip if realtime is disabled
+  if (!REALTIME_ENABLED) {
+    return () => {}; // Return no-op unsubscribe function
+  }
+
   const subscriptionKey = `${table}`;
 
   // Add callback to the set

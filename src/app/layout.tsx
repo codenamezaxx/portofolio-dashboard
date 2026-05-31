@@ -5,6 +5,8 @@ import { ThemeProvider } from '@/contexts/ThemeProvider';
 import { RealtimeProvider } from '@/components/providers/RealtimeProvider';
 import BackgroundGrid from '@/components/shared/BackgroundGrid';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const ibmPlexSans = IBM_Plex_Sans({
   variable: '--font-ibm-plex',
@@ -103,6 +105,8 @@ export default function RootLayout({
           </RealtimeProvider>
         </ThemeProvider>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

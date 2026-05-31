@@ -102,8 +102,8 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
     <section id="hero" className="relative min-h-screen flex items-center justify-center pt-28 pb-10 overflow-hidden">
 
       {/* Background Decorative Elements for Depth */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/5 dark:bg-amber-500/5 rounded-full blur-[200px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/5 dark:bg-amber-500/5 rounded-full blur-[200px] opacity-[0.05] dark:opacity-[0.04] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full blur-[120px] opacity-[0.04] dark:opacity-[0.03] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
@@ -230,7 +230,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
             className="order-1 lg:order-2 relative flex w-auto justify-center lg:justify-end mb-8 lg:mb-0"
           >
             {/* Glowing Backdrop */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-amber-500/15 rounded-full blur-[80px] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[var(--color-accent)]/10 opacity-[0.07] dark:opacity-[0.1] rounded-full blur-[80px] pointer-events-none" />
 
             {/* Glass Frame Container */}
             <motion.div
