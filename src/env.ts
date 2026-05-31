@@ -18,7 +18,7 @@ const serverSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
 
   // Supabase (server-side service role key — keep secret)
-  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
+  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
 
   // JWT secret for session tokens
   JWT_SECRET: z.string().min(32),
@@ -33,8 +33,8 @@ const serverSchema = z.object({
 // ============================================================
 const clientSchema = z.object({
   // Supabase public config
-  NEXT_PUBLIC_SUPABASE_URL: z.string().url().optional(),
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1).optional(),
+  NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
 
   // Site URL
   NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
