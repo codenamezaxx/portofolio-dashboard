@@ -193,7 +193,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
                   Lihat Proyek <ArrowRight className='w-4 h-4' />
               </Button>
               <Button
-                variant="secondary"
+                variant="outline"
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();

@@ -57,7 +57,7 @@ export default function RootLayout({
     name: 'Zakky Ahmad El-Kholily',
     url: 'https://codenamezaxx.my.id',
     jobTitle: 'Junior Front-End Developer',
-    alumniOf: 'SMK Negeri 1 Gending',
+    alumniOf: 'SMK Muhammadiyah 1 Surabaya',
     gender: 'Male',
     knowsAbout: ['Front-End Development', 'Network Engineering', 'React', 'Next.js', 'TypeScript'],
     sameAs: [
@@ -85,8 +85,7 @@ export default function RootLayout({
               (function() {
                 try {
                   var stored = localStorage.getItem('portfolio-theme');
-                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  var theme = stored || (prefersDark ? 'dark' : 'light');
+                  var theme = stored || 'light';
                   document.documentElement.setAttribute('data-theme', theme);
                   if (theme === 'dark') {
                     document.documentElement.classList.add('dark');

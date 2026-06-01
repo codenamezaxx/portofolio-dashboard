@@ -22,6 +22,7 @@ export interface PDFPreviewProps {
   showDownload?: boolean;
   showPageInfo?: boolean;
   showControls?: boolean;
+  showFileInfo?: boolean;
   onPageChange?: (page: number, total: number) => void;
   currentPage?: number;
 }
@@ -34,6 +35,7 @@ export function PDFPreview({
   showDownload = true,
   showPageInfo = true,
   showControls = true,
+  showFileInfo = true,
   onPageChange,
   currentPage: externalPage,
 }: PDFPreviewProps) {
@@ -274,7 +276,7 @@ export function PDFPreview({
       )}
 
       {/* File Info */}
-      {showControls && (
+      {showFileInfo && (
         <div className="text-xs text-[var(--mute)]">
           <p className="truncate">File: {filename}</p>
         </div>

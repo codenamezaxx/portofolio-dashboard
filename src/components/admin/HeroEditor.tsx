@@ -337,7 +337,7 @@ export function HeroEditor({ initialData }: HeroEditorProps) {
                   <>Saving Changes...</>
                 ) : (
                   <>
-                    <Save className="w-4 h-4 mr-2" /> Save Hero Section
+                    <Save className="w-4 h-4 mr-2" /> Save
                   </>
                 )}
               </Button>

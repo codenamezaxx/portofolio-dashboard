@@ -3,10 +3,6 @@
 /* Override Tailwind v4 default media query dark mode to use class strategy */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ============================================================
-   PostHog-Inspired Design System
-   ============================================================ */
-
 @layer base {
 
   *,
@@ -361,7 +357,7 @@ h6 {
    Component Utilities
    ============================================================ */
 
-/* PostHog Cards */
+/* Cards */
 .card-posthog {
   background-color: var(--surface-card);
   border: 1px solid var(--hairline);
@@ -370,7 +366,7 @@ h6 {
   transition: background-color 250ms ease-in-out, border-color 250ms ease-in-out;
 }
 
-/* PostHog Buttons */
+/* Buttons */
 .btn-primary {
   background-color: var(--primary);
   color: var(--on-primary);
@@ -447,8 +443,8 @@ h6 {
   background-color: rgba(229, 231, 224, 0.5);
 }
 
-/* PostHog Inputs */
-.input-posthog {
+/* Inputs */
+.input {
   background-color: var(--surface-card);
   color: var(--foreground);
   border: 1px solid var(--hairline);
@@ -461,11 +457,11 @@ h6 {
   transition: background-color 250ms ease-in-out, color 250ms ease-in-out, border-color 250ms ease-in-out;
 }
 
-.input-posthog::placeholder {
+.input::placeholder {
   color: var(--mute);
 }
 
-.input-posthog:focus {
+.input:focus {
   outline: none;
   border-color: var(--accent-blue);
   box-shadow: 0 0 0 2px rgba(44, 132, 224, 0.2);
@@ -508,6 +504,14 @@ h6 {
 .mask-fade-right {
   mask-image: linear-gradient(to right, black 85%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+
+.radial-gradient-mask {
+  background: radial-gradient(circle at 50% 50%, rgba(184, 134, 11, 0.05) 0%, transparent 70%);
+}
+
+.dark .radial-gradient-mask {
+  background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
 }
 
 /* ============================================================

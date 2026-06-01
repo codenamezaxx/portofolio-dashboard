@@ -3,7 +3,7 @@
  * Implements secure password hashing with bcrypt and JWT-based session tokens.
  */
 
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { env } from '@/env';
 

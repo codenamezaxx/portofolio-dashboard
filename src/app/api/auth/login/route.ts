@@ -18,6 +18,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { loginSchema } from '@/lib/validation';
 import { verifyPassword, generateSessionToken, getSessionExpirationSeconds, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getLoginBackoff } from '@/lib/rate-limit';
 import { findAdminUserByEmail, updateAdminUserLastLogin, createAuditLog } from '@/lib/db';
 import type { AdminUser, ApiError } from '@/types';
 
@@ -103,11 +104,23 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     const { email, password } = validationResult.data;
 
-    // Check rate limiting
-    if (isRateLimited(email)) {
+    // Check rate limiting with exponential backoff logic
+    const record = loginAttempts.get(email);
+    if (record && isRateLimited(email)) {
+      const backoffMs = getLoginBackoff(record.attempts);
+      const remainingTime = Math.ceil((record.resetTime - Date.now()) / 1000);
+      
       return NextResponse.json(
-        { error: 'Too many login attempts. Please try again later.' } as ApiError,
-        { status: 429 }
+        { 
+          error: `Too many login attempts. Please try again in ${remainingTime} seconds.`,
+          retryAfter: remainingTime
+        } as ApiError,
+        { 
+          status: 429,
+          headers: {
+            'Retry-After': remainingTime.toString()
+          }
+        }
       );
     }
 

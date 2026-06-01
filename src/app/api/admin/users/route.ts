@@ -22,7 +22,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/db';
 import { verifySession } from '@/lib/auth';
 import { z } from 'zod';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { logAudit } from '@/lib/audit';
 import { sanitizeHtml } from '@/lib/sanitization';
 

@@ -8,7 +8,7 @@
 'use client';
 
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { RefreshCw, FileText, ExternalLink, Download, CloudCheck, AlertCircle, Loader2 } from 'lucide-react';
+import { RefreshCw, FileText, CloudCheck, AlertCircle, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import GlassCard from '@/components/ui/GlassCard';
 
@@ -132,7 +132,7 @@ export function CVPreviewSection() {
           </div>
         ) : (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-700">
-            <div className="relative group rounded-xl overflow-hidden bg-surface-card shadow-inner">
+            <div className="relative group rounded-xl overflow-hidden bg-surface-card shadow-inner p-4">
               <Suspense
                 fallback={
                   <div className="flex flex-col items-center justify-center h-[500px] bg-surface-doc dark:bg-surface-doc/10">
@@ -144,42 +144,22 @@ export function CVPreviewSection() {
                 <PDFPreview
                   url={`/api/portfolio/resume?view=true&v=${previewVersion}`}
                   filename="CV - Zakky Ahmad El-Kholily.pdf"
-                  maxHeight="500px"
-                  showDownload={false}
+                  maxHeight="600px"
+                  showDownload={true}
                   showPageInfo={true}
+                  showFileInfo={true}
                   className="w-full"
                 />
               </Suspense>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-surface-card border border-hairline shadow-sm">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-green/10 text-accent-green">
-                  <CloudCheck size={20} />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-ink">Synced & Secure</p>
-                  <p className="text-[10px] text-mute uppercase tracking-wider">Cloud Storage Active</p>
-                </div>
+            <div className="flex items-center gap-3 px-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent-green/10 text-accent-green">
+                <CloudCheck size={16} />
               </div>
-              
-              <div className="flex items-center gap-2">
-                <a 
-                  href={resumeUrl || '#'} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-md transition-all duration-200 bg-transparent text-body hover:bg-surface-soft/50 active:bg-surface-soft/70 dark:text-body dark:hover:bg-surface-soft/20 dark:active:bg-surface-soft/30 h-9 px-4 text-xs"
-                >
-                  <ExternalLink size={14} />
-                  View Raw
-                </a>
-                <a 
-                  href={`/api/portfolio/resume?download=true&v=${previewVersion}`}
-                  className="inline-flex items-center justify-center gap-2 rounded-md transition-all duration-200 bg-transparent text-primary border border-primary/20 hover:bg-primary/5 active:bg-primary/10 h-9 px-4 text-xs font-medium"
-                >
-                  <Download size={14} />
-                  Download PDF
-                </a>
+              <div>
+                <p className="text-[10px] font-bold text-ink leading-none">Synced & Secure</p>
+                <p className="text-[8px] text-mute uppercase tracking-wider mt-0.5">Cloud Storage Active</p>
               </div>
             </div>
           </div>
