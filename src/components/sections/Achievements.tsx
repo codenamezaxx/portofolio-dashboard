@@ -108,7 +108,7 @@ const Achievements: React.FC<AchievementsProps> = ({ items = defaultAchievements
                 <motion.div 
                   key={item.id} 
                   variants={fadeInUp}
-                  className="flex-shrink-0 w-[300px] md:w-[350px]"
+                  className="flex-shrink-0 w-[300px] md:w-[350px] rounded-2xl dark:shadow-primary/10 shadow-xl backdrop-blur-md"
                 >
                   <PDFPreviewCard 
                     title={item.title}

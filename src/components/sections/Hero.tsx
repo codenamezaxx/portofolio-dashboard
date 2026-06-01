@@ -188,7 +188,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
                   e.stopPropagation();
                   handleProjectClick();
                 }}
-                className='cursor-pointer'
+                className='py-6 px-7 text-md md:text-lg dark:shadow-primary/20 shadow-lg cursor-pointer'
                 >
                   Lihat Proyek <ArrowRight className='w-4 h-4' />
               </Button>
@@ -200,7 +200,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
                   handleViewResume();
                 }}
                 disabled={isActionLoading || !resumeUrl}
-                className="cursor-pointer"
+                className="py-6 px-7 text-md md:text-lg dark:shadow-primary/10 shadow-lg cursor-pointer"
               >
                 {isActionLoading ? 'Memuat...' : 'Lihat CV'} <FileSearchCorner className="w-4 h-4" />
               </Button>
@@ -234,7 +234,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
 
             {/* Glass Frame Container */}
             <motion.div
-              className="relative z-10 p-3 backdrop-blur-xl rounded-[2.5rem] shadow-soft-light dark:shadow-soft-dark w-full max-w-[320px] lg:max-w-md mx-auto lg:ml-auto lg:mr-0 cursor-pointer overflow-hidden group"
+              className="relative z-10 p-3 backdrop-blur-xl rounded-[2.5rem] shadow-soft-light dark:shadow-primary/10 shadow-2xl backdrop-blur-md w-full max-w-[320px] lg:max-w-md mx-auto lg:ml-auto lg:mr-0 cursor-pointer overflow-hidden group"
               style={{
                 border: '1px solid rgba(184, 134, 11, 0.08)',
               }}

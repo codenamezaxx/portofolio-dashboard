@@ -75,7 +75,7 @@ const Journey: React.FC<JourneyProps> = ({ items = null }) => {
                   variants={fadeInUp} 
                   className="flex-shrink-0 w-[300px] md:w-[380px]"
                 >
-                  <GlassCard className="p-8 h-[280px] flex flex-col border-white/5 shadow-soft-light dark:shadow-soft-dark rounded-3xl hover:scale-[1.02] transition-all duration-300">
+                  <GlassCard className="p-8 h-[280px] flex flex-col border-white/5 shadow-soft-light dark:shadow-primary/10 shadow-xl backdrop-blur-md rounded-3xl hover:scale-[1.02] transition-all duration-300">
                     <span className="text-2xl font-black text-primary mb-6 block tracking-tight">
                       {item.year}
                     </span>

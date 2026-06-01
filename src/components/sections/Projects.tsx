@@ -102,7 +102,7 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
                 initial="initial"
                 className="cursor-pointer"
               >
-                <GlassCard className="h-[450px] md:h-[500px] flex flex-col justify-end overflow-hidden group/card border-white/5 shadow-soft-light dark:shadow-soft-dark rounded-3xl">
+                <GlassCard className="h-[450px] md:h-[500px] flex flex-col justify-end overflow-hidden group/card border-white/5 dark:shadow-primary/10 shadow-xl backdrop-blur-md rounded-3xl">
 
                   {/* Background Image */}
                   <div className="absolute inset-0 z-0">

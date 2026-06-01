@@ -27,16 +27,16 @@
 
 :root {
   /* Canvas & Surfaces - Light Mode */
-  --background: #FAF6F1;
+  --background: #fffdfb;
   --surface-soft: #F5EBE0;
   --surface-card: #ffffff;
   --surface-doc: #fcfcfa;
   --surface-dark: #23251d;
 
   /* Brand & Accent - Gold Accent */
-  --primary: #B8860B;
+  --primary: #c27508;
   /* Gold Accent */
-  --primary-pressed: #9A6F08;
+  --primary-pressed: #ae6a0a;
   /* Gold Pressed */
   --primary-active: #7A5506;
   /* Gold Active */
@@ -92,16 +92,16 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     /* Canvas & Surfaces - Dark Mode */
-    --background: #181818;
+    --background: #151515;
     --surface-soft: #2A2A2A;
     --surface-card: #242424;
     --surface-doc: #1f1f1d;
     --surface-dark: #0f0f0d;
 
     /* Brand & Accent - Gold Accent (same as light) */
-    --primary: #D4AF37;
+    --primary: #ebb042;
     /* Gold Accent */
-    --primary-pressed: #be950e;
+    --primary-pressed: #de9714;
     /* Gold Pressed */
     --primary-active: #7A5506;
     /* Gold Active */
@@ -145,9 +145,9 @@
   --surface-dark: #0f0f0d;
 
   /* Brand & Accent - Gold Accent (same as light) */
-  --primary: #D4AF37;
+  --primary: #e0a73b;
   /* Gold Accent */
-  --primary-pressed: #be950e;
+  --primary-pressed: #be800e;
   /* Gold Pressed */
   --primary-active: #7A5506;
   /* Gold Active */

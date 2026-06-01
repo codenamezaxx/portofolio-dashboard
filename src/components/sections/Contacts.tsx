@@ -51,6 +51,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
       colors: {
         bg: 'bg-blue-900/10 dark:bg-blue-900/15',
         bgHover: 'bg-blue-900/20 dark:bg-blue-900/30',
+        shadow: 'dark:shadow-blue-500/20',
         border: 'border-blue-500/20',
         borderHover: 'border-blue-500/50',
         iconBg: 'bg-blue-500/15',
@@ -67,6 +68,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
       colors: {
         bg: 'bg-teal-900/10 dark:bg-teal-900/20',
         bgHover: 'bg-teal-900/20 dark:bg-teal-900/35',
+        shadow: 'dark:shadow-teal-500/20',
         border: 'border-teal-500/20',
         borderHover: 'border-teal-500/50',
         iconBg: 'bg-teal-500/15',
@@ -83,6 +85,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
       colors: {
         bg: 'bg-pink-900/10 dark:bg-pink-900/20',
         bgHover: 'bg-pink-900/20 dark:bg-pink-900/35',
+        shadow: 'dark:shadow-pink-500/20',
         border: 'border-pink-500/20',
         borderHover: 'border-pink-500/50',
         iconBg: 'bg-pink-500/15',
@@ -99,6 +102,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
       colors: {
         bg: 'bg-sky-900/10 dark:bg-sky-900/20',
         bgHover: 'bg-sky-900/20 dark:bg-sky-900/35',
+        shadow: 'dark:shadow-sky-500/20',
         border: 'border-sky-500/20',
         borderHover: 'border-sky-500/50',
         iconBg: 'bg-sky-500/15',
@@ -144,7 +148,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
                   whileHover={{ y: -8 }}
                   onMouseEnter={() => setHoveredId(method.id)}
                   onMouseLeave={() => setHoveredId(null)}
-                  className={`group relative rounded-2xl border p-7 overflow-hidden transition-all duration-300 cursor-pointer backdrop-blur-md shadow-soft-light dark:shadow-soft-dark ${isHovered ? `${method.colors.bgHover} ${method.colors.borderHover}` : `${method.colors.bg} ${method.colors.border}`}`}
+                  className={`group relative rounded-2xl border p-7 overflow-hidden transition-all duration-300 cursor-pointer backdrop-blur-md ${method.colors.shadow} shadow-xl ${isHovered ? `${method.colors.bgHover} ${method.colors.borderHover}` : `${method.colors.bg} ${method.colors.border}`}`}
                   aria-label={`Contact via ${method.label}`}
                   aria-describedby={method.descriptionId}
                 >

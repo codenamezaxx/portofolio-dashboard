@@ -78,9 +78,9 @@ const TechStack: React.FC<TechStackProps> = ({ initialData = [] }) => {
               style={{ width: 'max-content' }}
             >
               {duplicatedRow1.map((skill: TechStackItem, idx: number) => (
-                <div key={`${skill.id || skill.name}-${idx}`} className="w-[180px] md:w-[220px] shrink-0">
+                <div key={`${skill.id || skill.name}-${idx}`} className="py-4 w-[180px] md:w-[220px] shrink-0">
                   <GlassCard 
-                    className="p-6 h-full flex flex-col items-center gap-4 text-center group/card transition-all duration-300 border-white/5 dark:border-white/5 shadow-soft-light dark:shadow-soft-dark"
+                    className="p-6 h-full flex flex-col items-center gap-4 text-center group/card transition-all duration-300 border-white/5 dark:border-white/5 shadow-soft-light dark:shadow-primary/10 shadow-lg backdrop-blur-md"
                   >
                     <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center transition-all duration-300 group-hover/card:bg-primary/20">
                       {skill.icon ? (
@@ -128,9 +128,9 @@ const TechStack: React.FC<TechStackProps> = ({ initialData = [] }) => {
               style={{ width: 'max-content' }}
             >
               {duplicatedRow2.map((skill: TechStackItem, idx: number) => (
-                <div key={`${skill.id || skill.name}-${idx}`} className="w-[180px] md:w-[220px] shrink-0">
+                <div key={`${skill.id || skill.name}-${idx}`} className="py-4 w-[180px] md:w-[220px] shrink-0">
                   <GlassCard 
-                    className="p-6 h-full flex flex-col items-center gap-4 text-center group/card transition-all duration-300 border-white/5 dark:border-white/5 shadow-soft-light dark:shadow-soft-dark"
+                    className="p-6 h-full flex flex-col items-center gap-4 text-center group/card transition-all duration-300 border-white/5 dark:border-white/5 shadow-soft-light dark:shadow-primary/10 shadow-lg backdrop-blur-md"
                   >
                     <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center transition-all duration-300 group-hover/card:bg-primary/20">
                       {skill.icon ? (
