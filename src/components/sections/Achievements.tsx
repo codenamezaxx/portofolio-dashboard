@@ -80,7 +80,7 @@ const Achievements: React.FC<AchievementsProps> = ({ items = defaultAchievements
     .slice(0, 6);
 
   return (
-    <section id="achievements" className="py-20 relative bg-canvas dark:bg-canvas">
+    <section id="achievements" className="py-20 relative">
       <div className="container mx-auto px-6">
         <motion.div
           variants={staggerContainer}

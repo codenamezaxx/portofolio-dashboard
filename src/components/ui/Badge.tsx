@@ -16,7 +16,7 @@ const Badge: React.FC<BadgeProps> = ({ children, variant = 'default', className 
   };
 
   return (
-    <span className={`px-3 py-1 text-body-xs font-medium rounded-md border backdrop-blur-sm ${styles[variant]} ${className}`}>
+    <span className={`px-3 py-1 text-body-xs font-bold rounded-full border backdrop-blur-sm ${styles[variant]} ${className}`}>
       {children}
     </span>
   );

@@ -13,17 +13,26 @@ const config: Config = {
          ============================================================ */
       colors: {
         // Primary (Gold Accent) - Same in both modes
-        primary: '#B8860B',
-        'primary-pressed': '#9A6F08',
-        'primary-active': '#7A5506',
-        'on-primary': '#ffffff',
+        primary: 'var(--color-accent)', // Map to CSS variable
+        'primary-pressed': 'var(--color-accent-pressed)',
+        'primary-active': 'var(--color-accent-active)',
+        'on-primary': 'var(--color-on-accent)',
+        
+        // Custom accent color for Tailwind usage directly
+        accent: 'var(--color-accent)',
 
         // Canvas & Surfaces - Light Mode
-        canvas: '#FAF6F1',
-        'surface-card': '#ffffff',
-        'surface-soft': '#F5EBE0',
-        'surface-doc': '#ffffff',
-        'surface-dark': '#1F1F1F',
+        canvas: 'var(--color-bg-light)',
+        'surface-card': 'var(--color-card-light)',
+        'surface-soft': '#F5EBE0', // Keep as is for now, might adjust later
+        'surface-doc': '#ffffff', // Keep as is for now, might adjust later
+        'surface-dark': 'var(--color-bg-dark)', // Use dark mode bg token
+
+        // New theme colors based on DESIGN.md
+        'bg-dark': '#0D0D0C',
+        'card-dark': '#141413', // Use the darker card variant as default for dark mode components
+        'bg-light': '#FBFBFA',
+        'card-light': '#FFFFFF',
 
         // Text - Light Mode
         ink: '#4A4A4A',
@@ -76,13 +85,24 @@ const config: Config = {
         sm: '4px',
         md: '6px',
         lg: '8px',
+        xl: '12px', // added rounded-xl for consistency
+        '2xl': '16px', // new rounded-2xl
         full: '9999px',
+      },
+
+      /* ============================================================
+         Box Shadow (soft shadows)
+         ============================================================ */
+      boxShadow: {
+        'soft-light': '0 4px 12px rgba(0, 0, 0, 0.08)',
+        'soft-dark': '0 4px 12px rgba(0, 0, 0, 0.25)', // More pronounced for dark mode contrast
       },
 
       /* ============================================================
          Font Family
          ============================================================ */
       fontFamily: {
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'], // Added new sans-serif fonts
         plex: ['var(--font-ibm-plex)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['var(--font-source-code)', 'ui-monospace', 'monospace'],
       },
@@ -106,18 +126,20 @@ const config: Config = {
 
       // Dark mode color overrides using CSS custom properties
       const darkModeColors = {
-        // Primary (Gold Accent - same as light)
-        '--color-primary': '#D4AF37',
-        '--color-primary-pressed': '#be950e',
-        '--color-primary-active': '#7A5506',
-        '--color-on-primary': '#1F1F1F',
+        // Accent Colors (Mapped from existing primary)
+        '--color-accent': '#D4AF37', // Existing primary color token for dark mode
+        '--color-accent-pressed': '#be950e',
+        '--color-accent-active': '#7A5506',
+        '--color-on-accent': '#1F1F1F',
 
         // Canvas & Surfaces - Dark Mode
-        '--color-canvas': '#1F1F1F',
-        '--color-surface-card': '#242424',
+        '--color-bg-dark': '#0D0D0C', // From DESIGN.md
+        '--color-card-dark': '#141413', // From DESIGN.md
+        '--color-canvas': 'var(--color-bg-dark)', // Map to new token
+        '--color-surface-card': 'var(--color-card-dark)', // Map to new token
         '--color-surface-soft': '#2A2A2A',
-        '--color-surface-doc': '#242424',
-        '--color-surface-dark': '#000000',
+        '--color-surface-doc': 'var(--color-card-dark)', // Map to new token
+        '--color-surface-dark': '#000000', // Keep as is, it's black
 
         // Text - Dark Mode
         '--color-ink': '#F5F5F5',
@@ -146,6 +168,29 @@ const config: Config = {
 
       addBase({
         '.dark': darkModeColors,
+      });
+    },
+    // Add custom utility for hover glow
+    function ({ addUtilities }: any) {
+      addUtilities({
+        '.hover-glow': {
+          position: 'relative',
+          zIndex: 1,
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            inset: '-2px',
+            borderRadius: 'inherit',
+            background: 'radial-gradient(40% 60% at 50% 50%, var(--color-accent) 0%, transparent 100%)',
+            opacity: '0',
+            filter: 'blur(10px)',
+            transition: 'opacity 0.3s ease-in-out',
+            zIndex: -1,
+          },
+          '&:hover::before': {
+            opacity: '0.3',
+          },
+        },
       });
     },
   ],

@@ -45,7 +45,7 @@ const Journey: React.FC<JourneyProps> = ({ items = null }) => {
   const journeyItems = items && items.length > 0 ? items : defaultJourneyItems;
 
   return (
-    <section id="journey" className="py-20 relative bg-canvas dark:bg-canvas">
+    <section id="journey" className="py-20 relative">
       <div className="container mx-auto px-6">
         <motion.div
           variants={staggerContainer}
@@ -73,19 +73,19 @@ const Journey: React.FC<JourneyProps> = ({ items = null }) => {
                 <motion.div 
                   key={item.id || index} 
                   variants={fadeInUp} 
-                  className="flex-shrink-0 w-[280px] md:w-[320px]"
+                  className="flex-shrink-0 w-[300px] md:w-[380px]"
                 >
-                  <GlassCard className="p-6 h-[250px] flex flex-col bg-surface-card dark:bg-surface-card border-hairline dark:border-hairline hover:border-primary/30 dark:hover:border-primary/30 transition-colors">
-                    <span className="text-xl font-bold text-primary dark:text-primary mb-4 block">
+                  <GlassCard className="p-8 h-[280px] flex flex-col border-white/5 shadow-soft-light dark:shadow-soft-dark rounded-3xl hover:scale-[1.02] transition-all duration-300">
+                    <span className="text-2xl font-black text-primary mb-6 block tracking-tight">
                       {item.year}
                     </span>
                     <div className="relative">
-                      {/* Decorative line for timeline feel */}
-                      <div className="absolute -left-6 top-1 w-1 h-8 bg-primary/50 dark:bg-primary/50 rounded-r-full" />
-                      <h3 className="text-display-lg font-bold text-ink dark:text-ink mb-2 line-clamp-2">
+                      {/* Decorative line for timeline feel - Refined */}
+                      <div className="absolute -left-8 top-1.5 w-1.5 h-8 bg-primary/30 rounded-r-full" />
+                      <h3 className="text-2xl font-extrabold text-ink mb-3 line-clamp-2 leading-tight">
                         {item.title}
                       </h3>
-                      <p className="text-body-sm text-body/70 dark:text-body/70 leading-relaxed line-clamp-4">
+                      <p className="text-body-sm text-body/80 leading-relaxed line-clamp-4 font-medium">
                         {item.description}
                       </p>
                     </div>

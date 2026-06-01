@@ -243,35 +243,35 @@ export default function CertificatesGallery({ achievements }: CertificatesGaller
           {paginatedAchievements.map((certificate) => (
             <div
               key={certificate.id}
-              className="bg-[var(--surface-card)] border border-[var(--hairline)] rounded-xl overflow-hidden hover:border-[var(--primary)]/40 hover:shadow-lg transition-all duration-300 flex flex-col group"
+              className="bg-surface-card/40 dark:bg-surface-card/20 backdrop-blur-md border border-white/5 rounded-2xl overflow-hidden hover:scale-[1.02] hover:-translate-y-1 shadow-soft-light dark:shadow-soft-dark transition-all duration-300 flex flex-col group"
             >
               {/* Header */}
-              <div className="p-6 border-b border-[var(--hairline)]">
-                <div className="flex items-start justify-between gap-4 mb-3">
-                  <h3 className="text-base font-semibold text-[var(--ink)] line-clamp-2 group-hover:text-[var(--primary)] transition-colors">
+              <div className="p-7 border-b border-white/5">
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <h3 className="text-lg font-bold text-ink line-clamp-2 group-hover:text-primary transition-colors leading-tight">
                     {certificate.title}
                   </h3>
-                  <span className="flex-shrink-0 text-xs font-bold px-2.5 py-1 rounded-full bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--primary)]/20">
+                  <span className="flex-shrink-0 text-xs font-black px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
                     {certificate.year}
                   </span>
                 </div>
-                <p className="text-sm text-[var(--mute)]">{certificate.issuer}</p>
+                <p className="text-sm font-medium text-mute/80">{certificate.issuer}</p>
               </div>
 
               {/* Category */}
-              <div className="px-6 pt-4">
-                <Badge variant="outline" className="text-xs">
+              <div className="px-7 pt-5">
+                <Badge variant="outline" className="text-xs rounded-lg px-3 bg-primary/5 border-primary/10 text-primary">
                   {certificate.category}
                 </Badge>
               </div>
 
               {/* Actions */}
-              <div className="p-6 flex gap-2 mt-auto">
+              <div className="p-7 flex gap-3 mt-auto">
                 <Button
                   onClick={() => handleViewPDF(certificate)}
                   variant="secondary"
                   size="sm"
-                  className="cursor-pointer flex-1"
+                  className="cursor-pointer flex-1 rounded-full h-10 font-bold shadow-soft-light dark:shadow-soft-dark hover:scale-105 active:scale-95"
                   aria-label={`View ${certificate.title} PDF`}
                 >
                   Lihat PDF

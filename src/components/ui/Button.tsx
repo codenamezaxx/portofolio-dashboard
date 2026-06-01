@@ -42,8 +42,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles = `
-      font-button-md rounded-md
-      transition-all duration-200
+      font-button-md rounded-xl
+      transition-all duration-300
       focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-1
       dark:focus:ring-offset-surface-card
       disabled:cursor-not-allowed
@@ -53,7 +53,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const variantStyles = {
       // Primary: Gold background, deep olive text, 40px height
       primary: `
-        bg-primary text-on-primary
+        bg-primary text-on-primary hover-glow
         hover:bg-primary-pressed active:bg-primary-active
         disabled:bg-surface-soft disabled:text-ash
         dark:bg-primary dark:text-on-primary

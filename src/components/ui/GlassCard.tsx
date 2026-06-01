@@ -11,9 +11,10 @@ interface GlassCardProps {
 const GlassCard: React.FC<GlassCardProps> = ({ children, className = '', hoverEffect = false }) => {
   return (
     <div className={`
-      relative overflow-hidden rounded-md border border-hairline bg-surface-card/30
-      dark:bg-surface-card/30 dark:border-hairline backdrop-blur
-      ${hoverEffect ? 'transition-all duration-300 hover:border-primary/30 dark:hover:border-primary/30' : ''}
+      relative overflow-hidden rounded-2xl border border-white/5 bg-surface-card/40
+      dark:bg-surface-card/20 dark:border-white/5 backdrop-blur-md
+      shadow-soft-light dark:shadow-soft-dark
+      ${hoverEffect ? 'transition-all duration-300 hover:scale-[1.01] hover:border-primary/20 dark:hover:border-primary/20' : ''}
       ${className}
     `}>
       {children}

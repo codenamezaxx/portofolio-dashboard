@@ -16,13 +16,13 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, description, subti
     <div className={`mb-16 ${center ? 'text-center' : ''}`}>
       <motion.span 
         variants={fadeInUp}
-        className="block text-primary font-semibold tracking-wider text-xl md:text-2xl mb-2 uppercase"
+        className="block text-primary font-bold tracking-[0.2em] text-xs md:text-sm mb-3 uppercase opacity-90"
       >
         {subtitle}
       </motion.span>
       <motion.h2 
         variants={fadeInUp}
-        className="text-lg md:text-xl font-bold text-ink dark:text-ink"
+        className="text-4xl md:text-5xl font-black text-ink dark:text-ink tracking-tight"
       >
         {title}
       </motion.h2>

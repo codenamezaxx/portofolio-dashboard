@@ -60,26 +60,28 @@ const Footer: React.FC<FooterProps> = ({ profile, contactInfo }) => {
   ];
 
   return (
-    <footer className="relative  bg-[var(--surface-doc)] text-[var(--foreground)] pt-20 pb-10 overflow-hidden border-t border-zinc-900">
+    <footer className="relative bg-background dark:bg-background text-body dark:text-body pt-28 pb-12 overflow-hidden border-t border-white/5 footer-gradient">
       {/* Decorative Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-16">
           
           {/* Column 1: Branding & About */}
-          <div className="space-y-6">
+          <div className="space-y-8">
             <div>
-              <h2 className="text-2xl font-bold text-var(--foreground)] tracking-tight mb-2">
+              <h2 className="text-3xl font-black text-ink dark:text-ink tracking-tight mb-3">
                 {profile?.name || 'Zakky Ahmad El-Kholily'}
               </h2>
-              <p className="text-sm leading-relaxed text-[var(--charcoal)] font-medium">
+              <p className="text-sm leading-relaxed text-mute font-bold uppercase tracking-wider">
                 {profile?.role || 'Junior Front-End Developer | Network Engineer'}
               </p>
             </div>
             
-            <div className="flex items-center gap-2 text-xs text-[var([--canvas)]">
-              <MapPin className="w-3.5 h-3.5 text-[var(--primary)]" />
+            <div className="flex items-center gap-2.5 text-xs font-bold text-mute/80">
+              <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center">
+                <MapPin className="w-4 h-4 text-primary" />
+              </div>
               <span>Surabaya, Jawa Timur, Indonesia</span>
             </div>
           </div>
@@ -120,8 +122,8 @@ const Footer: React.FC<FooterProps> = ({ profile, contactInfo }) => {
                       rel="noopener noreferrer"
                       className="text-sm hover:text-[var(--foreground)]  transition-colors duration-200 flex items-center gap-3 group"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-[var(--surface-soft)] border border-[var(--hairline)] flex items-center justify-center group-hover:border-[var(--primary)] group-hover:bg-[var(--surface-card)] transition-all duration-300">
-                        <Icon className="w-4 h-4 text-[var(--canvas)] group-hover:text-[var(--primary)]" />
+                      <div className="w-10 h-10 rounded-xl bg-primary/5 border border-white/5 flex items-center justify-center group-hover:border-primary/20 group-hover:bg-primary/10 transition-all duration-300">
+                        <Icon className="w-5 h-5 text-mute group-hover:text-primary" />
                       </div>
                       {social.label}
                     </a>
@@ -133,8 +135,8 @@ const Footer: React.FC<FooterProps> = ({ profile, contactInfo }) => {
                   href={`mailto:${contactInfo?.email || 'zakky.ahmad@protonmail.com'}`}
                   className="text-sm hover:text-[var(--foreground)] transition-colors duration-200 flex items-center gap-3 group"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-[var(--surface-soft)] border border-[var(--hairline)] flex items-center justify-center group-hover:border-[var(--primary)] group-hover:bg-[var(--surface-card) transition-all duration-300">
-                    <Mail className="w-4 h-4 text-[var(--canvas)] group-hover:text-[var(--primary)]" />
+                  <div className="w-10 h-10 rounded-xl bg-primary/5 border border-white/5 flex items-center justify-center group-hover:border-primary/20 group-hover:bg-primary/10 transition-all duration-300">
+                    <Mail className="w-5 h-5 text-mute group-hover:text-primary" />
                   </div>
                   Email
                 </a>
@@ -170,7 +172,7 @@ const Footer: React.FC<FooterProps> = ({ profile, contactInfo }) => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-[var(--border)] flex flex-col justify-between items-center gap-6">
+        <div className="pt-8 border-t border-[var(--hairline)] flex flex-col justify-between items-center gap-6">
           <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

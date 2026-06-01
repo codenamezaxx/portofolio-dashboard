@@ -77,7 +77,7 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
     .slice(0, 4);
 
   return (
-    <section id="projects" className="py-20 md:py-32 relative bg-canvas dark:bg-canvas">
+    <section id="projects" className="py-20 md:py-32 relative">
       <div className="container mx-auto px-6">
         <motion.div
           variants={staggerContainer}
@@ -90,7 +90,7 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
             subtitle="Portfolio"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {featuredProjects.map((project) => (
               <motion.div 
                 key={project.id} 
@@ -102,16 +102,16 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
                 initial="initial"
                 className="cursor-pointer"
               >
-                <GlassCard className="h-[400px] md:h-[450px] flex flex-col justify-end overflow-hidden">
+                <GlassCard className="h-[450px] md:h-[500px] flex flex-col justify-end overflow-hidden group/card border-white/5 shadow-soft-light dark:shadow-soft-dark rounded-3xl">
 
                   {/* Background Image */}
                   <div className="absolute inset-0 z-0">
                     <motion.div
                       variants={{
                         initial: { scale: 1 },
-                        hover: { scale: 1.1 }
+                        hover: { scale: 1.05 }
                       }}
-                      transition={{ duration: 0.7 }}
+                      transition={{ duration: 0.7, ease: "easeOut" }}
                       className="absolute inset-0"
                     >
                       <Image
@@ -121,38 +121,38 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 50vw"
                         priority={false}
-                        quality={80}
+                        quality={90}
                         loading="lazy"
                       />
                     </motion.div>
-                    {/* Gradient Overlay */}
+                    {/* Gradient Overlay - Refined for depth */}
                     <motion.div 
                       variants={{
-                        initial: { opacity: 0.9 },
-                        hover: { opacity: 0.95 }
+                        initial: { opacity: 0.85 },
+                        hover: { opacity: 0.9 }
                       }}
-                      className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent transition-opacity duration-300" 
+                      className="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/40 to-transparent transition-opacity duration-500" 
                     />
                   </div>
 
                   {/* Content */}
                   <motion.div 
                     variants={{
-                      initial: { y: 20 },
+                      initial: { y: 10 },
                       hover: { y: 0 }
                     }}
-                    transition={{ duration: 0.3 }}
-                    className="relative z-10 p-8"
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="relative z-10 p-10"
                   >
                     {/* Category */}
                     <div className="mb-4">
-                      <span className="text-body-xs text-primary dark:text-primary font-semibold tracking-wide uppercase">
+                      <span className="text-body-xs text-primary font-bold tracking-widest uppercase bg-primary/10 px-3 py-1 rounded-full">
                         {project.category}
                       </span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-heading-md md:text-heading-lg font-bold text-ink dark:text-ink mb-3">
+                    <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight leading-tight">
                       {project.title}
                     </h3>
 
@@ -160,23 +160,23 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
                     <motion.div 
                       variants={{
                         initial: { height: 0, opacity: 0, marginBottom: 0 },
-                        hover: { height: 'auto', opacity: 1, marginBottom: 24 }
+                        hover: { height: 'auto', opacity: 1, marginBottom: 28 }
                       }}
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <p className="text-body-sm text-body dark:text-body leading-relaxed">
+                      <p className="text-body-sm text-gray-300 leading-relaxed max-w-md">
                         {project.description}
                       </p>
                     </motion.div>
 
                     {/* Tech Stack */}
-                    <div className={`flex gap-2 mb-6 ${(project.tech || project.technologies || []).length > 5 ? 'overflow-x-auto scrollbar-hide pb-1 mask-fade-right' : 'flex-wrap'}`}>
+                    <div className={`flex gap-2.5 mb-8 ${(project.tech || project.technologies || []).length > 5 ? 'overflow-x-auto scrollbar-hide pb-1 mask-fade-right' : 'flex-wrap'}`}>
                       {(project.tech || project.technologies || []).map((tech) => (
                         <Badge
                           key={tech}
                           variant="outline"
-                          className={`border-primary/20 bg-primary/10 ${(project.tech || project.technologies || []).length > 5 ? 'flex-shrink-0' : ''}`}
+                          className={`border-white/10 bg-white/5 text-white/80 rounded-lg py-1 px-3 ${(project.tech || project.technologies || []).length > 5 ? 'flex-shrink-0' : ''}`}
                         >
                           {tech}
                         </Badge>
@@ -186,11 +186,11 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
                     {/* Actions */}
                     <motion.div 
                       variants={{
-                        initial: { opacity: 0, y: 20 },
+                        initial: { opacity: 0, y: 10 },
                         hover: { opacity: 1, y: 0 }
                       }}
-                      transition={{ duration: 0.3, delay: 0.1 }}
-                      className="flex flex-wrap items-center gap-3"
+                      transition={{ duration: 0.4, delay: 0.1 }}
+                      className="flex flex-wrap items-center gap-4"
                     >
                       {/* GitHub Button */}
                       {project.links?.github && (

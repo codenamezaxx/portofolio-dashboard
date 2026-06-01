@@ -108,7 +108,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
   ];
 
   return (
-    <section id="contacts" className="py-20 md:py-32 relative bg-canvas dark:bg-canvas border-t border-hairline dark:border-hairline">
+    <section id="contacts" className="py-20 md:py-32 relative border-t border-white/5">
       <div className="container mx-auto px-6">
         <motion.div
           variants={staggerContainer}
@@ -123,7 +123,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
 
           {/* Intro Text */}
           <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-sm md:text-display-lg text-body dark:text-body leading-relaxed">
+            <p className="text-sm md:text-lg text-body dark:text-body leading-relaxed">
               Tertarik untuk berkolaborasi atau memiliki pertanyaan? Jangan ragu untuk menghubungi saya melalui salah satu platform di bawah ini.
             </p>
           </motion.div>
@@ -144,7 +144,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
                   whileHover={{ y: -8 }}
                   onMouseEnter={() => setHoveredId(method.id)}
                   onMouseLeave={() => setHoveredId(null)}
-                  className={`group relative rounded-lg border p-6 overflow-hidden transition-all duration-300 cursor-pointer backdrop-blur-sm ${isHovered ? `${method.colors.bgHover} ${method.colors.borderHover}` : `${method.colors.bg} ${method.colors.border}`}`}
+                  className={`group relative rounded-2xl border p-7 overflow-hidden transition-all duration-300 cursor-pointer backdrop-blur-md shadow-soft-light dark:shadow-soft-dark ${isHovered ? `${method.colors.bgHover} ${method.colors.borderHover}` : `${method.colors.bg} ${method.colors.border}`}`}
                   aria-label={`Contact via ${method.label}`}
                   aria-describedby={method.descriptionId}
                 >
@@ -157,14 +157,14 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
                   <div className="relative z-10 flex flex-col h-full justify-between">
                     {/* Circle Icon Container */}
                     <div 
-                      className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${method.colors.iconBg} ${method.colors.text}`}
+                      className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-110 ${method.colors.iconBg} ${method.colors.text}`}
                     >
                       <IconComponent className="w-5 h-5" aria-hidden="true" />
                     </div>
 
                     {/* Text Content */}
                     <div>
-                      <h3 className="text-heading-md font-bold text-ink dark:text-ink mb-1">
+                      <h3 className="text-xl font-extrabold text-ink dark:text-ink mb-2 tracking-tight">
                         {method.label}
                       </h3>
                       <p 
@@ -196,7 +196,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
           {/* Footer Note */}
           <motion.p
             variants={fadeInUp}
-            className="text-center text-sm md:text-display-lg dark:text-body mt-12"
+            className="text-center text-sm md:text-lg dark:text-body mt-12"
           >
             Terima kasih atas kunjungan Anda! Saya menantikan kesempatan untuk terhubung dan bekerja sama dengan Anda.
           </motion.p>

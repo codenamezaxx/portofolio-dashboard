@@ -42,8 +42,8 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${scrolled ? 'backdrop-blur-lg bg-[var(--background)]/70 h-16 shadow-sm border-[var(--hairline)]' : 'bg-transparent h-24 border-transparent'}`}>
-      <div className="container mx-auto px-6 h-full flex items-center justify-between">
+    <nav className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 rounded-full border border-white/5 dark:border-white/5 backdrop-blur-md w-[95%] max-w-7xl ${scrolled ? 'bg-background/80 dark:bg-background/80 h-16 shadow-soft-light dark:shadow-soft-dark' : 'bg-background/40 dark:bg-background/40 h-20'}`}>
+      <div className="container mx-auto px-8 h-full flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 text-[var(--foreground)] font-bold text-xl hover:text-[var(--primary)] transition-colors">
           <Terminal className="w-6 h-6 text-[var(--primary)]" />
@@ -70,12 +70,20 @@ const Navbar: React.FC = () => {
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-lg bg-[var(--primary)]/10 hover:bg-[var(--primary)]/20 text-[var(--primary)] transition-all duration-300 w-9 h-9 flex items-center justify-center cursor-pointer"
+            className="p-2 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-all duration-300 w-10 h-10 flex items-center justify-center cursor-pointer"
             title="Switch mode"
             aria-label="Switch mode"
           >
             {mounted && (theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />)}
           </button>
+
+          {/* Admin Link */}
+          <Link 
+            href="/login" 
+            className="px-6 py-2 rounded-full bg-primary text-on-primary text-sm font-medium hover:bg-primary-pressed transition-all duration-300 shadow-soft-light dark:shadow-soft-dark hover:scale-105 active:scale-95"
+          >
+            Admin
+          </Link>
         </div>
 
         {/* Mobile Controls */}
@@ -108,7 +116,7 @@ const Navbar: React.FC = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[var(--background)]/90 backdrop-blur-xl border-b border-[var(--hairline)] overflow-hidden"
+            className="md:hidden bg-[var(--background)]/90 backdrop-blur-md border-b border-[var(--hairline)] overflow-hidden align-center justify-center text-center rounded-b-lg shadow-soft-light dark:shadow-soft-dark"
           >
             <div className="flex flex-col p-6 gap-4">
               {NAV_ITEMS.map((item) => (
@@ -124,6 +132,13 @@ const Navbar: React.FC = () => {
                   {item.label}
                 </a>
               ))}
+               {/* Admin Link */}
+              <Link 
+                href="/login" 
+                className="px-6 py-2 w-full rounded-lg bg-primary text-on-primary font-medium hover:bg-primary-pressed transition-all duration-300 shadow-soft-light dark:shadow-soft-dark hover:scale-105 active:scale-95"
+              >
+                Admin
+              </Link>
             </div>
           </motion.div>
         )}

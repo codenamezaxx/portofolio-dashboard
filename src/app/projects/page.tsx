@@ -73,53 +73,54 @@ export default async function ProjectsPage() {
                       key={project.id}
                       className="group animate-fadeIn"
                     >
-                      <div className="bg-[var(--surface-card)] border border-[var(--hairline)] rounded-xl overflow-hidden hover:border-[var(--primary)]/40 hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+                      <div className="bg-surface-card/40 dark:bg-surface-card/20 backdrop-blur-md border border-white/5 rounded-2xl overflow-hidden hover:scale-[1.02] hover:-translate-y-1 shadow-soft-light dark:shadow-soft-dark transition-all duration-300 h-full flex flex-col">
                         {/* Image wrapped in Link */}
                         {project.image_url && (
                           <Link
                             href={`/projects/${project.id}`}
-                            className="relative w-full h-48 overflow-hidden bg-[var(--surface-soft)] block"
+                            className="relative w-full h-52 overflow-hidden bg-surface-soft block"
                           >
                             <Image
                               src={project.image_url}
                               alt={project.title}
                               fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-300"
+                              className="object-cover group-hover:scale-105 transition-transform duration-500"
                               quality={80}
                             />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
                           </Link>
                         )}
 
                         {/* Content */}
-                        <div className="p-6 flex flex-col flex-1">
-                          <div className="flex items-start justify-between gap-4 mb-3">
+                        <div className="p-7 flex flex-col flex-1">
+                          <div className="flex items-start justify-between gap-4 mb-4">
                             <Link 
                               href={`/projects/${project.id}`} 
-                              className="hover:text-[var(--primary)] transition-colors"
+                              className="hover:text-primary transition-colors"
                             >
-                              <h3 className="text-lg font-semibold text-[var(--ink)]">
+                              <h3 className="text-xl font-bold text-ink leading-tight">
                                 {project.title}
                               </h3>
                             </Link>
-                            <Badge variant="accent" className="flex-shrink-0">
+                            <Badge variant="accent" className="flex-shrink-0 rounded-full px-3">
                               {project.category}
                             </Badge>
                           </div>
 
-                          <p className="text-[var(--body)] text-sm mb-4 flex-1 leading-relaxed">
+                          <p className="text-body text-sm mb-6 flex-1 leading-relaxed opacity-90">
                             {project.description}
                           </p>
 
                           {/* Technologies */}
                           {project.technologies && project.technologies.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mb-4">
+                            <div className="flex flex-wrap gap-2 mb-6">
                               {project.technologies.slice(0, 3).map((tech) => (
-                                <Badge key={tech} variant="outline" className="text-xs">
+                                <Badge key={tech} variant="outline" className="text-xs rounded-lg bg-primary/5 border-primary/10 text-primary">
                                   {tech}
                                 </Badge>
                               ))}
                               {project.technologies.length > 3 && (
-                                <Badge variant="outline" className="text-xs">
+                                <Badge variant="outline" className="text-xs rounded-lg">
                                   +{project.technologies.length - 3}
                                 </Badge>
                               )}
@@ -127,15 +128,15 @@ export default async function ProjectsPage() {
                           )}
 
                           {/* Links */}
-                          <div className="flex gap-2 pt-4 border-t border-[var(--hairline)]">
+                          <div className="flex items-center gap-3 pt-5 border-t border-white/5">
                             {project.github_link && (
                               <a
                                 href={project.github_link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[var(--mute)] hover:text-[var(--ink)] transition-colors cursor-pointer"
+                                className="cursor-pointer"
                               >
-                                <Button variant="secondary" size="sm">
+                                <Button variant="secondary" size="sm" className="rounded-full h-9 px-4">
                                   GitHub
                                 </Button>
                               </a>
@@ -145,16 +146,16 @@ export default async function ProjectsPage() {
                                 href={project.live_link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[var(--mute)] hover:text-[var(--ink)] transition-colors cursor-pointer"
+                                className="cursor-pointer"
                               >
-                                <Button variant="secondary" size="sm">
+                                <Button variant="secondary" size="sm" className="rounded-full w-9 h-9 p-0 flex items-center justify-center">
                                   <ExternalLink className="w-4 h-4" />
                                 </Button>
                               </a>
                             )}
                             <div className="flex-1" />
                             <Link href={`/projects/${project.id}`}>
-                              <Button variant="secondary" size="sm" className="text-[var(--primary)] cursor-pointer">
+                              <Button variant="ghost" size="sm" className="text-primary font-bold cursor-pointer hover:bg-primary/5 rounded-full px-4">
                                 Detail →
                               </Button>
                             </Link>

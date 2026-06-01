@@ -28,39 +28,41 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ certificate }) => {
 
   return (
     <>
-      <div className="bg-surface-card dark:bg-surface-card border border-hairline dark:border-hairline rounded-md overflow-hidden hover:border-primary/30 dark:hover:border-primary/30 transition-all duration-300 h-full flex flex-col">
+      <div className="bg-surface-card dark:bg-card-dark border border-hairline/50 dark:border-white/5 rounded-2xl overflow-hidden shadow-soft-light dark:shadow-soft-dark hover:border-primary/40 dark:hover:border-primary/40 transition-all duration-300 h-full flex flex-col group hover:scale-[1.01]">
         {/* Header with Icon */}
-        <div className="bg-surface-soft dark:bg-surface-soft border-b border-hairline dark:border-hairline p-6 flex items-start justify-between">
+        <div className="bg-surface-soft/30 dark:bg-surface-soft/10 border-b border-hairline/30 dark:border-white/5 p-6 flex items-start justify-between">
           <div className="flex-1">
-            <h3 className="text-heading-md font-semibold text-ink dark:text-ink mb-1 line-clamp-2">
+            <h3 className="text-heading-md font-bold text-ink dark:text-ink mb-1.5 line-clamp-2 leading-tight">
               {certificate.title}
             </h3>
-            <p className="text-body-sm text-body dark:text-body line-clamp-1">{certificate.issuer}</p>
+            <p className="text-body-sm text-mute dark:text-mute font-medium line-clamp-1">{certificate.issuer}</p>
           </div>
-          <FileText className="w-6 h-6 text-primary flex-shrink-0 ml-2" />
+          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 ml-3 group-hover:bg-primary/20 transition-colors">
+            <FileText className="w-6 h-6 text-primary" />
+          </div>
         </div>
 
         {/* Content */}
         <div className="p-6 flex flex-col flex-1">
           {/* Category and Year */}
-          <div className="flex items-center justify-between gap-2 mb-4">
-            <Badge variant="accent" className="text-body-xs">
+          <div className="flex items-center justify-between gap-2 mb-6">
+            <Badge variant="accent" className="text-body-xs font-bold px-3 py-1 rounded-full bg-primary/10 border-0 text-primary">
               {certificate.category}
             </Badge>
-            <span className="text-body-sm text-body dark:text-body">{certificate.year}</span>
+            <span className="text-body-sm font-bold text-mute dark:text-mute">{certificate.year}</span>
           </div>
 
           {/* Actions */}
-          <div className="flex gap-2 mt-auto pt-4 border-t border-hairline dark:border-hairline">
+          <div className="flex gap-3 mt-auto pt-5 border-t border-hairline/30 dark:border-white/5">
             {certificate.pdf_url && (
               <Button
-                variant="ghost"
+                variant="primary"
                 size="sm"
                 onClick={() => setShowPDF(true)}
-                className="text-primary hover:text-primary/80 flex-1 dark:text-primary dark:hover:text-primary/80"
+                className="flex-1 rounded-xl font-bold h-10 shadow-sm"
               >
-                <FileText className="w-4 h-4 mr-1" />
-                View PDF
+                <FileText className="w-4 h-4 mr-2" />
+                Lihat PDF
               </Button>
             )}
             {certificate.external_link && (
@@ -68,10 +70,16 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ certificate }) => {
                 href={certificate.external_link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1"
+                className={certificate.pdf_url ? 'w-12' : 'flex-1'}
               >
-                <Button variant="ghost" size="sm" className="w-full text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="w-full rounded-xl h-10 border-hairline dark:border-white/10 hover:bg-surface-soft/50"
+                  title="Lihat Link Eksternal"
+                >
                   <ExternalLink className="w-4 h-4" />
+                  {!certificate.pdf_url && <span className="ml-2">Lihat Kredensial</span>}
                 </Button>
               </a>
             )}

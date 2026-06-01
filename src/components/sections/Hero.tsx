@@ -131,7 +131,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
 
             <motion.div
               variants={fadeInUp}
-              className="text-4xl md:text-6xl lg:text-4xl font-bold tracking-tight mb-4 leading-tight min-h-[1.2em] flex flex-wrap gap-x-3"
+              className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 leading-[1.1] min-h-[1.2em] flex flex-wrap gap-x-3"
             >
               <h1>Hi, I'm</h1>
               <h1 className="text-gradient">
@@ -151,7 +151,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
 
             <motion.div
               variants={fadeInUp}
-              className="text-xl md:text-2xl font-medium font-mono mb-6 leading-snug h-[1.5em]"
+              className="text-xl md:text-2xl font-normal font-mono mb-6 leading-snug h-[1.5em]"
               style={{ color: 'var(--color-mute)' }}
             >
               <Typewriter
@@ -180,7 +180,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
             </motion.p>
 
             {/* Actions */}
-            <motion.div variants={fadeInUp} className="flex flex-wrap justify-start items-center gap-4 mb-12 relative z-10">
+            <motion.div variants={fadeInUp} className="flex flex-wrap justify-start items-center gap-5 mb-12 relative z-10">
               <Button
                 variant='primary'
                 onClick={(e) => {
@@ -234,9 +234,9 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
 
             {/* Glass Frame Container */}
             <motion.div
-              className="relative z-10 p-4 backdrop-blur-md rounded-[2rem] shadow-2xl w-full max-w-[320px] lg:max-w-md mx-auto lg:ml-auto lg:mr-0 cursor-pointer"
+              className="relative z-10 p-3 backdrop-blur-xl rounded-[2.5rem] shadow-soft-light dark:shadow-soft-dark w-full max-w-[320px] lg:max-w-md mx-auto lg:ml-auto lg:mr-0 cursor-pointer overflow-hidden group"
               style={{
-                border: '1px solid rgba(184, 134, 11, 0.12)',
+                border: '1px solid rgba(184, 134, 11, 0.08)',
               }}
               initial={{ rotate: 2 }}
               animate={{ rotate: isHeroActive ? 0 : 2 }}
@@ -246,8 +246,8 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
               transition={{ duration: 0.5 }}
             >
               {/* Inner Image Container */}
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-10" />
+              <div className="relative rounded-[2rem] overflow-hidden aspect-[4/5]">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
 
                 {/* Shimmer Skeleton Placeholder */}
                 {!isImageLoaded && (

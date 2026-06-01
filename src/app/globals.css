@@ -92,7 +92,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     /* Canvas & Surfaces - Dark Mode */
-    --background: #1F1F1F;
+    --background: #181818;
     --surface-soft: #2A2A2A;
     --surface-card: #242424;
     --surface-doc: #1f1f1d;
