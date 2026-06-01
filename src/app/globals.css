@@ -8,9 +8,20 @@
   *,
   ::before,
   ::after {
-    transition-property: color, background-color, border-color, fill, stroke, text-decoration-color;
-    transition-timing-function: linear;
-    transition-duration: 400ms;
+    /* No transition on mobile devices */
+    transition-property: none;
+    transition-duration: 0ms;
+  }
+
+  /* Apply linear transition for desktop devices */
+  @media (min-width: 768px) { /* md breakpoint in TailwindCSS */
+    *,
+    ::before,
+    ::after {
+      transition-property: color, background-color, border-color, fill, stroke, text-decoration-color;
+      transition-timing-function: linear;
+      transition-duration: 400ms;
+    }
   }
 }
 
