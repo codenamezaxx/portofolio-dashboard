@@ -209,7 +209,7 @@ export function Sidebar({
           <Link
             href="/"
             title={isCollapsed ? "Kembali ke Portfolio" : ""}
-            className={`flex items-center justify-center gap-2 w-full px-3 py-2 bg-[var(--surface-soft)] hover:bg-[var(--surface-card)] text-[var(--ink)] border border-[var(--hairline)] rounded-md transition-colors text-md font-medium
+            className={`flex items-center justify-center gap-2 w-full px-3 py-2 bg-[var(--surface-soft)] hover:bg-[var(--surface-card)] text-[var(--ink)] border border-[var(--hairline)] rounded-xl transition-colors text-md font-medium
               ${isCollapsed ? 'px-0' : ''}`}
           >
             <ArrowLeft className="w-4 h-4" /> 

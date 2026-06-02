@@ -42,13 +42,13 @@ const BackgroundGrid: React.FC = () => {
         These create a subtle, moving background effect with theme-aware colors
       */}
       <div 
-        className="absolute top-[-10%] -left-[10%] w-[60%] h-[60%] rounded-full blur-[120px] opacity-[0.05] dark:opacity-[0.02] animate-blob"
+        className="absolute top-[-10%] -left-[10%] w-[60%] h-[60%] rounded-full blur-[120px] opacity-[0.05] dark:opacity-[0.01] animate-blob"
         style={{ 
           backgroundColor: 'var(--color-accent)'
         }}
       />
       <div 
-        className="absolute bottom-[-10%] -right-[10%] w-[60%] h-[60%] rounded-full blur-[120px] opacity-[0.05] dark:opacity-[0.02] animate-blob animation-delay-2000"
+        className="absolute bottom-[-10%] -right-[10%] w-[60%] h-[60%] rounded-full blur-[120px] opacity-[0.05] dark:opacity-[0.01] animate-blob animation-delay-2000"
         style={{ 
           backgroundColor: 'var(--color-accent)'
         }}
