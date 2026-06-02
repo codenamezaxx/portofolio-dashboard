@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
       .limit(1);
 
     if (error) {
-      console.error('Profile fetch error:', error);
+      console.error('[API Content Profiles GET] Database error:', error);
       return NextResponse.json(
         { error: 'Failed to fetch profile data' },
         { status: 500 }
@@ -135,7 +135,7 @@ export async function PUT(request: NextRequest) {
       .single();
 
     if (error) {
-      console.error('Profile update error:', error);
+      console.error('[API Content Profiles PUT] Update error:', error);
       return NextResponse.json(
         { error: `Failed to update profile: ${error.message}` },
         { status: 500 }

@@ -123,6 +123,7 @@ const Contacts: React.FC<ContactsProps> = ({ contactInfo }) => {
           <SectionHeader
             title="Hubungi Saya"
             subtitle="Kontak"
+            center={true}
           />
 
           {/* Intro Text */}

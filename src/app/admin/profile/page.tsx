@@ -7,6 +7,8 @@
 
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useSession } from '@/lib/useSession';
 import { UserProfileCard } from '@/components/admin/UserProfileCard';
 import { ProfileSettings } from '@/components/admin/ProfileSettings';

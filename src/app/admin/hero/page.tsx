@@ -6,6 +6,8 @@
 
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { DynamicHeroEditor } from '@/lib/dynamic-imports-client';
 
 export default function HeroAdminPage() {

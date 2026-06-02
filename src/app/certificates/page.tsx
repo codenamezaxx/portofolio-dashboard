@@ -9,6 +9,9 @@ import Link from 'next/link';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import { getAchievements } from '@/lib/portfolio-data';
 import CertificatesGallery from '@/components/sections/CertificatesGallery';
+import SectionHeader from '@/components/shared/SectionHeader';
+import BackgroundGrid from '@/components/shared/BackgroundGrid';
+import ThemeToggleButton from '@/components/ui/ThemeToggleButton';
 
 interface CertificatesPageProps {
   searchParams: Promise<{
@@ -57,28 +60,26 @@ export default async function CertificatesPage() {
     const achievements = await getAchievements();
 
     return (
-      <main className="min-h-screen bg-[var(--background)]">
-        {/* Header */}
-        <div className="border-b border-[var(--hairline)] bg-[var(--background)]/80 backdrop-blur-sm sticky top-0 z-40">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <main className="relative min-h-screen bg-background pt-20 pb-32 overflow-hidden">
+        <BackgroundGrid />
+        
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-12">
             <Link
               href="/#achievements"
-              className="inline-flex items-center gap-2 text-[var(--mute)] hover:text-[var(--primary)] transition-colors text-sm font-medium"
+              className="group inline-flex items-center gap-2 text-mute hover:text-primary transition-all duration-300 text-sm font-bold bg-surface-soft/50 backdrop-blur-sm px-4 py-2 rounded-full border border-hairline hover:border-primary/30"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               Kembali ke Beranda
             </Link>
+            <ThemeToggleButton />
           </div>
-        </div>
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Title Section */}
-          <div className="mb-12">
-            <h1 className="text-4xl font-bold text-[var(--ink)] mb-4">Sertifikat & Pencapaian</h1>
-            <p className="text-lg text-[var(--body)]">
-              Kumpulan sertifikasi, kursus, dan pencapaian yang telah saya selesaikan.
-            </p>
-          </div>
+          <SectionHeader
+            title="Sertifikat & Pencapaian"
+            subtitle="ACHIEVEMENTS GALLERY"
+            description="Kumpulan sertifikasi, kursus, dan pencapaian yang telah saya selesaikan."
+          />
 
           <Suspense fallback={
             <div className="flex flex-col items-center justify-center py-20">

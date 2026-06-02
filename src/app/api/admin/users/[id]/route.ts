@@ -32,7 +32,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await verifySession(request);
+    const session = verifySession(request);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -74,18 +74,18 @@ export async function DELETE(
     await logAudit(session.userId, 'DELETE', 'admin_users', userIdToDelete, { email: oldUser.email, isActive: oldUser.is_active }, null);
 
     return NextResponse.json({ message: 'Admin user deleted successfully' });
-  } catch (error) {
-    console.error('Admin users DELETE API error:', error);
+    } catch (error) {
+    console.error('[API Admin User DELETE] Unhandled error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
-  }
-}
+    }
+    }
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  try {
-    const session = await verifySession(request);
+    export async function PUT(
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+    ) {
+    try {
+    const session = verifySession(request);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -119,7 +119,7 @@ export async function PUT(
       .single();
 
     if (fetchError && fetchError.code !== 'PGRST116') {
-      console.error('Error fetching existing user for update audit:', fetchError);
+      console.error('[API Admin User PUT] Error fetching existing user:', fetchError);
       return NextResponse.json({ error: 'Database error' }, { status: 500 });
     }
     if (!existingUser) {
@@ -141,6 +141,7 @@ export async function PUT(
         .single();
 
       if (conflictError && conflictError.code !== 'PGRST116') {
+        console.error('[API Admin User PUT] Error checking email conflict:', conflictError);
         return NextResponse.json({ error: 'Database error when checking email' }, { status: 500 });
       }
       if (conflictingUser) {
@@ -175,7 +176,7 @@ export async function PUT(
       .single();
 
     if (error) {
-      console.error('Failed to update admin user:', error);
+      console.error('[API Admin User PUT] Failed to update admin user:', error);
       return NextResponse.json({ error: 'Failed to update admin user' }, { status: 500 });
     }
 
@@ -190,8 +191,8 @@ export async function PUT(
     };
 
     return NextResponse.json({ data: transformedUser, message: 'Admin user updated successfully' });
-  } catch (error) {
-    console.error('Admin users PUT API error:', error);
+    } catch (error) {
+    console.error('[API Admin User PUT] Unhandled error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
-  }
-}
+    }
+    }

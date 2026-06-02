@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
 
     // Handle errors
     if (projectsResult.error || achievementsResult.error || techStackResult.error) {
-      console.error('Statistics fetch error:', {
+      console.error('[API Admin Statistics GET] Fetch error:', {
         projects: projectsResult.error,
         achievements: achievementsResult.error,
         techStack: techStackResult.error,

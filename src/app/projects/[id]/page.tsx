@@ -10,7 +10,11 @@ import Image from 'next/image';
 import { getProjectById, getProjects } from '@/lib/portfolio-data';
 import Badge from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { ArrowLeft, GitBranch, ExternalLink, Gamepad2 } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Gamepad2 } from 'lucide-react';
+import { GithubIcon } from '@/components/ui/Icons';
+import BackgroundGrid from '@/components/shared/BackgroundGrid';
+import GlassCard from '@/components/ui/GlassCard';
+import ThemeToggleButton from '@/components/ui/ThemeToggleButton';
 
 interface ProjectDetailPageProps {
   params: Promise<{
@@ -78,71 +82,79 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
     const nextProject = currentIndex < allProjects.length - 1 ? allProjects[currentIndex + 1] : null;
 
     return (
-      <main className="min-h-screen bg-[var(--background)]">
-        {/* Sticky Header */}
-        <div className="border-b border-[var(--hairline)] bg-[var(--background)]/80 backdrop-blur-sm sticky top-0 z-40">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 text-[var(--mute)] hover:text-[var(--primary)] transition-colors text-sm font-medium cursor-pointer"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Kembali ke Proyek
-            </Link>
-          </div>
-        </div>
+      <main className="relative min-h-screen bg-background pb-20 overflow-hidden">
+        <BackgroundGrid />
 
-        {/* Content */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Hero Image */}
-          {project.image_url && (
-            <div className="relative w-full h-80 md:h-96 rounded-xl overflow-hidden mb-8 border border-[var(--hairline)]">
-              <Image
-                src={project.image_url}
-                alt={project.title}
-                fill
-                className="object-cover"
-                priority
-                quality={80}
-              />
+        {/* Hero Section */}
+        {project.image_url && (
+          <div className="relative h-[60vh] flex items-end">
+            <Image
+              src={project.image_url}
+              alt={project.title}
+              fill
+              className="object-cover"
+              priority
+              quality={90}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+            
+            <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+              <div className="flex items-center justify-between mb-6">
+                <Link
+                  href="/projects"
+                  className="group inline-flex items-center gap-2 text-mute hover:text-primary transition-all duration-300 text-sm font-bold bg-surface-soft/50 backdrop-blur-sm px-4 py-2 rounded-full border border-hairline hover:border-primary/30"
+                >
+                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                  Kembali ke Proyek
+                </Link>
+                <ThemeToggleButton />
+              </div>
+              <Badge variant="accent" className="bg-primary/10 text-primary border-primary/20 rounded-lg px-3 py-1 text-[10px] font-black uppercase tracking-widest mb-3">
+                {project.category}
+              </Badge>
+              <h1 className="text-4xl md:text-5xl font-extrabold text-ink mb-4 tracking-tight leading-tight">
+                {project.title}
+              </h1>
+              <p className="text-body text-lg max-w-2xl leading-relaxed opacity-90">
+                {project.description}
+              </p>
             </div>
-          )}
-
-          {/* Title and Category */}
-          <div className="mb-8">
-            <div className="flex items-start gap-3 mb-4 flex-wrap">
-              <h1 className="text-2xl md:text-lg font-bold text-[var(--ink)]">{project.title}</h1>
-              <Badge variant="accent">{project.category}</Badge>
-            </div>
-            <p className="text-sm text-[var(--body)] leading-relaxed">{project.description}</p>
           </div>
+        )}
 
+        {/* Main Content */}
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
           {/* Technologies */}
           {project.technologies && project.technologies.length > 0 && (
-            <div className="mb-8 p-6 bg-[var(--surface-card)] border border-[var(--hairline)] rounded-xl">
-              <h2 className="text-sm font-semibold text-[var(--ink)] mb-4">Teknologi yang Digunakan</h2>
-              <div className="flex flex-wrap gap-2">
+            <GlassCard className="mb-12 p-8 border-white/5 shadow-xl">
+              <h2 className="text-lg font-black text-ink mb-6 tracking-tight">Teknologi yang Digunakan</h2>
+              <div className="flex flex-wrap gap-3">
                 {project.technologies.map((tech) => (
-                  <Badge key={tech} variant="outline">
+                  <Badge 
+                    key={tech} 
+                    variant="outline" 
+                    className="text-[10px] font-bold rounded-lg border-hairline bg-surface-soft/50 px-2.5 py-1 text-ink/80"
+                  >
                     {tech}
                   </Badge>
                 ))}
               </div>
-            </div>
+            </GlassCard>
           )}
 
           {/* Links */}
-          <div className="mb-12">
-            <h2 className="text-sm font-semibold text-[var(--ink)] mb-4">Tautan</h2>
-            <div className="flex flex-wrap gap-3">
+          <GlassCard className="mb-12 p-8 border-white/5 shadow-xl">
+            <h2 className="text-lg font-black text-ink mb-6 tracking-tight">Tautan Proyek</h2>
+            <div className="flex flex-wrap gap-4">
               {project.github_link && (
                 <a
                   href={project.github_link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="group/btn"
                 >
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <GitBranch className="w-4 h-4" />
+                  <Button variant="secondary" size="lg" className="rounded-xl h-12 px-6 font-bold hover:bg-surface-soft">
+                    <GithubIcon className="w-5 h-5 mr-2 group-hover/btn:rotate-12 transition-transform" />
                     GitHub
                   </Button>
                 </a>
@@ -152,9 +164,10 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                   href={project.live_link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="group/btn"
                 >
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <ExternalLink className="w-4 h-4" />
+                  <Button variant="primary" size="lg" className="rounded-xl h-12 px-6 font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95">
+                    <ExternalLink className="w-5 h-5 mr-2" />
                     Live Demo
                   </Button>
                 </a>
@@ -164,40 +177,39 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                   href={project.demo_link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="group/btn"
                 >
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <Gamepad2 className="w-4 h-4" />
+                  <Button variant="secondary" size="lg" className="rounded-xl h-12 px-6 font-bold hover:bg-surface-soft">
+                    <Gamepad2 className="w-5 h-5 mr-2" />
                     Main Game
                   </Button>
                 </a>
               )}
             </div>
-          </div>
+          </GlassCard>
 
           {/* Prev / Next Navigation */}
-          <div className="border-t border-[var(--hairline)] pt-8">
-            <div className="grid grid-cols-2 gap-4">
-              {previousProject ? (
-                <Link href={`/projects/${previousProject.id}`}>
-                  <Button variant="outline" className="w-full justify-start gap-2">
-                    <ArrowLeft className="w-4 h-4" />
-                    <span className="truncate">{previousProject.title}</span>
-                  </Button>
-                </Link>
-              ) : (
-                <div />
-              )}
-              {nextProject ? (
-                <Link href={`/projects/${nextProject.id}`}>
-                  <Button variant="outline" className="w-full justify-end gap-2">
-                    <span className="truncate">{nextProject.title}</span>
-                    <ArrowLeft className="w-4 h-4 rotate-180" />
-                  </Button>
-                </Link>
-              ) : (
-                <div />
-              )}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-16 pt-8 border-t border-hairline/30">
+            {previousProject ? (
+              <Link href={`/projects/${previousProject.id}`}>
+                <Button variant="secondary" className="w-full justify-start gap-2 h-12 rounded-xl px-6 font-bold hover:bg-surface-soft">
+                  <ArrowLeft className="w-5 h-5" />
+                  <span className="truncate">Prev: {previousProject.title}</span>
+                </Button>
+              </Link>
+            ) : (
+              <div />
+            )}
+            {nextProject ? (
+              <Link href={`/projects/${nextProject.id}`}>
+                <Button variant="secondary" className="w-full justify-end gap-2 h-12 rounded-xl px-6 font-bold hover:bg-surface-soft">
+                  <span className="truncate">Next: {nextProject.title}</span>
+                  <ArrowLeft className="w-5 h-5 rotate-180" />
+                </Button>
+              </Link>
+            ) : (
+              <div />
+            )}
           </div>
         </div>
       </main>

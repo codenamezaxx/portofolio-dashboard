@@ -41,7 +41,7 @@ const SALT_ROUNDS = 10;
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await verifySession(request);
+    const session = verifySession(request);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
       .select('id, email, is_active, last_login, created_at, updated_at');
 
     if (error) {
-      console.error('Failed to fetch admin users:', error);
+      console.error('[API Admin Users GET] Failed to fetch admin users:', error);
       return NextResponse.json({ error: 'Failed to fetch admin users' }, { status: 500 });
     }
 
@@ -66,14 +66,14 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ data: transformedUsers });
   } catch (error) {
-    console.error('Admin users GET API error:', error);
+    console.error('[API Admin Users GET] Unhandled error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await verifySession(request);
+    const session = verifySession(request);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -139,7 +139,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ data: transformedUser, message: 'Admin user created successfully' }, { status: 201 });
   } catch (error) {
-    console.error('Admin users POST API error:', error);
+    console.error('[API Admin Users POST] Unhandled error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

@@ -188,7 +188,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
                   e.stopPropagation();
                   handleProjectClick();
                 }}
-                className='py-6 px-7 text-md md:text-lg dark:shadow-primary/20 shadow-lg cursor-pointer'
+                className='py-6 px-7 text-md md:text-lg font-medium dark:shadow-primary/20 shadow-lg cursor-pointer'
                 >
                   Lihat Proyek <ArrowRight className='w-4 h-4' />
               </Button>

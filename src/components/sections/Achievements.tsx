@@ -135,7 +135,7 @@ const Achievements: React.FC<AchievementsProps> = ({ items = defaultAchievements
           <motion.div variants={fadeInUp} className="text-center">
              <Button 
                variant="primary" 
-               className="text-sm cursor-pointer relative z-10"
+               className="py-6 px-7 text-md font-medium shadow-xl dark:shadow-primary/20 cursor-pointer relative z-10"
                onClick={(e) => {
                  e.preventDefault();
                  e.stopPropagation();
@@ -169,11 +169,11 @@ const AchievementModal: React.FC<{ achievement: Achievement, onClose: () => void
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        className="bg-zinc-900 rounded-xl max-w-5xl w-full max-h-[90vh] overflow-hidden border border-white/10 shadow-2xl flex flex-col"
+        className="bg-background rounded-xl max-w-5xl w-full max-h-[90vh] overflow-hidden border border-white/10 shadow-2xl flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="bg-zinc-900/50 backdrop-blur-md border-b border-white/10 p-5 flex items-center justify-between">
+        <div className="bg-background/50 backdrop-blur-md border-b border-white/10 p-5 flex items-center justify-between">
           <div className="flex-1">
             <span className="text-[10px] uppercase tracking-wider text-primary font-bold">{achievement.category}</span>
             <h3 className="text-heading-md text-white font-bold line-clamp-1">{achievement.title}</h3>
@@ -188,14 +188,14 @@ const AchievementModal: React.FC<{ achievement: Achievement, onClose: () => void
         </div>
 
         {/* Modal Content - PDF Viewer Area */}
-        <div className="flex-1 overflow-auto bg-black relative p-2 md:p-4">
+        <div className="flex-1 overflow-auto bg-background relative p-2 md:p-4">
           {pdfPath ? (
             <div className="w-full h-full min-h-[500px]">
               <PDFPreview
                 url={pdfPath}
                 filename={`${achievement.title}.pdf`}
                 maxHeight="100%"
-                className="w-full h-full"
+                className="w-full h-full bg-background"
                 showDownload={false}
                 showPageInfo={true}
               />
@@ -209,14 +209,20 @@ const AchievementModal: React.FC<{ achievement: Achievement, onClose: () => void
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-zinc-900 border-t border-white/10 flex flex-wrap justify-between items-center gap-4">
+        <div className="p-4 bg-background/50 backdrop-blur-md border-t border-white/10 flex flex-wrap justify-between items-center gap-4">
            <div className="text-xs text-zinc-500">
              Tahun: {achievement.year}
            </div>
            <div className="flex gap-3">
-             <Button variant="secondary" onClick={onClose} className="!bg-zinc-800 !text-white !border-zinc-700 hover:!bg-zinc-700">Tutup</Button>
+             <Button variant="secondary" onClick={onClose} className="bg-surface-card/50 !text-foreground !border-surface-soft hover:!bg-surface-soft cursor-pointer">Tutup</Button>
              {achievement.link && (
-               <Button onClick={() => window.open(achievement.link, '_blank')}>Lihat Asli</Button>
+              <Button 
+               onClick={
+                () => window.open(achievement.link, '_blank')
+                } 
+               className="cursor-pointer">
+                Lihat Asli
+              </Button>
              )}
              {pdfPath && (
                <Button 
@@ -226,6 +232,7 @@ const AchievementModal: React.FC<{ achievement: Achievement, onClose: () => void
                    a.download = `${achievement.title}.pdf`;
                    a.click();
                  }}
+                  className="cursor-pointer"
                >
                  Unduh PDF
                </Button>

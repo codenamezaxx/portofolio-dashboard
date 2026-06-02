@@ -65,13 +65,13 @@ const TechStack: React.FC<TechStackProps> = ({ initialData = [] }) => {
             <motion.div 
               className="flex gap-6 whitespace-nowrap"
               animate={{
-                x: [0, -1000], 
+                x: [0, -1500], 
               }}
               transition={{
                 x: {
                   repeat: Infinity,
                   repeatType: "loop",
-                  duration: 20,
+                  duration: 30,
                   ease: "linear",
                 },
               }}
@@ -113,15 +113,15 @@ const TechStack: React.FC<TechStackProps> = ({ initialData = [] }) => {
           <div className="flex overflow-hidden group">
             <motion.div 
               className="flex gap-6 whitespace-nowrap"
-              initial={{ x: -1000 }}
+              initial={{ x: -1500 }}
               animate={{
-                x: [-1000, 0], 
+                x: [-1500, 0], 
               }}
               transition={{
                 x: {
                   repeat: Infinity,
                   repeatType: "loop",
-                  duration: 20,
+                  duration: 30,
                   ease: "linear",
                 },
               }}

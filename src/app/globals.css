@@ -93,8 +93,8 @@
   :root:not([data-theme="light"]) {
     /* Canvas & Surfaces - Dark Mode */
     --background: #151515;
-    --surface-soft: #2A2A2A;
-    --surface-card: #242424;
+    --surface-soft: #272727;
+    --surface-card: #202020;
     --surface-doc: #1f1f1d;
     --surface-dark: #0f0f0d;
 
@@ -269,7 +269,6 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--foreground);
   font-weight: 700;
   line-height: 1.4;
 }

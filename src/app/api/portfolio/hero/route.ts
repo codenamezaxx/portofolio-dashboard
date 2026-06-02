@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       .single();
 
     if (error) {
-      console.error('Hero fetch error:', error);
+      console.error('[API Portfolio Hero GET] Database error:', error);
       return NextResponse.json(
         { error: 'Failed to fetch hero section' },
         { status: 500 }

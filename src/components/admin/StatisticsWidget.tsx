@@ -29,6 +29,7 @@ export function StatisticsWidget({
     blue: {
       bg: 'bg-accent-blue-soft/50 dark:bg-accent-blue-soft/20',
       border: 'border-accent-blue/30',
+      shadow: 'dark:shadow-accent-blue/10',
       stripe: 'bg-accent-blue',
       text: 'text-accent-blue',
       icon: 'text-accent-blue',
@@ -36,6 +37,7 @@ export function StatisticsWidget({
     purple: {
       bg: 'bg-accent-purple-soft/50 dark:bg-accent-purple-soft/20',
       border: 'border-accent-purple/30',
+      shadow: 'dark:shadow-accent-purple/10',
       stripe: 'bg-accent-purple',
       text: 'text-accent-purple',
       icon: 'text-accent-purple',
@@ -43,6 +45,7 @@ export function StatisticsWidget({
     green: {
       bg: 'bg-accent-green-soft/50 dark:bg-accent-green-soft/20',
       border: 'border-accent-green/30',
+      shadow: 'dark:shadow-accent-green/10',
       stripe: 'bg-accent-green',
       text: 'text-accent-green',
       icon: 'text-accent-green',
@@ -50,6 +53,7 @@ export function StatisticsWidget({
     red: {
       bg: 'bg-accent-red-soft/50 dark:bg-accent-red-soft/20',
       border: 'border-accent-red/30',
+      shadow: 'dark:shadow-accent-red/10',
       stripe: 'bg-accent-red',
       text: 'text-accent-red',
       icon: 'text-accent-red',
@@ -57,6 +61,7 @@ export function StatisticsWidget({
     amber: {
       bg: 'bg-primary/10 dark:bg-primary/5',
       border: 'border-primary/30',
+      shadow: 'dark:shadow-primary/10',
       stripe: 'bg-primary',
       text: 'text-primary',
       icon: 'text-primary',
@@ -64,6 +69,7 @@ export function StatisticsWidget({
     primary: {
       bg: 'bg-primary/10 dark:bg-primary/5',
       border: 'border-primary/30',
+      shadow: 'dark:shadow-primary/10',
       stripe: 'bg-primary',
       text: 'text-primary',
       icon: 'text-primary',
@@ -73,7 +79,7 @@ export function StatisticsWidget({
   const styles = colorMap[color] || colorMap.primary;
 
   return (
-    <div className={`relative overflow-hidden p-6 ${styles.bg} border ${styles.border} rounded-xl shadow-sm hover:shadow-md transition-all duration-300 group`}>
+    <div className={`relative overflow-hidden p-6 ${styles.bg} border ${styles.border} shadow-xl ${styles.shadow} rounded-xl shadow-sm hover:shadow-md transition-all duration-300 group`}>
       {/* Left Accent Stripe */}
       <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${styles.stripe}`} />
       

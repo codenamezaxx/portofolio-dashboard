@@ -96,17 +96,17 @@ export default function AdminDashboard() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                { href: '/admin/hero', icon: Target, label: 'Edit Hero', desc: 'Update profile info', color: 'border-primary/20' },
-                { href: '/admin/projects', icon: Briefcase, label: 'Manage Projects', desc: 'Add or edit portfolio', color: 'border-accent-blue/20' },
-                { href: '/admin/achievements', icon: Trophy, label: 'Achievements', desc: 'Manage certificates', color: 'border-accent-green/20' },
-                { href: '/admin/contact', icon: Mail, label: 'Contact Info', desc: 'Manage social links', color: 'border-accent-purple/20' },
-                { href: '/admin/users', icon: Users, label: 'Users', desc: 'Manage admin accounts', color: 'border-accent-blue/20' },
-                { href: '/admin/backups', icon: Database, label: 'Backups', desc: 'Database snapshots', color: 'border-accent-green/20' },
+                { href: '/admin/hero', icon: Target, label: 'Edit Hero', desc: 'Update profile info', color: 'border-primary/20 dark:shadow-primary/20' },
+                { href: '/admin/projects', icon: Briefcase, label: 'Manage Projects', desc: 'Add or edit portfolio', color: 'border-accent-blue/20 dark:shadow-accent-blue/20' },
+                { href: '/admin/achievements', icon: Trophy, label: 'Achievements', desc: 'Manage certificates', color: 'border-accent-green/20 dark:shadow-accent-green/20' },
+                { href: '/admin/contact', icon: Mail, label: 'Contact Info', desc: 'Manage social links', color: 'border-accent-purple/20 dark:shadow-accent-purple/20' },
+                { href: '/admin/users', icon: Users, label: 'Users', desc: 'Manage admin accounts', color: 'border-accent-blue/20 dark:shadow-accent-blue/20' },
+                { href: '/admin/backups', icon: Database, label: 'Backups', desc: 'Database snapshots', color: 'border-accent-green/20 dark:shadow-accent-green/20' },
               ].map((action) => (
                 <Link
                   key={action.href}
                   href={action.href}
-                  className={`group p-5 bg-surface-card dark:bg-surface-card border ${action.color} rounded-xl shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-between`}
+                  className={`group p-5 bg-surface-card dark:bg-surface-card border ${action.color} rounded-xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-between`}
                 >
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-lg bg-surface-soft dark:bg-surface-soft group-hover:bg-primary/10 transition-colors">
@@ -130,7 +130,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Recent Activity Section */}
-        <div className="p-6 lg:p-8 bg-surface-card dark:bg-surface-card border border-hairline dark:border-hairline rounded-xl shadow-sm">
+        <div className="p-6 lg:p-8 bg-surface-card dark:bg-surface-card border border-hairline dark:border-hairline rounded-xl shadow-md dark:shadow-primary/20">
           <h2 className="text-2xl font-extrabold text-ink dark:text-ink mb-6">Recent Activity</h2>
           <RecentActivity />
         </div>

@@ -102,7 +102,7 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
                 initial="initial"
                 className="cursor-pointer"
               >
-                <GlassCard className="h-[450px] md:h-[500px] flex flex-col justify-end overflow-hidden group/card border-white/5 dark:shadow-primary/10 shadow-xl backdrop-blur-md rounded-3xl">
+                <GlassCard className="h-[450px] flex flex-col justify-end overflow-hidden group/card border-white/5 dark:shadow-primary/10 shadow-xl rounded-3xl">
 
                   {/* Background Image */}
                   <div className="absolute inset-0 z-0">
@@ -128,10 +128,10 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
                     {/* Gradient Overlay - Refined for depth */}
                     <motion.div 
                       variants={{
-                        initial: { opacity: 0.85 },
-                        hover: { opacity: 0.9 }
+                        initial: { opacity: 0.15 },
+                        hover: { opacity: 0.55 }
                       }}
-                      className="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/40 to-transparent transition-opacity duration-500" 
+                      className="absolute inset-0 bg-surface-dark" 
                     />
                   </div>
 
@@ -200,7 +200,7 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
                             window.open(project.links!.github, '_blank');
                           }}
                           variant="secondary"
-                          className="!py-2 !px-3 text-sm bg-white/10 hover:bg-white/20 border-0 flex-shrink-0 cursor-pointer"
+                          className="!py-2 !px-3 text-sm bg-surface-soft hover:bg-surface-soft/50 border-0 flex-shrink-0 cursor-pointer"
                           title="Lihat source code di GitHub"
                         >
                           <GithubIcon className="w-4 h-4 mr-1.5" /> GitHub
@@ -228,7 +228,7 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
                             e.stopPropagation();
                             window.open(project.links!.demo || project.links!.itchio, '_blank');
                           }}
-                          className="!py-2 !px-3 text-sm bg-rose-600 hover:bg-rose-600/50 text-white border border-rose-500/30 flex-shrink-0 cursor-pointer"
+                          className="!py-2 !px-3 text-sm bg-rose-600 dark:bg-rose-500 hover:bg-rose-600/50 dark:hover:bg-rose-500/50 text-white border border-rose-500/30 flex-shrink-0 cursor-pointer"
                           title="Mainkan di itch.io"
                         >
                           <Gamepad2 className="w-4 h-4 mr-1.5" /> itch.io
@@ -244,7 +244,7 @@ const Projects: React.FC<ProjectsProps> = ({ items = defaultProjects }) => {
           <motion.div variants={fadeInUp} className="mt-16 text-center">
             <Button 
               variant="primary" 
-              className='cursor-pointer'
+              className='py-6 px-7 text-md font-medium dark:shadow-primary/20 shadow-xl cursor-pointer'
               onClick={() => router.push('/projects')}
               >
               <Code2 className="w-4 h-4 mr-2" /> Lihat Semua Proyek

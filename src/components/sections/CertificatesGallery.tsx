@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/Button';
 import { TextInput } from '@/components/ui/TextInput';
 import { Modal } from '@/components/ui/Modal';
 import { PDFPreview } from '@/components/ui/PDFPreview';
-import { Search, X, ChevronLeft, ChevronRight, Download, ExternalLink } from 'lucide-react';
+import { Search, X, ChevronLeft, ChevronRight, Download, ExternalLink, FileText, Medal } from 'lucide-react';
+import GlassCard from '@/components/ui/GlassCard';
 
 interface CertificatesGalleryProps {
   achievements: Achievement[];
@@ -157,39 +158,44 @@ export default function CertificatesGallery({ achievements }: CertificatesGaller
   return (
     <>
       {/* Filters and Search */}
-      <div className="mb-8 space-y-4">
+      <div className="mb-12 p-8 bg-surface-card/30 backdrop-blur-md rounded-3xl border border-hairline/50 space-y-8 shadow-soft-light dark:shadow-soft-dark">
         {/* Search Bar */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--mute)]" />
+        <div className="relative group">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-mute group-focus-within:text-primary transition-colors" />
           <TextInput
             type="text"
             placeholder="Cari berdasarkan judul, penerbit, atau kategori..."
             value={filters.searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
-            className="pl-10"
+            className="pl-12 h-14 bg-surface-soft/50 border-hairline hover:border-primary/30 focus:border-primary transition-all duration-300 rounded-2xl"
             aria-label="Search certificates"
           />
         </div>
 
         {/* Category Filters */}
-        <div className="flex flex-wrap gap-2">
-          {categories.map(category => (
-            <button
-              key={category}
-              onClick={() => handleCategoryFilter(category)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all duration-200 ${
-                filters.category === category
-                  ? 'bg-[var(--primary)] text-[var(--on-primary)] border-[var(--primary)]'
-                  : 'bg-[var(--surface-soft)] text-[var(--body)] border-[var(--hairline)] hover:border-[var(--primary)]/40 hover:text-[var(--ink)]'
-              }`}
-              aria-pressed={filters.category === category}
-            >
-              {category}
-              <span className="ml-1.5 text-xs opacity-70">
-                ({achievements.filter(a => a.category === category).length})
-              </span>
-            </button>
-          ))}
+        <div className="space-y-4">
+          <p className="text-xs font-black uppercase tracking-widest text-mute/60 ml-1">Filter Kategori</p>
+          <div className="flex flex-wrap gap-3">
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => handleCategoryFilter(category)}
+                className={`px-6 py-2.5 rounded-xl text-sm font-bold border transition-all duration-300 transform hover:scale-105 active:scale-95 ${
+                  filters.category === category
+                    ? 'bg-primary text-on-primary border-primary shadow-lg shadow-primary/20'
+                    : 'bg-surface-soft/80 text-body border-hairline hover:border-primary/40 hover:bg-surface-soft hover:text-ink'
+                }`}
+                aria-pressed={filters.category === category}
+              >
+                {category}
+                <span className={`ml-2 text-[10px] uppercase px-1.5 py-0.5 rounded-md ${
+                  filters.category === category ? 'bg-white/20' : 'bg-mute/10 text-mute'
+                }`}>
+                  {achievements.filter(a => a.category === category).length}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Active Filters Display */}
@@ -239,71 +245,86 @@ export default function CertificatesGallery({ achievements }: CertificatesGaller
 
       {/* Certificates Grid */}
       {paginatedAchievements.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {paginatedAchievements.map((certificate) => (
-            <div
+            <GlassCard
               key={certificate.id}
-              className="bg-surface-card/40 dark:bg-surface-card/20 backdrop-blur-md border border-white/5 rounded-2xl overflow-hidden hover:scale-[1.02] hover:-translate-y-1 shadow-soft-light dark:shadow-soft-dark transition-all duration-300 flex flex-col group"
+              className="group/cert h-full flex flex-col overflow-hidden border-white/5 shadow-xl transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2 rounded-3xl animate-fadeIn"
             >
-              {/* Header */}
-              <div className="p-7 border-b border-white/5">
+              {/* Top Banner / Icon Area */}
+              <div className="relative h-24 bg-surface-soft/30 border-b border-hairline/30 flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 opacity-10 group-hover/cert:opacity-20 transition-opacity">
+                   <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/20 to-transparent" />
+                </div>
+                <div className="relative z-10 w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover/cert:scale-110 group-hover/cert:rotate-3 transition-all duration-500 shadow-lg shadow-primary/5">
+                  <Medal className="w-6 h-6" />
+                </div>
+              </div>
+
+              {/* Header Content */}
+              <div className="p-8 flex flex-col flex-1">
                 <div className="flex items-start justify-between gap-4 mb-4">
-                  <h3 className="text-lg font-bold text-ink line-clamp-2 group-hover:text-primary transition-colors leading-tight">
-                    {certificate.title}
-                  </h3>
-                  <span className="flex-shrink-0 text-xs font-black px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
+                  <div className="space-y-1">
+                    <Badge variant="accent" className="bg-primary/10 text-primary border-primary/20 rounded-lg px-3 py-1 text-[10px] font-black uppercase tracking-widest mb-2 inline-block">
+                      {certificate.category}
+                    </Badge>
+                    <h3 className="text-xl font-black text-ink line-clamp-2 group-hover/cert:text-primary transition-colors leading-tight tracking-tight">
+                      {certificate.title}
+                    </h3>
+                  </div>
+                  <span className="flex-shrink-0 text-[10px] font-black px-2.5 py-1 rounded-lg bg-surface-soft text-mute border border-hairline shadow-sm">
                     {certificate.year}
                   </span>
                 </div>
-                <p className="text-sm font-medium text-mute/80">{certificate.issuer}</p>
-              </div>
+                
+                <p className="text-sm font-bold text-mute/80 mb-8 line-clamp-1 italic">
+                  {certificate.issuer}
+                </p>
 
-              {/* Category */}
-              <div className="px-7 pt-5">
-                <Badge variant="outline" className="text-xs rounded-lg px-3 bg-primary/5 border-primary/10 text-primary">
-                  {certificate.category}
-                </Badge>
-              </div>
-
-              {/* Actions */}
-              <div className="p-7 flex gap-3 mt-auto">
-                <Button
-                  onClick={() => handleViewPDF(certificate)}
-                  variant="secondary"
-                  size="sm"
-                  className="cursor-pointer flex-1 rounded-full h-10 font-bold shadow-soft-light dark:shadow-soft-dark hover:scale-105 active:scale-95"
-                  aria-label={`View ${certificate.title} PDF`}
-                >
-                  Lihat PDF
-                </Button>
-                <Button
-                  onClick={() => handleDownloadPDF(certificate)}
-                  variant="outline"
-                  size="sm"
-                  className="cursor-pointer"
-                  aria-label={`Download ${certificate.title} PDF`}
-                >
-                  <Download className="w-4 h-4" />
-                </Button>
-                {certificate.external_link && (
-                  <a
-                    href={certificate.external_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1"
+                {/* Actions */}
+                <div className="mt-auto flex items-center gap-3 pt-6 border-t border-hairline/30">
+                  <Button
+                    onClick={() => handleViewPDF(certificate)}
+                    variant="primary"
+                    size="sm"
+                    className="flex-1 rounded-xl h-11 font-black shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all"
+                    aria-label={`View ${certificate.title} PDF`}
                   >
+                    <FileText className="w-4 h-4 mr-2" />
+                    Preview
+                  </Button>
+                  
+                  <div className="flex gap-2">
                     <Button
-                      variant="outline"
+                      onClick={() => handleDownloadPDF(certificate)}
+                      variant="secondary"
                       size="sm"
-                      className="cursor-pointer w-full"
-                      aria-label={`View ${certificate.title} external link`}
+                      className="w-11 h-11 p-0 rounded-xl hover:bg-surface-soft transition-colors"
+                      aria-label={`Download ${certificate.title} PDF`}
                     >
-                      <ExternalLink className="w-4 h-4" />
+                      <Download className="w-4 h-4" />
                     </Button>
-                  </a>
-                )}
+                    
+                    {certificate.external_link && (
+                      <a
+                        href={certificate.external_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          className="w-11 h-11 p-0 rounded-xl hover:bg-surface-soft transition-colors"
+                          aria-label={`View ${certificate.title} external link`}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </Button>
+                      </a>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
+            </GlassCard>
           ))}
         </div>
       )}
@@ -326,27 +347,28 @@ export default function CertificatesGallery({ achievements }: CertificatesGaller
 
       {/* Pagination */}
       {pagination.totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-12">
+        <div className="flex items-center justify-center gap-4 mt-16 p-4 bg-surface-card/20 backdrop-blur-md rounded-2xl border border-hairline/30 w-fit mx-auto shadow-soft-light dark:shadow-soft-dark">
           <Button
             onClick={handlePreviousPage}
             disabled={pagination.currentPage === 1}
-            variant="ghost"
+            variant="secondary"
             size="sm"
+            className="w-10 h-10 p-0 rounded-xl"
             aria-label="Previous page"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-5 h-5" />
           </Button>
 
           {/* Page Numbers */}
-          <div className="flex gap-1">
+          <div className="flex gap-2">
             {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map(page => (
               <button
                 key={page}
                 onClick={() => handlePageChange(page)}
-                className={`w-9 h-9 rounded-lg text-sm font-medium transition-all duration-200 ${
+                className={`w-10 h-10 rounded-xl text-sm font-bold transition-all duration-300 transform hover:scale-105 active:scale-95 ${
                   pagination.currentPage === page
-                    ? 'bg-[var(--primary)] text-[var(--on-primary)]'
-                    : 'bg-[var(--surface-soft)] text-[var(--body)] border border-[var(--hairline)] hover:border-[var(--primary)]/40 hover:text-[var(--ink)]'
+                    ? 'bg-primary text-on-primary shadow-lg shadow-primary/20'
+                    : 'bg-surface-soft/50 text-body border border-hairline hover:border-primary/40 hover:text-ink'
                 }`}
                 aria-current={pagination.currentPage === page ? 'page' : undefined}
                 aria-label={`Go to page ${page}`}
@@ -359,11 +381,12 @@ export default function CertificatesGallery({ achievements }: CertificatesGaller
           <Button
             onClick={handleNextPage}
             disabled={pagination.currentPage === pagination.totalPages}
-            variant="ghost"
+            variant="secondary"
             size="sm"
+            className="w-10 h-10 p-0 rounded-xl"
             aria-label="Next page"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-5 h-5" />
           </Button>
         </div>
       )}
@@ -380,6 +403,8 @@ export default function CertificatesGallery({ achievements }: CertificatesGaller
             <PDFPreview
               url={selectedCertificate.pdf_url}
               filename={`${selectedCertificate.title}.pdf`}
+              showDownload={false}
+              showPageInfo={true}
             />
             <div className="flex gap-2 justify-end">
               <Button

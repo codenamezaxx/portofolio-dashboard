@@ -62,7 +62,7 @@ export function SyncStatus() {
   }, [checkConnection]);
 
   return (
-    <div className="h-full flex flex-col p-6 bg-[var(--surface-card)] rounded-xl shadow-xl text-white">
+    <div className="h-full flex flex-col p-6 bg-[var(--surface-card)] border border-hairline rounded-xl shadow-xl dark:shadow-primary/10 text-white">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-xl font-bold flex items-center gap-2">
           <div className={`w-2 h-2 rounded-full ${apiStatus === 'online' ? 'bg-accent-green animate-pulse' : apiStatus === 'offline' ? 'bg-accent-red' : 'bg-mute animate-pulse'}`} />
