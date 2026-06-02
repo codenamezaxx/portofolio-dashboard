@@ -102,7 +102,7 @@ const config: Config = {
          Font Family
          ============================================================ */
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'], // Added new sans-serif fonts
+        sans: ['var(--font-sans)', '"Space Grotesk"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'], // Added new sans-serif fonts
         plex: ['var(--font-ibm-plex)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['var(--font-source-code)', 'ui-monospace', 'monospace'],
       },
@@ -115,7 +115,7 @@ const config: Config = {
   darkMode: 'class',
 
   plugins: [
-    function ({ addBase, theme }: any) {
+    function ({ addBase }: any) {
       addBase({
         '@supports (color: oklch(0 0 0))': {
           ':root': {

@@ -188,7 +188,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
                   e.stopPropagation();
                   handleProjectClick();
                 }}
-                className='py-6 px-7 text-md md:text-lg font-medium dark:shadow-primary/20 shadow-lg cursor-pointer'
+                className='py-6 px-7 text-md md:text-lg font-medium dark:shadow-primary/20 shadow-lg hover:scale-[1.05] cursor-pointer'
                 >
                   Lihat Proyek <ArrowRight className='w-4 h-4' />
               </Button>
@@ -200,7 +200,7 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
                   handleViewResume();
                 }}
                 disabled={isActionLoading || !resumeUrl}
-                className="py-6 px-7 text-md md:text-lg dark:shadow-primary/10 shadow-lg cursor-pointer"
+                className="py-6 px-7 text-md md:text-lg dark:shadow-primary/10 shadow-lg hover:scale-[1.05] cursor-pointer"
               >
                 {isActionLoading ? 'Memuat...' : 'Lihat CV'} <FileSearchCorner className="w-4 h-4" />
               </Button>
@@ -208,13 +208,13 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
 
             {/* Social Proof / Links */}
             <motion.div variants={fadeInUp} className="flex items-center gap-6 pt-8 w-full justify-start" style={{ borderTop: '1px solid var(--color-mute)' }}>
-              <a href={contactData.instagram_url || '#'} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-primary)] transition-colors duration-200" style={{ color: 'var(--color-mute)' }}>
+              <a href={contactData.instagram_url || '#'} target="_blank" rel="noopener noreferrer" className="hover:text-primary hover:scale-[1.05] transition-all duration-200" style={{ color: 'var(--color-mute)' }}>
                 <InstagramIcon className="w-5 h-5" />
               </a>
-              <a href={contactData.github_url || '#'} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-primary)] transition-colors duration-200" style={{ color: 'var(--color-mute)' }}>
+              <a href={contactData.github_url || '#'} target="_blank" rel="noopener noreferrer" className="hover:text-primary hover:scale-[1.05] transition-all duration-200" style={{ color: 'var(--color-mute)' }}>
                 <GithubIcon className="w-5 h-5" />
               </a>
-              <a href={contactData.linkedin_url || '#'} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-primary)] transition-colors duration-200" style={{ color: 'var(--color-mute)' }}>
+              <a href={contactData.linkedin_url || '#'} target="_blank" rel="noopener noreferrer" className="hover:text-primary hover:scale-[1.05] transition-all duration-200" style={{ color: 'var(--color-mute)' }}>
                 <LinkedinIcon className="w-5 h-5" />
               </a>
               <div className="h-4 w-px" style={{ backgroundColor: 'var(--color-primary)', opacity: 0.3 }} />

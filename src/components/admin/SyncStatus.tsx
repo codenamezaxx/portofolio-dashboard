@@ -64,14 +64,14 @@ export function SyncStatus() {
   return (
     <div className="h-full flex flex-col p-6 bg-[var(--surface-card)] border border-hairline rounded-xl shadow-xl dark:shadow-primary/10 text-white">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-bold flex items-center gap-2">
+        <h3 className="text-xl text-foreground font-bold flex items-center gap-2">
           <div className={`w-2 h-2 rounded-full ${apiStatus === 'online' ? 'bg-accent-green animate-pulse' : apiStatus === 'offline' ? 'bg-accent-red' : 'bg-mute animate-pulse'}`} />
           Quick Status
         </h3>
         <button 
           onClick={checkConnection}
           disabled={isRefreshing}
-          className="p-1.5 hover:bg-white/10 rounded-full transition-colors disabled:opacity-50"
+          className="p-1.5 text-foreground hover:bg-white/10 rounded-full transition-colors disabled:opacity-50"
           title="Refresh connection"
         >
           <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />

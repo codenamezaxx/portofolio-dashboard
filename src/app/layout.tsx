@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { IBM_Plex_Sans, Source_Code_Pro } from 'next/font/google';
+import { Space_Grotesk, IBM_Plex_Sans, Source_Code_Pro } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/contexts/ThemeProvider';
 import { RealtimeProvider } from '@/components/providers/RealtimeProvider';
@@ -7,6 +7,13 @@ import BackgroundGrid from '@/components/shared/BackgroundGrid';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-sans',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
 
 const ibmPlexSans = IBM_Plex_Sans({
   variable: '--font-ibm-plex',
@@ -70,7 +77,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${ibmPlexSans.variable} ${sourceCodePro.variable} h-full antialiased`}
+      className={` ${spaceGrotesk.variable} ${ibmPlexSans.variable} ${sourceCodePro.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -96,7 +103,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--body)] font-plex">
+      <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--body)] font-ibm-plex leading-normal">
         <ThemeProvider defaultTheme="light" storageKey="portfolio-theme">
           <RealtimeProvider enableNotifications={true}>
             <BackgroundGrid />

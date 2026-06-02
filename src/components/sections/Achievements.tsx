@@ -108,7 +108,7 @@ const Achievements: React.FC<AchievementsProps> = ({ items = defaultAchievements
                 <motion.div 
                   key={item.id} 
                   variants={fadeInUp}
-                  className="flex-shrink-0 w-[300px] md:w-[350px] rounded-2xl dark:shadow-primary/10 shadow-xl backdrop-blur-md"
+                  className="flex-shrink-0 w-[300px] md:w-[350px] rounded-2xl dark:shadow-primary/10 shadow-xl backdrop-blur-md hover:scale-[1.05] transition-all duration-300"
                 >
                   <PDFPreviewCard 
                     title={item.title}
@@ -135,7 +135,7 @@ const Achievements: React.FC<AchievementsProps> = ({ items = defaultAchievements
           <motion.div variants={fadeInUp} className="text-center">
              <Button 
                variant="primary" 
-               className="py-6 px-7 text-md font-medium shadow-xl dark:shadow-primary/20 cursor-pointer relative z-10"
+               className="py-6 px-7 text-md font-medium shadow-xl dark:shadow-primary/20 cursor-pointer relative z-10 hover:scale-[1.05]" 
                onClick={(e) => {
                  e.preventDefault();
                  e.stopPropagation();

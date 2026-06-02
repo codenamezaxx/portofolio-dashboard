@@ -82,6 +82,7 @@
   --radius-full: 9999px;
 
   /* Typography Fallbacks */
+  --font-sans: var(--font-sans), '"Space Grotesk"', 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-plex: var(--font-ibm-plex), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -223,6 +224,7 @@
   --color-accent: var(--accent);
 
   /* Typography */
+  --font-sans: var(--font-sans);
   --font-plex: var(--font-plex);
   --font-mono: var(--font-source-code, ui-monospace, monospace);
 
@@ -271,6 +273,7 @@ h5,
 h6 {
   font-weight: 700;
   line-height: 1.4;
+  font-family: var(--font-sans);
 }
 
 /* Display XL: 36px, weight 700, line-height 1.5 */
@@ -366,15 +369,6 @@ h6 {
 /* ============================================================
    Component Utilities
    ============================================================ */
-
-/* Cards */
-.card-posthog {
-  background-color: var(--surface-card);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  transition: background-color 250ms ease-in-out, border-color 250ms ease-in-out;
-}
 
 /* Buttons */
 .btn-primary {

@@ -5,16 +5,14 @@
 
 import { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
 import { getProjects } from '@/lib/portfolio-data';
-import Badge from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { ArrowLeft, ExternalLink, Code2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import SectionHeader from '@/components/shared/SectionHeader';
 import BackgroundGrid from '@/components/shared/BackgroundGrid';
-import GlassCard from '@/components/ui/GlassCard';
 import { GithubIcon } from '@/components/ui/Icons';
 import ThemeToggleButton from '@/components/ui/ThemeToggleButton';
+import ProjectCard from '@/components/ui/ProjectCard';
 
 export const metadata: Metadata = {
   title: 'Projects | Zakky Ahmad El-Kholily',
@@ -79,102 +77,7 @@ export default async function ProjectsPage() {
                       key={project.id}
                       className="group/card animate-fadeIn"
                     >
-                      <GlassCard className="h-full flex flex-col overflow-hidden border-white/5 shadow-xl transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2 rounded-3xl">
-                        {/* Image wrapped in Link */}
-                        {project.image_url && (
-                          <Link
-                            href={`/projects/${project.id}`}
-                            className="relative w-full h-64 overflow-hidden block"
-                          >
-                            <Image
-                              src={project.image_url}
-                              alt={project.title}
-                              fill
-                              className="object-cover group-hover/card:scale-110 transition-transform duration-700"
-                              quality={90}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                               <div className="bg-primary text-on-primary p-4 rounded-full scale-50 opacity-0 group-hover/card:scale-100 group-hover/card:opacity-100 transition-all duration-500 delay-100 shadow-xl shadow-primary/20">
-                                  <Code2 className="w-6 h-6" />
-                               </div>
-                            </div>
-                          </Link>
-                        )}
-
-                        {/* Content */}
-                        <div className="p-8 flex flex-col flex-1">
-                          <div className="flex items-start justify-between gap-4 mb-6">
-                            <div className="space-y-1">
-                                <Badge variant="accent" className="bg-primary/10 text-primary border-primary/20 rounded-lg px-3 py-1 text-[10px] font-black uppercase tracking-widest">
-                                  {project.category}
-                                </Badge>
-                                <Link 
-                                  href={`/projects/${project.id}`} 
-                                  className="block pt-2 group/title"
-                                >
-                                  <h3 className="text-2xl font-black text-ink group-hover/title:text-primary transition-colors leading-tight tracking-tight">
-                                    {project.title}
-                                  </h3>
-                                </Link>
-                            </div>
-                          </div>
-
-                          <p className="text-body text-sm mb-8 flex-1 leading-relaxed line-clamp-3 opacity-80">
-                            {project.description}
-                          </p>
-
-                          {/* Technologies */}
-                          {project.technologies && project.technologies.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mb-8">
-                              {project.technologies.slice(0, 4).map((tech) => (
-                                <Badge key={tech} variant="outline" className="text-[10px] font-bold rounded-lg border-hairline bg-surface-soft/50 px-2.5 py-1">
-                                  {tech}
-                                </Badge>
-                              ))}
-                              {project.technologies.length > 4 && (
-                                <Badge variant="outline" className="text-[10px] font-bold rounded-lg border-hairline bg-surface-soft/30 px-2.5 py-1">
-                                  +{project.technologies.length - 4}
-                                </Badge>
-                              )}
-                            </div>
-                          )}
-
-                          {/* Links */}
-                          <div className="flex items-center gap-4 pt-6 border-t border-hairline/30">
-                            {project.github_link && (
-                              <a
-                                href={project.github_link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group/btn"
-                              >
-                                <Button variant="secondary" size="sm" className="rounded-xl h-11 px-5 font-bold hover:bg-surface-soft">
-                                  <GithubIcon className="w-4 h-4 mr-2 group-hover/btn:rotate-12 transition-transform" />
-                                  Code
-                                </Button>
-                              </a>
-                            )}
-                            {project.live_link && (
-                              <a
-                                href={project.live_link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group/btn"
-                              >
-                                <Button variant="primary" size="sm" className="rounded-xl h-11 w-11 p-0 flex items-center justify-center hover:scale-105 active:scale-95 shadow-lg shadow-primary/20">
-                                  <ExternalLink className="w-4 h-4" />
-                                </Button>
-                              </a>
-                            )}
-                            <div className="flex-1" />
-                            <Link href={`/projects/${project.id}`}>
-                              <Button variant="ghost" size="sm" className="text-primary font-black cursor-pointer hover:bg-primary/5 rounded-xl px-5 transition-all group/detail">
-                                Detail <span className="inline-block group-hover/detail:translate-x-1 transition-transform ml-1">→</span>
-                              </Button>
-                            </Link>
-                          </div>
-                        </div>
-                      </GlassCard>
+                      <ProjectCard project={project} />
                     </div>
                   ))}
                 </div>
