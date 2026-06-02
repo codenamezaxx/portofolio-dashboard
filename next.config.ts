@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
     root: path.resolve(__dirname),
   },
 
+  serverExternalPackages: ['jsdom'],
+
   // Image optimization — allow external image domains used in portfolio
   images: {
     // Add supported qualities to avoid Next.js warnings

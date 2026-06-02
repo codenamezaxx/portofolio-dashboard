@@ -3,21 +3,19 @@
  * Prevents XSS and basic SQL injection by sanitizing user input.
  */
 
-import { JSDOM } from 'jsdom';
-import createDOMPurify from 'dompurify';
-
-// Initialize DOMPurify
-const window = new JSDOM('').window;
-const DOMPurify = createDOMPurify(window as any); // Type assertion needed for JSDOM window
-
 /**
  * Sanitizes a string to prevent XSS attacks.
- * Removes potentially malicious HTML content.
+ * Removes potentially malicious HTML content by stripping all tags.
+ * For the current use cases (name, email, role, tagline), we don't expect any HTML.
  * @param dirty The string to sanitize.
  * @returns The sanitized string.
  */
 export function sanitizeHtml(dirty: string): string {
-  return DOMPurify.sanitize(dirty);
+  if (!dirty || typeof dirty !== 'string') {
+    return dirty;
+  }
+  // Strip all HTML tags as a safety measure
+  return dirty.replace(/<[^>]*>/g, '');
 }
 
 /**
