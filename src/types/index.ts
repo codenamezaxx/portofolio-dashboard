@@ -13,6 +13,7 @@ export interface Profile {
   name: string;
   role: string;
   tagline: string;
+  status_label?: string;
   heroImageUrl?: string;
   socials?: {
     github?: string;

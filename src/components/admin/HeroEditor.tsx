@@ -39,6 +39,7 @@ const HeroSchema = z.object({
   name: z.string().min(1, 'Name is required').max(255, 'Name must be less than 255 characters'),
   role: z.string().min(1, 'Role is required').max(255, 'Role must be less than 255 characters'),
   tagline: z.string().min(1, 'Tagline is required').max(500, 'Tagline must be less than 500 characters'),
+  status_label: z.string().max(50, 'Status label must be less than 50 characters').optional().nullable(),
   heroImageUrl: z.string().optional().nullable(),
 });
 
@@ -54,6 +55,7 @@ export function HeroEditor({ initialData }: HeroEditorProps) {
     name: initialData?.name || '',
     role: initialData?.role || '',
     tagline: initialData?.tagline || '',
+    status_label: initialData?.status_label || '',
     heroImageUrl: initialData?.heroImageUrl || null,
   });
 
@@ -92,6 +94,7 @@ export function HeroEditor({ initialData }: HeroEditorProps) {
           name: profile.name || '',
           role: profile.role || '',
           tagline: profile.tagline || '',
+          status_label: profile.status_label || '',
           heroImageUrl: profile.heroImageUrl || null,
         });
         setImagePreview(profile.heroImageUrl || null);
@@ -264,6 +267,16 @@ export function HeroEditor({ initialData }: HeroEditorProps) {
               </div>
 
               <TextInput
+                label="Status Label"
+                placeholder="e.g., Open to work"
+                value={formData.status_label || ''}
+                onChange={(e) => handleInputChange('status_label', e.target.value)}
+                error={errors.status_label}
+                disabled={isLoading}
+                className="h-11 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+              />
+
+              <TextInput
                 label="Full Name"
                 placeholder="Enter your full name"
                 value={formData.name}
@@ -384,7 +397,9 @@ export function HeroEditor({ initialData }: HeroEditorProps) {
               <div className="relative z-10 space-y-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">
                   <Monitor className="w-3 h-3 text-primary" />
-                  <span className="text-[10px] font-black text-primary uppercase tracking-widest">Live Preview</span>
+                  <span className="text-[10px] font-black text-primary uppercase tracking-widest">
+                    {formData.status_label || 'Status Label'}
+                  </span>
                 </div>
 
                 <div className="space-y-2">

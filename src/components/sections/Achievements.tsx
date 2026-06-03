@@ -176,7 +176,7 @@ const AchievementModal: React.FC<{ achievement: Achievement, onClose: () => void
         <div className="bg-background/50 backdrop-blur-md border-b border-white/10 p-5 flex items-center justify-between">
           <div className="flex-1">
             <span className="text-[10px] uppercase tracking-wider text-primary font-bold">{achievement.category}</span>
-            <h3 className="text-heading-md text-white font-bold line-clamp-1">{achievement.title}</h3>
+            <h3 className="text-heading-md text-foreground font-bold line-clamp-1">{achievement.title}</h3>
             {achievement.issuer && <p className="text-xs text-zinc-400">{achievement.issuer}</p>}
           </div>
           <button

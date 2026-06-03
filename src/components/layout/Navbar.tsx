@@ -31,9 +31,8 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     setIsOpen(false);
-    // Smooth scroll to section
     if (href.startsWith('#')) {
       const element = document.querySelector(href);
       if (element) {
@@ -43,8 +42,12 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className={`fixed top-2 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 rounded-2xl border border-white/5 dark:border-white/5 backdrop-blur-md w-[97%] max-w-7xl ${scrolled ? 'bg-background/80 dark:bg-background/80 h-16 shadow-soft-light dark:shadow-soft-dark' : 'bg-background/40 dark:bg-background/40 h-20'}`}>
-      <div className="container mx-auto px-8 h-full flex items-center justify-between">
+    <nav 
+      className={`fixed top-1 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 rounded-2xl border border-white/5 dark:border-white/5 backdrop-blur-md w-[97%] max-w-7xl
+        ${isOpen ? 'h-auto bg-[var(--background)]' : (scrolled ? 'bg-background/80 dark:bg-background/80 h-16 shadow-soft-light dark:shadow-soft-dark' : 'bg-background/40 dark:bg-background/40 h-20')}
+      `}
+    >
+      <div className="container mx-auto px-8 h-20 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 text-[var(--foreground)] font-bold text-xl hover:text-[var(--primary)] transition-colors">
           <Terminal className="w-6 h-6 text-[var(--primary)]" />
@@ -57,10 +60,7 @@ const Navbar: React.FC = () => {
             <a 
               key={item.label} 
               href={item.href}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick(item.href);
-              }}
+              onClick={(e) => handleNavClick(e, item.href)}
               className="text-sm font-medium text-[var(--mute)] hover:text-[var(--primary)] transition-colors relative group"
             >
               {item.label}
@@ -86,8 +86,12 @@ const Navbar: React.FC = () => {
           
           {/* Menu Button */}
           <button 
-            className="text-[var(--primary)] p-2"
-            onClick={() => setIsOpen(!isOpen)}
+            className="text-[var(--primary)] p-2 relative z-[60]"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsOpen(!isOpen);
+            }}
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -102,17 +106,14 @@ const Navbar: React.FC = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[var(--background)]/90 backdrop-blur-md border-b border-[var(--hairline)] overflow-hidden align-center justify-center text-center rounded-b-lg shadow-soft-light dark:shadow-soft-dark"
+            className="md:hidden bg-[var(--background)] backdrop-blur-md border-t border-[var(--hairline)] overflow-hidden flex flex-col items-center justify-center text-center rounded-b-lg"
           >
             <div className="flex flex-col p-6 gap-4">
               {NAV_ITEMS.map((item) => (
                 <a 
                   key={item.label}
                   href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(item.href);
-                  }}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   className="text-lg font-medium text-[var(--primary)] hover:text-[var(--primary-pressed)] py-2 transition-colors"
                 >
                   {item.label}

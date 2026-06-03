@@ -21,6 +21,7 @@ const ProfileUpdateSchema = z.object({
   name: z.string().min(1, 'Name is required').max(255, 'Name must be less than 255 characters'),
   role: z.string().min(1, 'Role is required').max(255, 'Role must be less than 255 characters'),
   tagline: z.string().min(1, 'Tagline is required').max(500, 'Tagline must be less than 500 characters'),
+  status_label: z.string().max(50, 'Status label must be less than 50 characters').optional().nullable(),
   heroImageUrl: z.string().url('Invalid image URL').optional().nullable(),
 });
 
@@ -46,6 +47,7 @@ export async function GET(request: NextRequest) {
       name: profile.name,
       role: profile.role,
       tagline: profile.tagline,
+      status_label: profile.status_label,
       heroImageUrl: profile.hero_image_url,
       createdAt: profile.created_at,
       updatedAt: profile.updated_at,
@@ -93,6 +95,7 @@ export async function PUT(request: NextRequest) {
       name: rawName, 
       role: rawRole, 
       tagline: rawTagline, 
+      status_label: rawStatusLabel,
       heroImageUrl: rawHeroImageUrl 
     } = validationResult.data;
 
@@ -100,6 +103,7 @@ export async function PUT(request: NextRequest) {
     const name = sanitizeHtml(rawName);
     const role = sanitizeHtml(rawRole);
     const tagline = sanitizeHtml(rawTagline);
+    const status_label = rawStatusLabel ? sanitizeHtml(rawStatusLabel) : rawStatusLabel;
     const heroImageUrl = rawHeroImageUrl ? sanitizeUrl(rawHeroImageUrl) : rawHeroImageUrl;
 
     // Get the existing profile record to find its ID
@@ -120,6 +124,7 @@ export async function PUT(request: NextRequest) {
       name,
       role,
       tagline,
+      status_label,
       hero_image_url: heroImageUrl,
       updated_at: new Date().toISOString(),
     };
@@ -148,6 +153,7 @@ export async function PUT(request: NextRequest) {
       name: data.name,
       role: data.role,
       tagline: data.tagline,
+      status_label: data.status_label,
       heroImageUrl: data.hero_image_url,
       createdAt: data.created_at,
       updatedAt: data.updated_at,

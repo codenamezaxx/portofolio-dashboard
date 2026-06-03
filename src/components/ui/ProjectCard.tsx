@@ -45,7 +45,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const finalDemoLink = liveLink || demoLink;
 
   return (
-    <div className="group overflow-hidden rounded-2xl border border-hairline bg-surface-card dark:bg-surface-card shadow-xl hover:shadow-lg dark:shadow-primary/10 transition-all duration-300 flex flex-col h-full">
+    <div className="group overflow-hidden rounded-2xl border border-hairline bg-surface-card/10 dark:bg-surface-card/10 backdrop-blur-md shadow-xl hover:shadow-lg dark:shadow-primary/10 transition-all duration-300 flex flex-col h-full">
       {/* Top Section: Clean Image Preview */}
       <Link 
         href={`/projects/${project.id}`}
@@ -68,7 +68,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       </Link>
 
       {/* Bottom Section: Plain Background Content Area */}
-      <div className="p-5 space-y-3 bg-surface-card dark:bg-surface-card flex-1 flex flex-col">
+      <div className="p-5 space-y-3 flex-1 flex flex-col">
         <div className="space-y-2">
           <Link href={`/projects/${project.id}`}>
             <h3 className="py-2 text-2xl font-bold text-foreground group-hover:text-accent transition-colors line-clamp-1">

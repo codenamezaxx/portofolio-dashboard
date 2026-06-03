@@ -50,11 +50,7 @@ const TechStack: React.FC<TechStackProps> = ({ initialData = [] }) => {
         </motion.div>
       </div>
 
-      {isLoading ? (
-        <div className="flex justify-center items-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-        </div>
-      ) : techStack.length === 0 ? (
+      {techStack.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-body">No tech stack items available</p>
         </div>
@@ -80,7 +76,7 @@ const TechStack: React.FC<TechStackProps> = ({ initialData = [] }) => {
               {duplicatedRow1.map((skill: TechStackItem, idx: number) => (
                 <div key={`${skill.id || skill.name}-${idx}`} className="py-4 w-[180px] md:w-[220px] shrink-0">
                   <GlassCard 
-                    className="p-6 h-full flex flex-col items-center gap-4 text-center group/card transition-all duration-300 border-white/5 dark:border-white/5 shadow-soft-light dark:shadow-primary/10 shadow-lg backdrop-blur-md"
+                    className="p-6 h-full flex flex-col items-center gap-4 text-center group/card transition-all duration-300 hover:scale-[1.05] border-white/5 dark:border-white/5 shadow-soft-light dark:shadow-primary/10 shadow-lg backdrop-blur-md"
                   >
                     <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center transition-all duration-300 group-hover/card:bg-primary/20">
                       {skill.icon ? (
@@ -130,7 +126,7 @@ const TechStack: React.FC<TechStackProps> = ({ initialData = [] }) => {
               {duplicatedRow2.map((skill: TechStackItem, idx: number) => (
                 <div key={`${skill.id || skill.name}-${idx}`} className="py-4 w-[180px] md:w-[220px] shrink-0">
                   <GlassCard 
-                    className="p-6 h-full flex flex-col items-center gap-4 text-center group/card transition-all duration-300 border-white/5 dark:border-white/5 shadow-soft-light dark:shadow-primary/10 shadow-lg backdrop-blur-md"
+                    className="p-6 h-full flex flex-col items-center gap-4 text-center group/card transition-all duration-300 hover:scale-[1.05] border-white/5 dark:border-white/5 shadow-soft-light dark:shadow-primary/10 shadow-lg backdrop-blur-md"
                   >
                     <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center transition-all duration-300 group-hover/card:bg-primary/20">
                       {skill.icon ? (

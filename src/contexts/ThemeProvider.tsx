@@ -47,10 +47,10 @@ export function ThemeProvider({
     }
 
     // Check system preference (if available)
-    if (window.matchMedia) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      return prefersDark ? 'dark' : 'light';
-    }
+    // if (window.matchMedia) {
+    //   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    //   return prefersDark ? 'dark' : 'light';
+    // }
 
     return defaultTheme;
   };

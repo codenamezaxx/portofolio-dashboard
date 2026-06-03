@@ -11,7 +11,7 @@ import Button from '../ui/Button';
 import type { Profile, ContactInfo } from '@/lib/portfolio-data';
 
 interface HeroProps {
-  profile?: Profile | null;
+  profile?: (Profile & { status_label?: string }) | null;
   contactInfo?: ContactInfo | null;
 }
 
@@ -27,12 +27,12 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
   const [isActionLoading, setIsActionLoading] = useState(false);
   const [liveResumeUrl, setLiveResumeUrl] = useState<string | null>(null);
   const [isHeroActive, setIsHeroActive] = useState(false);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const defaultProfile: Profile = {
     name: 'Zakky Ahmad El-Kholily',
     role: 'Front-End Web Developer | Public Speaker',
     tagline: 'IT Enthusiast dari jurusan Teknik Jaringan Komputer dan Telekomunikasi yang senang memecahkan masalah, membangun sistem yang berjalan dengan baik, terus belajar teknologi baru, serta senang berbagi pengetahuan dan pengalaman.',
+    status_label: 'Open to work',
     hero_image_url: '/hero.jpg'
   };
 
@@ -116,22 +116,24 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
             className="order-2 lg:order-1 flex flex-col items-start text-left w-full"
           >
             {/* Main Typography */}
-            <motion.div variants={fadeInUp}>
-              <span
-                className="inline-block py-1 px-3 rounded-full text-sm font-medium mb-6"
-                style={{
-                  backgroundColor: 'var(--color-accent-glow, rgba(184, 134, 11, 0.12))',
-                  border: '1px solid var(--color-primary)',
-                  color: 'var(--color-primary)'
-                }}
-              >
-                Open to work
-              </span>
-            </motion.div>
+              {profileData.status_label && (
+                <motion.div variants={fadeInUp}>
+                  <span
+                    className="inline-block py-1 px-3 rounded-full text-sm font-medium mb-6"
+                    style={{
+                      backgroundColor: 'var(--color-accent-glow, rgba(184, 134, 11, 0.12))',
+                      border: '1px solid var(--color-primary)',
+                      color: 'var(--color-primary)'
+                    }}
+                  >
+                    {profileData.status_label}
+                  </span>
+                </motion.div>
+              )}
 
             <motion.div
               variants={fadeInUp}
-              className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 leading-[1.1] min-h-[1.2em] flex flex-wrap gap-x-3"
+              className="text-4xl md:text-5xl font-black tracking-tighter mb-4 leading-[1.1] min-h-[1.2em] flex flex-wrap gap-x-3"
             >
               <h1>Hi, I'm</h1>
               <h1 className="text-gradient">
@@ -249,13 +251,6 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
               <div className="relative rounded-[2rem] overflow-hidden aspect-[4/5]">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
 
-                {/* Shimmer Skeleton Placeholder */}
-                {!isImageLoaded && (
-                  <div className="absolute inset-0 z-20 animate-pulse bg-zinc-800/85">
-                    <div className="w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent shimmer-effect" />
-                  </div>
-                )}
-
                 {/* Image Component with Next.js Image for optimization */}
                 <Image
                   src={profileData.hero_image_url || '/hero.jpg'}
@@ -264,7 +259,6 @@ const Hero: React.FC<HeroProps> = ({ profile, contactInfo }) => {
                   className={`object-cover transition-all duration-700 ${
                     isHeroActive ? 'scale-105' : 'scale-100'
                   }`}
-                  onLoadingComplete={() => setIsImageLoaded(true)}
                   priority
                   quality={90}
                 />

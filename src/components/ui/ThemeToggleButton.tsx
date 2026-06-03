@@ -22,7 +22,7 @@ const ThemeToggleButton: React.FC = () => {
       onClick={toggleTheme}
       variant="secondary"
       size="sm"
-      className="rounded-full w-10 h-10 p-0 flex items-center justify-center hover:bg-surface-soft border-hairline hover:border-primary/40 transition-all cursor-pointer"
+      className="rounded-full w-10 h-10 p-0 flex items-center justify-center bg-surface-soft/50 hover:bg-surface-soft border border-hairline hover:border-primary/40 transition-all cursor-pointer backdrop-blur-sm"
       title="Switch theme"
       aria-label="Switch theme"
     >

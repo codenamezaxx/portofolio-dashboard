@@ -28,7 +28,7 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ certificate }) => {
 
   return (
     <>
-      <div className="bg-surface-card dark:bg-card-dark border border-hairline/50 dark:border-white/5 rounded-2xl overflow-hidden shadow-soft-light dark:shadow-soft-dark hover:border-primary/40 dark:hover:border-primary/40 transition-all duration-300 h-full flex flex-col group hover:scale-[1.01]">
+      <div className="bg-surface-card border border-hairline/50 dark:border-white/5 rounded-2xl overflow-hidden dark:shadow-primary/10 hover:border-primary/40 dark:hover:border-primary/40 transition-all duration-300 h-full flex flex-col group hover:scale-[1.01]">
         {/* Header with Icon */}
         <div className="bg-surface-soft/30 dark:bg-surface-soft/10 border-b border-hairline/30 dark:border-white/5 p-6 flex items-start justify-between">
           <div className="flex-1">

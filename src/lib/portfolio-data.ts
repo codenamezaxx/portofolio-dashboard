@@ -23,6 +23,7 @@ export interface Profile {
   name: string;
   role: string;
   tagline: string;
+  status_label?: string;
   hero_image_url?: string;
   resume_url?: string;
   created_at?: string;
