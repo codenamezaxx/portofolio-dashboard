@@ -13,7 +13,8 @@ import { Sidebar } from '@/components/admin/Sidebar';
 import { Breadcrumb } from '@/components/admin/Breadcrumb';
 import { useSession } from '@/lib/useSession';
 import { useTheme } from '@/contexts/ThemeProvider';
-import { Menu, Sun, Moon, User as UserIcon, ChevronDown } from 'lucide-react';
+import { Menu, User as UserIcon } from 'lucide-react';
+import ThemeToggleButton from '@/components/ui/ThemeToggleButton';
 
 export default function AdminLayout({
   children,
@@ -72,14 +73,7 @@ export default function AdminLayout({
               {/* Right Side: Theme Switcher and User Profile */}
               <div className="flex items-center gap-2 md:gap-4">
                 {/* Theme Toggle */}
-                <button
-                  onClick={toggleTheme}
-                  className="p-2 rounded-lg bg-[var(--primary)]/10 hover:bg-[var(--primary)]/20 text-[var(--primary)] transition-all duration-300 w-10 h-10 flex items-center justify-center cursor-pointer"
-                  title="Switch mode"
-                >
-                  {mounted && (theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />)}
-                </button>
-
+                <ThemeToggleButton />
                 {/* User Profile Info */}
                 <div className="flex items-center gap-3 pl-2 md:pl-4 border-l border-[var(--hairline)]">
                   <div className="hidden sm:flex flex-col items-end">

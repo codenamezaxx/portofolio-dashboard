@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ExternalLink, Gamepad2 } from 'lucide-react';
+import { ExternalLink, Gamepad2, Eye } from 'lucide-react';
 import { GithubIcon } from './Icons';
 import Button from './Button';
 
@@ -47,10 +47,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
     <div className="group overflow-hidden rounded-2xl border border-hairline bg-surface-card/10 dark:bg-surface-card/10 backdrop-blur-md shadow-xl hover:shadow-lg dark:shadow-primary/10 transition-all duration-300 flex flex-col h-full">
       {/* Top Section: Clean Image Preview */}
-      <Link 
-        href={`/projects/${project.id}`}
-        className="relative aspect-video w-full overflow-hidden bg-surface-card dark:bg-surface-card block"
-      >
+      <div className="relative aspect-video w-full overflow-hidden bg-surface-card dark:bg-surface-card block">
         <Image
           src={imageUrl}
           alt={project.title}
@@ -65,16 +62,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             {project.category}
           </span>
         </div>
-      </Link>
+      </div>
 
       {/* Bottom Section: Plain Background Content Area */}
       <div className="p-5 space-y-3 flex-1 flex flex-col">
         <div className="space-y-2">
-          <Link href={`/projects/${project.id}`}>
-            <h3 className="py-2 text-2xl font-bold text-foreground group-hover:text-accent transition-colors line-clamp-1">
-              {project.title}
-            </h3>
-          </Link>
+          <h3 className="py-2 text-2xl font-bold text-foreground group-hover:text-accent transition-colors line-clamp-1">
+            {project.title}
+          </h3>
           <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
             {project.description}
           </p>
@@ -128,6 +123,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           )}
 
           <div className="flex-1" />
+
+          <Link href={`/projects/${project.id}`}>
+            <Button
+              variant="outline"
+              className="rounded-xl px-4 py-2 font-medium cursor-pointer hover:scale-[1.02] transition-transform duration-300 border-slate-200 dark:border-slate-700"
+              title="Lihat detail project"
+            >
+              <Eye className="w-4 h-4 mr-2" /> Detail
+            </Button>
+          </Link>
 
           {finalDemoLink && (
             <Button

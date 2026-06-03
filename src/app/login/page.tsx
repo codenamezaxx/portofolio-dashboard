@@ -18,9 +18,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { loginSchema, type LoginInput } from '@/lib/validation';
 import type { ApiError } from '@/types';
-import GlassCard from '@/components/ui/GlassCard';
-import { Mail, Lock, ArrowLeft, Sun, Moon } from 'lucide-react';
+import { Mail, Lock, ArrowLeft } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeProvider';
+import GlassCard from '@/components/ui/GlassCard';
+import ThemeToggleButton from '@/components/ui/ThemeToggleButton';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -129,14 +130,7 @@ export default function LoginPage() {
           <span className="font-medium sm:hidden">Kembali</span>
         </Link>
         
-        <button
-          onClick={toggleTheme}
-          className="p-2.5 rounded-xl bg-surface-soft border border-hairline text-primary hover:bg-surface-muted transition-all duration-300 flex items-center justify-center shadow-sm"
-          title="Switch mode"
-          aria-label="Switch mode"
-        >
-          {mounted && (theme === 'light' ? <Moon size={20} /> : <Sun size={20} />)}
-        </button>
+        <ThemeToggleButton />
       </div>
 
       <div className="relative z-10 w-full max-w-md">

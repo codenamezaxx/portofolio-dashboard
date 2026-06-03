@@ -42,12 +42,8 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav 
-      className={`fixed top-1 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 rounded-2xl border border-white/5 dark:border-white/5 backdrop-blur-md w-[97%] max-w-7xl
-        ${isOpen ? 'h-auto bg-[var(--background)]' : (scrolled ? 'bg-background/80 dark:bg-background/80 h-16 shadow-soft-light dark:shadow-soft-dark' : 'bg-background/40 dark:bg-background/40 h-20')}
-      `}
-    >
-      <div className="container mx-auto px-8 h-20 flex items-center justify-between">
+    <nav className={`fixed top-1 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 rounded-2xl border border-white/5 dark:border-white/5 backdrop-blur-md w-[97%] max-w-7xl ${scrolled ? 'bg-background/80 dark:bg-background/80 h-16 shadow-soft-light dark:shadow-soft-dark' : 'bg-background/40 dark:bg-background/40 h-20'}`}>
+      <div className="container mx-auto px-8 h-full flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 text-[var(--foreground)] font-bold text-xl hover:text-[var(--primary)] transition-colors">
           <Terminal className="w-6 h-6 text-[var(--primary)]" />
