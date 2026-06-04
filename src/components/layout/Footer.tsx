@@ -86,7 +86,7 @@ const Footer: React.FC<FooterProps> = ({ profile, contactInfo }) => {
 
           {/* Column 2: Quick Links */}
           <div className="space-y-6">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-white/90">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-foreground/90">
               Pintasan
             </h3>
             <ul className="grid grid-cols-1 gap-3">
@@ -106,7 +106,7 @@ const Footer: React.FC<FooterProps> = ({ profile, contactInfo }) => {
 
           {/* Column 3: Connect */}
           <div className="space-y-6">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-white/90">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-foreground/90">
               Terhubung
             </h3>
             <ul className="grid grid-cols-1 gap-3">

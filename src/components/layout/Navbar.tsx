@@ -20,7 +20,6 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -32,12 +31,24 @@ const Navbar: React.FC = () => {
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    setIsOpen(false);
-    if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+    e.preventDefault();
+    const isMobileMenuOpen = isOpen; // Capture current state
+    setIsOpen(false); // Close menu immediately
+
+    const performScroll = () => {
+      if (href.startsWith('#')) {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
       }
+    };
+
+    if (isMobileMenuOpen) {
+      // Delay scroll to allow mobile menu exit animation to complete
+      setTimeout(performScroll, 300); // 300ms matches AnimatePresence exit duration
+    } else {
+      performScroll();
     }
   };
 
@@ -71,14 +82,7 @@ const Navbar: React.FC = () => {
         {/* Mobile Controls */}
         <div className="md:hidden flex items-center gap-4">
           {/* Theme Toggle Mobile */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg bg-[var(--primary)]/10 hover:bg-[var(--primary)]/20 text-[var(--primary)] transition-all duration-300 w-9 h-9 flex items-center justify-center"
-            title="Switch mode"
-            aria-label="Switch mode"
-          >
-            {mounted && (theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />)}
-          </button>
+          <ThemeToggleButton />
           
           {/* Menu Button */}
           <button 
